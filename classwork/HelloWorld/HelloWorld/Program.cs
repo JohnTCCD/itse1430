@@ -1,4 +1,9 @@
-﻿using System;
+﻿/*
+ * file header
+ * Your Name
+ * ITSE 1430 Fall 2021
+ */
+using System;
 
 namespace HelloWorld
 {
@@ -6,7 +11,6 @@ namespace HelloWorld
     {
         static void Main(string[] args)
         {
-            xyz
             Console.WriteLine("Hello World!");
         }
     }
