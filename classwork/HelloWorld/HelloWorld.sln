@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.31515.178
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelloWorld", "HelloWorld\HelloWorld.csproj", "{7C85D74E-7CAF-45CC-A715-59B96F7E0AB6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieLibrary.ConsoleHost", "MovieLibrary.ConsoleHost\MovieLibrary.ConsoleHost.csproj", "{865F4558-B1A3-4C14-A260-D6DFC7ADD547}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieLibrary.ConsoleHost", "MovieLibrary.ConsoleHost\MovieLibrary.ConsoleHost.csproj", "{865F4558-B1A3-4C14-A260-D6DFC7ADD547}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -14,7 +14,6 @@ Global
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{7C85D74E-7CAF-45CC-A715-59B96F7E0AB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7C85D74E-7CAF-45CC-A715-59B96F7E0AB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C85D74E-7CAF-45CC-A715-59B96F7E0AB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7C85D74E-7CAF-45CC-A715-59B96F7E0AB6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{865F4558-B1A3-4C14-A260-D6DFC7ADD547}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
