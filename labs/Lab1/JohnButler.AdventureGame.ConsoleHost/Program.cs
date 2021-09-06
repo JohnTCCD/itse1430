@@ -12,11 +12,10 @@ namespace JohnButler.AdventureGame.ConsoleHost
     {
         static void Main(string[] args)
         {
-            int roomNumber = 8;
+            int roomNumber = 5;
             string input;
             PrintTitleScreen();
-            FindRoom(roomNumber);
-
+            SetRoom(roomNumber);
             do   //TODO: Impliment core loop for game.
             {
                 input = GetCommand();
@@ -28,32 +27,33 @@ namespace JohnButler.AdventureGame.ConsoleHost
         {
             Console.WriteLine("ITSE 1430 Adventure Game");
             Console.WriteLine("------------------------");
-            //TODO: Display discription/story for game.
+            Console.WriteLine("\n\"Help\" to see options\n\n");
+            //TODO: Finish discription/story for game.
+            Console.WriteLine("The year is 2084 A.D. You, along with a select few were chosen");
+            Console.WriteLine("to go on a one way trip to planet Mars to terraform the planet.");
+            Console.WriteLine("");
         }
         static string GetCommand()
         {
-            //TODO: Display help menu.
             Console.WriteLine("What will you do?");
             string command = Console.ReadLine();
+            while (command == "help")
+            {
+                DisplayHelpMenu();
+                command = Console.ReadLine();
+            }
             return command;
         }
-        static void FindRoom(int roomNumber)
+        static void SetRoom(int roomNumber)
         {
-            switch(roomNumber)
-            {   //TODO: Add rest of the room numbers.
-                case 8:
-                DisplayRoom8();
-                break;
-
-                default:
-                Console.WriteLine("Invalid input.");
-                break;
-            }
+            //TODO implement switch statement to call correct display room function
         }
-        static void DisplayRoom8()
+        static void DisplayHelpMenu ()
         {
-            //TODO: Display room info.
-            Console.WriteLine("Room 8");
+            Console.WriteLine("** Help Menu **");
+            Console.WriteLine("Examin ::= Examins the room you are currently in.");
+            Console.WriteLine("Move [North] [East] [South] [West] ::= Move you to the room in that direction.");
+            Console.WriteLine("Exit ::= Exits the game.");
         }
     }
 }
