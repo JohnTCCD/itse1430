@@ -13,16 +13,29 @@ namespace JohnButler.AdventureGame.ConsoleHost
         static void Main(string[] args)
         {
             int roomNumber = 5;
-            string input;
+            string input;//, direction;
             PrintTitleScreen();
-            SetRoom(roomNumber);
+            
             do   //TODO: Impliment core loop for game.
             {
+                SetRoom(roomNumber);
                 input = GetCommand();
+                if (input == "Examin")
+                    ExaminRoom(roomNumber);
+                //else if (input == "Move")
+                //{
+                //    direction = GetDirection();
+                //    MoveDirection(direction);
+                //}
+                else if (input == "Quit")
+                    break;
+                else
+                    Console.WriteLine("Invalid command, please try again.");
             } while (input != "Quit");
 
             Console.WriteLine("Ending game.");
         }
+
         static void PrintTitleScreen()
         {
             Console.WriteLine("ITSE 1430 Adventure Game");
@@ -33,6 +46,7 @@ namespace JohnButler.AdventureGame.ConsoleHost
             Console.WriteLine("to go on a one way trip to planet Mars to terraform the planet.");
             Console.WriteLine("");
         }
+
         static string GetCommand()
         {
             Console.WriteLine("What will you do?");
@@ -44,15 +58,107 @@ namespace JohnButler.AdventureGame.ConsoleHost
             }
             return command;
         }
+
+        static void ExaminRoom(int roomNumber)
+        {
+            switch (roomNumber)
+            {
+                case 1: DisplayRoom1(); break;
+                case 2: DisplayRoom2(); break;
+                case 3: DisplayRoom3(); break;
+                case 4: DisplayRoom4(); break;
+                case 5: DisplayRoom5(); break;
+                case 6: DisplayRoom6(); break;
+                case 7: DisplayRoom7(); break;
+                case 8: DisplayRoom8(); break;
+                case 9: DisplayRoom9(); break;
+                default:
+                Console.WriteLine("Error.");
+                break;
+            }
+        }
+
         static void SetRoom(int roomNumber)
         {
-            //TODO implement switch statement to call correct display room function
+            switch (roomNumber)
+            {
+                case 1: DisplayRoom1(); break;
+                case 2: DisplayRoom2(); break;
+                case 3: DisplayRoom3(); break;
+                case 4: DisplayRoom4(); break;
+                case 5: DisplayRoom5(); break;
+                case 6: DisplayRoom6(); break;
+                case 7: DisplayRoom7(); break;
+                case 8: DisplayRoom8(); break;
+                case 9: DisplayRoom9(); break;
+                default:
+                Console.WriteLine("Error.");
+                break;
+            }
         }
+
+        static string GetDirection()   //TODO: Impliment function
+        {
+            Console.WriteLine("Which direction do you want to move?");
+            string direction = Console.ReadLine();
+            return direction;
+        }
+
+        static void MoveDirection(string direction)
+        {
+            //TODO: Write code for function
+        }
+
+        static void DisplayRoom1()
+        {
+            Console.WriteLine("Room 1");
+        }
+
+        static void DisplayRoom2()
+        {
+            Console.WriteLine("Room 2");
+        }
+
+        static void DisplayRoom3()
+        {
+            Console.WriteLine("Room 3");
+        }
+
+        static void DisplayRoom4()
+        {
+            Console.WriteLine("Room 4");
+        }
+
+        static void DisplayRoom5()
+        {
+            Console.WriteLine("Room 5");
+        }
+
+        static void DisplayRoom6()
+        {
+            Console.WriteLine("Room 6");
+        }
+
+        static void DisplayRoom7()
+        {
+            Console.WriteLine("Room 7");
+        }
+
+        static void DisplayRoom8()
+        {
+            Console.WriteLine("Room 8");
+        }
+
+        static void DisplayRoom9()
+        {
+            Console.WriteLine("Room 9");
+        }
+
         static void DisplayHelpMenu ()
         {
             Console.WriteLine("** Help Menu **");
             Console.WriteLine("Examin ::= Examins the room you are currently in.");
-            Console.WriteLine("Move [North] [East] [South] [West] ::= Move you to the room in that direction.");
+            Console.WriteLine("Move ::= Move to a different room, you'll choose between North, East, South, or West");
             Console.WriteLine("Exit ::= Exits the game.");
         }
     }
