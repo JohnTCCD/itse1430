@@ -10,30 +10,30 @@ namespace JohnButler.AdventureGame.ConsoleHost
 {
     class Program
     {
+        static int roomNumber;
+        static string direction;
+
         static void Main(string[] args)
         {
-            int roomNumber = 5;
-            string input;//, direction;
+            roomNumber = 5;
+            string input;
             PrintTitleScreen();
             
-            do   //TODO: Impliment core loop for game.
+            do
             {
                 SetRoom(roomNumber);
                 input = GetCommand();
                 if (input == "Examin")
                     ExaminRoom(roomNumber);
-                //else if (input == "Move")
-                //{
-                //    direction = GetDirection();
-                //    MoveDirection(direction);
-                //}
-                else if (input == "Quit")
-                    break;
+                else if (input == "Move")
+                {
+                    direction = GetDirection();
+                    MoveDirection(direction);
+                } else if (input == "Quit")
+                    input = QuitGame("Are you sure you want to quit (Yes/No)?");
                 else
                     Console.WriteLine("Invalid command, please try again.");
             } while (input != "Quit");
-
-            Console.WriteLine("Ending game.");
         }
 
         static void PrintTitleScreen()
@@ -51,9 +51,10 @@ namespace JohnButler.AdventureGame.ConsoleHost
         {
             Console.WriteLine("What will you do?");
             string command = Console.ReadLine();
-            while (command == "help")
+            while (command == "Help")
             {
                 DisplayHelpMenu();
+                Console.WriteLine("What will you do?");
                 command = Console.ReadLine();
             }
             return command;
@@ -97,7 +98,7 @@ namespace JohnButler.AdventureGame.ConsoleHost
             }
         }
 
-        static string GetDirection()   //TODO: Impliment function
+        static string GetDirection()
         {
             Console.WriteLine("Which direction do you want to move?");
             string direction = Console.ReadLine();
@@ -106,7 +107,28 @@ namespace JohnButler.AdventureGame.ConsoleHost
 
         static void MoveDirection(string direction)
         {
-            //TODO: Write code for function
+            //TODO: Add input validation
+            int roomRow, roomColumn;
+            if (roomNumber == 1 || roomNumber == 2 || roomNumber == 3)
+                roomRow = 1;
+            else if (roomNumber == 4 || roomNumber == 5 || roomNumber == 6)
+                roomRow = 2;
+            else
+                roomRow = 3;
+            if (roomNumber == 1 || roomNumber == 4 || roomNumber == 7)
+                roomColumn = 1;
+            else if (roomNumber == 2 || roomNumber == 5 || roomNumber == 8)
+                roomColumn = 2;
+            else
+                roomColumn = 3;
+            if ((direction == "North") && (roomRow != 1))
+                roomNumber -= 3;
+            if ((direction == "South") && (roomRow != 3))
+                roomNumber += 3;
+            if ((direction == "East") && (roomColumn != 3))
+                roomNumber += 1;
+            if ((direction == "West") && (roomColumn != 1))
+                roomNumber -= 1;
         }
 
         static void DisplayRoom1()
@@ -158,8 +180,27 @@ namespace JohnButler.AdventureGame.ConsoleHost
         {
             Console.WriteLine("** Help Menu **");
             Console.WriteLine("Examin ::= Examins the room you are currently in.");
-            Console.WriteLine("Move ::= Move to a different room, you'll choose between North, East, South, or West");
-            Console.WriteLine("Exit ::= Exits the game.");
+            Console.WriteLine("Move   ::= Move to a different room, you'll choose between North, East, South, or West");
+            Console.WriteLine("Quit   ::= Exits the game.");
+        }
+
+        static string QuitGame(string message)
+        {
+            do
+            {
+                Console.WriteLine(message);
+                var answer = Console.ReadLine();
+                if (answer == "Yes")
+                {
+                    Console.WriteLine("Ending game.");
+                    return "Quit";
+                } else if (answer == "No")
+                {
+                    Console.WriteLine("Continuing game.");
+                    return "Not Quit";
+                } else
+                    Console.WriteLine("Invalid answer, try again.");
+            } while (true);
         }
     }
 }
