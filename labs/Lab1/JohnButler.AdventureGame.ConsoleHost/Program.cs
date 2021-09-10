@@ -10,7 +10,7 @@ namespace JohnButler.AdventureGame.ConsoleHost
 {
     class Program
     {
-        static int roomNumber;
+        static int roomNumber, positionX = 1, positionY = -1;
         static string direction;
 
         static void Main(string[] args)
@@ -22,12 +22,12 @@ namespace JohnButler.AdventureGame.ConsoleHost
             do
             {
                 SetRoom(roomNumber);
-                input = GetCommand();
+                input = GetCommand("What will you do?");
                 if (input == "Examin")
                     ExaminRoom(roomNumber);
                 else if (input == "Move")
                 {
-                    direction = GetDirection();
+                    direction = GetDirection("Which direction do you want to move?");
                     MoveDirection(direction);
                 } else if (input == "Quit")
                     input = QuitGame("Are you sure you want to quit (Yes/No)?");
@@ -47,14 +47,14 @@ namespace JohnButler.AdventureGame.ConsoleHost
             Console.WriteLine("");
         }
 
-        static string GetCommand()
+        static string GetCommand(string message)
         {
-            Console.WriteLine("What will you do?");
+            Console.WriteLine(message);
             string command = Console.ReadLine();
             while (command == "Help")
             {
                 DisplayHelpMenu();
-                Console.WriteLine("What will you do?");
+                Console.WriteLine(message);
                 command = Console.ReadLine();
             }
             return command;
@@ -98,37 +98,39 @@ namespace JohnButler.AdventureGame.ConsoleHost
             }
         }
 
-        static string GetDirection()
+        static string GetDirection(string message)//TODO: Fix logic error
         {
-            Console.WriteLine("Which direction do you want to move?");
-            string direction = Console.ReadLine();
+            Console.WriteLine(message);
+            do
+            {
+                direction = Console.ReadLine();
+                if (positionY < -2 || positionY > 0 || positionX < 0 || positionX > 2)
+                    Console.WriteLine("There is no door available in that direction.\nPlease try a different door.");
+            } while (positionY < -2 || positionY > 0 || positionX < 0 || positionX > 2);
             return direction;
         }
 
-        static void MoveDirection(string direction)
+        static void MoveDirection(string direction)//TODO: Fix logic error
         {
-            //TODO: Add input validation
-            int roomRow, roomColumn;
-            if (roomNumber == 1 || roomNumber == 2 || roomNumber == 3)
-                roomRow = 1;
-            else if (roomNumber == 4 || roomNumber == 5 || roomNumber == 6)
-                roomRow = 2;
-            else
-                roomRow = 3;
-            if (roomNumber == 1 || roomNumber == 4 || roomNumber == 7)
-                roomColumn = 1;
-            else if (roomNumber == 2 || roomNumber == 5 || roomNumber == 8)
-                roomColumn = 2;
-            else
-                roomColumn = 3;
-            if ((direction == "North") && (roomRow != 1))
-                roomNumber -= 3;
-            if ((direction == "South") && (roomRow != 3))
+            switch (direction)
+            {
+                case "North": 
+                positionY--;
+                roomNumber -= 3; 
+                break;
+                case "South":
+                positionY++;
                 roomNumber += 3;
-            if ((direction == "East") && (roomColumn != 3))
+                break;
+                case "East":
+                positionX++;
                 roomNumber += 1;
-            if ((direction == "West") && (roomColumn != 1))
+                break;
+                case "West":
+                positionX--;
                 roomNumber -= 1;
+                break;
+            }
         }
 
         static void DisplayRoom1()
@@ -179,9 +181,9 @@ namespace JohnButler.AdventureGame.ConsoleHost
         static void DisplayHelpMenu ()
         {
             Console.WriteLine("** Help Menu **");
-            Console.WriteLine("Examin ::= Examins the room you are currently in.");
-            Console.WriteLine("Move   ::= Move to a different room, you'll choose between North, East, South, or West");
-            Console.WriteLine("Quit   ::= Exits the game.");
+            Console.WriteLine("\"Examin\" ::= Examins the room you are currently in.");
+            Console.WriteLine("\"Move\"   ::= Move to a different room, you'll choose between North, East, South, or West");
+            Console.WriteLine("\"Quit\"   ::= Exits the game.");
         }
 
         static string QuitGame(string message)
