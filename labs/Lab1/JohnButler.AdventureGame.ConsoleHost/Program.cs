@@ -24,7 +24,7 @@ namespace JohnButler.AdventureGame.ConsoleHost
                 SetRoom(roomNumber);
                 input = GetCommand("What will you do?");
                 if (input == "Examin")
-                    ExaminRoom(roomNumber);
+                    ExaminRoom(roomNumber); //TODO: Fix logic error
                 else if (input == "Move")
                 {
                     direction = GetDirection("Which direction do you want to move?");
@@ -41,10 +41,9 @@ namespace JohnButler.AdventureGame.ConsoleHost
             Console.WriteLine("ITSE 1430 Adventure Game");
             Console.WriteLine("------------------------");
             Console.WriteLine("\n\"Help\" to see options\n\n");
-            //TODO: Finish discription/story for game.
             Console.WriteLine("The year is 2084 A.D. You, along with a select few were chosen");
             Console.WriteLine("to go on a one way trip to planet Mars to terraform the planet.");
-            Console.WriteLine("");
+            Console.WriteLine("");//TODO: Finish discription/story for game.
         }
 
         static string GetCommand(string message)
@@ -98,19 +97,29 @@ namespace JohnButler.AdventureGame.ConsoleHost
             }
         }
 
-        static string GetDirection(string message)//TODO: Fix logic error
+        static string GetDirection(string message)
         {
+            int nextPositionX, nextPositionY;
             Console.WriteLine(message);
             do
             {
+                nextPositionX = positionX;
+                nextPositionY = positionY;
                 direction = Console.ReadLine();
-                if (positionY < -2 || positionY > 0 || positionX < 0 || positionX > 2)
+                if (direction == "North" && --nextPositionY < -2)
                     Console.WriteLine("There is no door available in that direction.\nPlease try a different door.");
-            } while (positionY < -2 || positionY > 0 || positionX < 0 || positionX > 2);
+                else if (direction == "South" && ++nextPositionY > 0)
+                    Console.WriteLine("There is no door available in that direction.\nPlease try a different door.");
+                else if (direction == "East" && ++nextPositionX > 2)
+                    Console.WriteLine("There is no door available in that direction.\nPlease try a different door.");
+                else if (direction == "West" && --nextPositionX < 0)
+                    Console.WriteLine("There is no door available in that direction.\nPlease try a different door.");
+                //TODO: Provide error checking
+            } while (nextPositionY < -2 || nextPositionY > 0 || nextPositionX < 0 || nextPositionX > 2);
             return direction;
         }
 
-        static void MoveDirection(string direction)//TODO: Fix logic error
+        static void MoveDirection(string direction)
         {
             switch (direction)
             {
@@ -133,7 +142,7 @@ namespace JohnButler.AdventureGame.ConsoleHost
             }
         }
 
-        static void DisplayRoom1()
+        static void DisplayRoom1()//TODO: Provide a description for all room functions
         {
             Console.WriteLine("Room 1");
         }
