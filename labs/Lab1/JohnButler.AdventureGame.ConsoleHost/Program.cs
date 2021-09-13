@@ -1,7 +1,7 @@
 ﻿/*=================
 John Butler
 ITSE 1430 Fall 2021
-Adventure Game
+Lab 1 : Adventure Game
 =================*/
 
 using System;
@@ -10,25 +10,24 @@ namespace JohnButler.AdventureGame.ConsoleHost
 {
     class Program
     {
-        static int roomNumber, positionX = 1, positionY = -1;
+        static int roomNumber = 5, positionX = 1, positionY = -1;
         static string direction;
 
         static void Main(string[] args)
         {
-            roomNumber = 5;
-            string input;
             PrintTitleScreen();
-            
+            SetRoom(roomNumber);
+            string input;
             do
             {
-                SetRoom(roomNumber);
                 input = GetCommand("What will you do?");
                 if (input == "Examin")
-                    ExaminRoom(roomNumber); //TODO: Fix logic error
+                    ExaminRoom(roomNumber);
                 else if (input == "Move")
                 {
                     direction = GetDirection("Which direction do you want to move?");
                     MoveDirection(direction);
+                    SetRoom(roomNumber);
                 } else if (input == "Quit")
                     input = QuitGame("Are you sure you want to quit (Yes/No)?");
                 else
@@ -41,9 +40,16 @@ namespace JohnButler.AdventureGame.ConsoleHost
             Console.WriteLine("ITSE 1430 Adventure Game");
             Console.WriteLine("------------------------");
             Console.WriteLine("\n\"Help\" to see options\n\n");
-            Console.WriteLine("The year is 2084 A.D. You, along with a select few were chosen");
-            Console.WriteLine("to go on a one way trip to planet Mars to terraform the planet.");
-            Console.WriteLine("");//TODO: Finish discription/story for game.
+            Console.WriteLine("The year is 2084 A.D. You are the lone survivor on a mission to colonize planet");
+            Console.WriteLine("Mars. You live in a state-of-the-art colony home that protects you from the");
+            Console.WriteLine("severe enviornment of the planet's surface. As a result of a catastophic nuclear");
+            Console.WriteLine("war that destroyed most of life on Earth, all communication with Earth has ceased.");
+            Console.WriteLine("Having run of food, water, and company, you turn towards the dream sequencer, a");
+            Console.WriteLine("high-tech machine that allows a user to sleep and dream of events experienced in");
+            Console.WriteLine("the user's previous life, to pass your remaining time on this life.");
+            Console.WriteLine("Upon getting settled in the dream sequencer, you quickly fall asleep and find yourself");
+            Console.WriteLine("within a dream where you are standing in a room that acts as an interface for which");
+            Console.WriteLine("life you will relive...");
         }
 
         static string GetCommand(string message)
@@ -72,9 +78,6 @@ namespace JohnButler.AdventureGame.ConsoleHost
                 case 7: DisplayRoom7(); break;
                 case 8: DisplayRoom8(); break;
                 case 9: DisplayRoom9(); break;
-                default:
-                Console.WriteLine("Error.");
-                break;
             }
         }
 
@@ -91,9 +94,6 @@ namespace JohnButler.AdventureGame.ConsoleHost
                 case 7: DisplayRoom7(); break;
                 case 8: DisplayRoom8(); break;
                 case 9: DisplayRoom9(); break;
-                default:
-                Console.WriteLine("Error.");
-                break;
             }
         }
 
@@ -106,6 +106,11 @@ namespace JohnButler.AdventureGame.ConsoleHost
                 nextPositionX = positionX;
                 nextPositionY = positionY;
                 direction = Console.ReadLine();
+                while (direction != "North" && direction != "South" && direction != "East" && direction != "West")
+                {
+                    Console.WriteLine("That's not a valid direction, please try again.");
+                    direction = Console.ReadLine();
+                }
                 if (direction == "North" && --nextPositionY < -2)
                     Console.WriteLine("There is no door available in that direction.\nPlease try a different door.");
                 else if (direction == "South" && ++nextPositionY > 0)
@@ -114,7 +119,6 @@ namespace JohnButler.AdventureGame.ConsoleHost
                     Console.WriteLine("There is no door available in that direction.\nPlease try a different door.");
                 else if (direction == "West" && --nextPositionX < 0)
                     Console.WriteLine("There is no door available in that direction.\nPlease try a different door.");
-                //TODO: Provide error checking
             } while (nextPositionY < -2 || nextPositionY > 0 || nextPositionX < 0 || nextPositionX > 2);
             return direction;
         }
