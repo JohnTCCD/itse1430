@@ -1,7 +1,7 @@
 ﻿/*=================
 John Butler
 ITSE 1430 Fall 2021
-Adventure Game
+Lab 1 : Adventure Game
 =================*/
 
 using System;
@@ -10,30 +10,29 @@ namespace JohnButler.AdventureGame.ConsoleHost
 {
     class Program
     {
+        static int roomNumber = 5, positionX = 1, positionY = -1;
+        static string direction;
+
         static void Main(string[] args)
         {
-            int roomNumber = 5;
-            string input;//, direction;
             PrintTitleScreen();
-            
-            do   //TODO: Impliment core loop for game.
+            SetRoom(roomNumber);
+            string input;
+            do
             {
-                SetRoom(roomNumber);
-                input = GetCommand();
+                input = GetCommand("What will you do?");
                 if (input == "Examin")
                     ExaminRoom(roomNumber);
-                //else if (input == "Move")
-                //{
-                //    direction = GetDirection();
-                //    MoveDirection(direction);
-                //}
-                else if (input == "Quit")
-                    break;
+                else if (input == "Move")
+                {
+                    direction = GetDirection("Which direction do you want to move?");
+                    MoveDirection(direction);
+                    SetRoom(roomNumber);
+                } else if (input == "Quit")
+                    input = QuitGame("Are you sure you want to quit (Yes/No)?");
                 else
                     Console.WriteLine("Invalid command, please try again.");
             } while (input != "Quit");
-
-            Console.WriteLine("Ending game.");
         }
 
         static void PrintTitleScreen()
@@ -41,19 +40,26 @@ namespace JohnButler.AdventureGame.ConsoleHost
             Console.WriteLine("ITSE 1430 Adventure Game");
             Console.WriteLine("------------------------");
             Console.WriteLine("\n\"Help\" to see options\n\n");
-            //TODO: Finish discription/story for game.
-            Console.WriteLine("The year is 2084 A.D. You, along with a select few were chosen");
-            Console.WriteLine("to go on a one way trip to planet Mars to terraform the planet.");
-            Console.WriteLine("");
+            Console.WriteLine("The year is 2084 A.D. You are the lone survivor on a mission to colonize planet");
+            Console.WriteLine("Mars. You live in a state-of-the-art colony home that protects you from the");
+            Console.WriteLine("severe enviornment of the planet's surface. As a result of a catastophic nuclear");
+            Console.WriteLine("war that destroyed most of life on Earth, all communication with Earth has ceased.");
+            Console.WriteLine("Having run of food, water, and company, you turn towards the dream sequencer, a");
+            Console.WriteLine("high-tech machine that allows a user to sleep and dream of events experienced in");
+            Console.WriteLine("the user's previous life, to pass your remaining time on this life.");
+            Console.WriteLine("Upon getting settled in the dream sequencer, you quickly fall asleep and find yourself");
+            Console.WriteLine("within a dream where you are standing in a room that acts as an interface for which");
+            Console.WriteLine("life you will relive...");
         }
 
-        static string GetCommand()
+        static string GetCommand(string message)
         {
-            Console.WriteLine("What will you do?");
+            Console.WriteLine(message);
             string command = Console.ReadLine();
-            while (command == "help")
+            while (command == "Help")
             {
                 DisplayHelpMenu();
+                Console.WriteLine(message);
                 command = Console.ReadLine();
             }
             return command;
@@ -72,9 +78,6 @@ namespace JohnButler.AdventureGame.ConsoleHost
                 case 7: DisplayRoom7(); break;
                 case 8: DisplayRoom8(); break;
                 case 9: DisplayRoom9(); break;
-                default:
-                Console.WriteLine("Error.");
-                break;
             }
         }
 
@@ -91,25 +94,59 @@ namespace JohnButler.AdventureGame.ConsoleHost
                 case 7: DisplayRoom7(); break;
                 case 8: DisplayRoom8(); break;
                 case 9: DisplayRoom9(); break;
-                default:
-                Console.WriteLine("Error.");
-                break;
             }
         }
 
-        static string GetDirection()   //TODO: Impliment function
+        static string GetDirection(string message)
         {
-            Console.WriteLine("Which direction do you want to move?");
-            string direction = Console.ReadLine();
+            int nextPositionX, nextPositionY;
+            Console.WriteLine(message);
+            do
+            {
+                nextPositionX = positionX;
+                nextPositionY = positionY;
+                direction = Console.ReadLine();
+                while (direction != "North" && direction != "South" && direction != "East" && direction != "West")
+                {
+                    Console.WriteLine("That's not a valid direction, please try again.");
+                    direction = Console.ReadLine();
+                }
+                if (direction == "North" && --nextPositionY < -2)
+                    Console.WriteLine("There is no door available in that direction.\nPlease try a different door.");
+                else if (direction == "South" && ++nextPositionY > 0)
+                    Console.WriteLine("There is no door available in that direction.\nPlease try a different door.");
+                else if (direction == "East" && ++nextPositionX > 2)
+                    Console.WriteLine("There is no door available in that direction.\nPlease try a different door.");
+                else if (direction == "West" && --nextPositionX < 0)
+                    Console.WriteLine("There is no door available in that direction.\nPlease try a different door.");
+            } while (nextPositionY < -2 || nextPositionY > 0 || nextPositionX < 0 || nextPositionX > 2);
             return direction;
         }
 
         static void MoveDirection(string direction)
         {
-            //TODO: Write code for function
+            switch (direction)
+            {
+                case "North": 
+                positionY--;
+                roomNumber -= 3; 
+                break;
+                case "South":
+                positionY++;
+                roomNumber += 3;
+                break;
+                case "East":
+                positionX++;
+                roomNumber += 1;
+                break;
+                case "West":
+                positionX--;
+                roomNumber -= 1;
+                break;
+            }
         }
 
-        static void DisplayRoom1()
+        static void DisplayRoom1()//TODO: Provide a description for all room functions
         {
             Console.WriteLine("Room 1");
         }
@@ -157,9 +194,28 @@ namespace JohnButler.AdventureGame.ConsoleHost
         static void DisplayHelpMenu ()
         {
             Console.WriteLine("** Help Menu **");
-            Console.WriteLine("Examin ::= Examins the room you are currently in.");
-            Console.WriteLine("Move ::= Move to a different room, you'll choose between North, East, South, or West");
-            Console.WriteLine("Exit ::= Exits the game.");
+            Console.WriteLine("\"Examin\" ::= Examins the room you are currently in.");
+            Console.WriteLine("\"Move\"   ::= Move to a different room, you'll choose between North, East, South, or West");
+            Console.WriteLine("\"Quit\"   ::= Exits the game.");
+        }
+
+        static string QuitGame(string message)
+        {
+            do
+            {
+                Console.WriteLine(message);
+                var answer = Console.ReadLine();
+                if (answer == "Yes")
+                {
+                    Console.WriteLine("Ending game.");
+                    return "Quit";
+                } else if (answer == "No")
+                {
+                    Console.WriteLine("Continuing game.");
+                    return "Not Quit";
+                } else
+                    Console.WriteLine("Invalid answer, try again.");
+            } while (true);
         }
     }
 }
