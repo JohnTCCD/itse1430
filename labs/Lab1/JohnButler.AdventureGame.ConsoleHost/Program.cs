@@ -28,18 +28,24 @@ namespace JohnButler.AdventureGame.ConsoleHost
                     direction = GetDirection("Which direction do you want to move?");
                     MoveDirection(direction);
                     SetRoom(roomNumber);
-                } else if (input == "Quit")
-                    input = QuitGame("Are you sure you want to quit (Yes/No)?");
+                } 
+                else if (input == "Quit")
+                {
+                    if (QuitGame("Are you sure you want to quit (Y/N)?") == true)
+                        break;
+                }
+                else if (input == "")
+                    Console.WriteLine("Please enter a command.");
                 else
                     Console.WriteLine("Invalid command, please try again.");
-            } while (input != "Quit");
+            } while (true);
         }
 
         static void PrintTitleScreen()
         {
             Console.WriteLine("ITSE 1430 Adventure Game");
-            Console.WriteLine("------------------------");
-            Console.WriteLine("\n\"Help\" to see options\n\n");
+            Console.WriteLine("[Help] to access the help menu.");
+            Console.WriteLine("".PadLeft(35, '*'));
             Console.WriteLine("The year is 2084 A.D. You are the lone survivor on a mission to colonize planet");
             Console.WriteLine("Mars. You live in a state-of-the-art colony home that protects you from the");
             Console.WriteLine("severe enviornment of the planet's surface. As a result of a catastophic nuclear");
@@ -55,12 +61,12 @@ namespace JohnButler.AdventureGame.ConsoleHost
         static string GetCommand(string message)
         {
             Console.WriteLine(message);
-            string command = Console.ReadLine();
+            string command = Console.ReadLine().Trim();
             while (command == "Help")
             {
                 DisplayHelpMenu();
                 Console.WriteLine(message);
-                command = Console.ReadLine();
+                command = Console.ReadLine().Trim();
             }
             return command;
         }
@@ -105,11 +111,11 @@ namespace JohnButler.AdventureGame.ConsoleHost
             {
                 nextPositionX = positionX;
                 nextPositionY = positionY;
-                direction = Console.ReadLine();
+                direction = Console.ReadLine().Trim();
                 while (direction != "North" && direction != "South" && direction != "East" && direction != "West")
                 {
                     Console.WriteLine("That's not a valid direction, please try again.");
-                    direction = Console.ReadLine();
+                    direction = Console.ReadLine().Trim();
                 }
                 if (direction == "North" && --nextPositionY < -2)
                     Console.WriteLine("There is no door available in that direction.\nPlease try a different door.");
@@ -199,22 +205,18 @@ namespace JohnButler.AdventureGame.ConsoleHost
             Console.WriteLine("\"Quit\"   ::= Exits the game.");
         }
 
-        static string QuitGame(string message)
+        static bool QuitGame(string message)
         {
             do
             {
                 Console.WriteLine(message);
-                var answer = Console.ReadLine();
-                if (answer == "Yes")
+                ConsoleKeyInfo answer = Console.ReadKey(true);
+                switch (answer.Key)
                 {
-                    Console.WriteLine("Ending game.");
-                    return "Quit";
-                } else if (answer == "No")
-                {
-                    Console.WriteLine("Continuing game.");
-                    return "Not Quit";
-                } else
-                    Console.WriteLine("Invalid answer, try again.");
+                    case ConsoleKey.Y: Console.WriteLine("Ending game"); return true;
+                    case ConsoleKey.N: Console.WriteLine("Continuing game."); return false;
+                    default: Console.WriteLine("Invalid answer, try again. (Y/N)"); break;
+                }
             } while (true);
         }
     }
