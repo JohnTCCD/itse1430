@@ -33,19 +33,31 @@ namespace JohnButler.AdventureGame.ConsoleHost
                 {
                     if (QuitGame("Are you sure you want to quit (Y/N)?") == true)
                         break;
-                }
+                } 
                 else if (input == "")
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Please enter a command.");
+                    Console.ResetColor();
+                }
                 else
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Invalid command, please try again.");
+                    Console.ResetColor();
+                }
+
             } while (true);
         }
 
         static void PrintTitleScreen()
         {
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("ITSE 1430 Adventure Game");
+            Console.WriteLine("John Butler  Fall 2021");
             Console.WriteLine("[Help] to access the help menu.");
             Console.WriteLine("".PadLeft(35, '*'));
+            Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("The year is 2084 A.D. You are the lone survivor on a mission to colonize planet");
             Console.WriteLine("Mars. You live in a state-of-the-art colony home that protects you from the");
             Console.WriteLine("severe enviornment of the planet's surface. As a result of a catastophic nuclear");
@@ -56,6 +68,7 @@ namespace JohnButler.AdventureGame.ConsoleHost
             Console.WriteLine("Upon getting settled in the dream sequencer, you quickly fall asleep and find yourself");
             Console.WriteLine("within a dream where you are standing in a room that acts as an interface for which");
             Console.WriteLine("life you will relive...");
+            Console.ResetColor();
         }
 
         static string GetCommand(string message)
@@ -114,9 +127,12 @@ namespace JohnButler.AdventureGame.ConsoleHost
                 direction = Console.ReadLine().Trim();
                 while (direction != "North" && direction != "South" && direction != "East" && direction != "West")
                 {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("That's not a valid direction, please try again.");
+                    Console.ResetColor();
                     direction = Console.ReadLine().Trim();
                 }
+                Console.ForegroundColor = ConsoleColor.Red;
                 if (direction == "North" && --nextPositionY < -2)
                     Console.WriteLine("There is no door available in that direction.\nPlease try a different door.");
                 else if (direction == "South" && ++nextPositionY > 0)
@@ -125,6 +141,7 @@ namespace JohnButler.AdventureGame.ConsoleHost
                     Console.WriteLine("There is no door available in that direction.\nPlease try a different door.");
                 else if (direction == "West" && --nextPositionX < 0)
                     Console.WriteLine("There is no door available in that direction.\nPlease try a different door.");
+                Console.ResetColor();
             } while (nextPositionY < -2 || nextPositionY > 0 || nextPositionX < 0 || nextPositionX > 2);
             return direction;
         }
