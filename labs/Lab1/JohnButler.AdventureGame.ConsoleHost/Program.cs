@@ -10,7 +10,7 @@ namespace JohnButler.AdventureGame.ConsoleHost
 {
     class Program
     {
-        static int roomNumber = 5, positionX = 1, positionY = -1;
+        static int roomNumber = 8, positionX = 1, positionY = 0;
         static string direction;
 
         static void Main(string[] args)
@@ -57,17 +57,14 @@ namespace JohnButler.AdventureGame.ConsoleHost
             Console.WriteLine("John Butler  Fall 2021");
             Console.WriteLine("[Help] to access the help menu.");
             Console.WriteLine("".PadLeft(35, '*'));
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("The year is 2084 A.D. You are the lone survivor on a mission to colonize planet");
-            Console.WriteLine("Mars. You live in a state-of-the-art colony home that protects you from the");
-            Console.WriteLine("severe enviornment of the planet's surface. As a result of a catastophic nuclear");
-            Console.WriteLine("war that destroyed most of life on Earth, all communication with Earth has ceased.");
-            Console.WriteLine("Having run of food, water, and company, you turn towards the dream sequencer, a");
-            Console.WriteLine("high-tech machine that allows a user to sleep and dream of events experienced in");
-            Console.WriteLine("the user's previous life, to pass your remaining time on this life.");
-            Console.WriteLine("Upon getting settled in the dream sequencer, you quickly fall asleep and find yourself");
-            Console.WriteLine("within a dream where you are standing in a room that acts as an interface for which");
-            Console.WriteLine("life you will relive...");
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.WriteLine("You were going for a jog in the woods along the country side.");
+            Console.WriteLine("Deep in the woods you happen to see an old sign that says \"No Trespassing!\"");
+            Console.WriteLine("Like any good citizen, you decided to venture further through the narrow trail.");
+            Console.WriteLine("After about a few dozen yards, you see an abandoned mansion, forgotten by time.");
+            Console.WriteLine("The exterior is overtaken by a seige of vines and other small plants, most of the");
+            Console.WriteLine("windows cracked or outright gone. Curious, you decided to see if the front door");
+            Console.WriteLine("was locked or not. It was open and you entered...");
             Console.ResetColor();
         }
 
@@ -97,6 +94,7 @@ namespace JohnButler.AdventureGame.ConsoleHost
                 case 7: DisplayRoom7(); break;
                 case 8: DisplayRoom8(); break;
                 case 9: DisplayRoom9(); break;
+                default: Console.WriteLine("Unknown Error"); break;
             }
         }
 
@@ -113,6 +111,7 @@ namespace JohnButler.AdventureGame.ConsoleHost
                 case 7: DisplayRoom7(); break;
                 case 8: DisplayRoom8(); break;
                 case 9: DisplayRoom9(); break;
+                default: Console.WriteLine("Unknown Error"); break;
             }
         }
 
@@ -169,57 +168,104 @@ namespace JohnButler.AdventureGame.ConsoleHost
             }
         }
 
-        static void DisplayRoom1()//TODO: Provide a description for all room functions
-        {
-            Console.WriteLine("Room 1");
+        static void DisplayRoom1()//master bedroom
+        {                         
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.WriteLine("Current location: (2, 0)");
+            Console.ForegroundColor = ConsoleColor.DarkMagenta;
+            Console.WriteLine("Master Bedroom"); //TODO: Finish room description
+            Console.ResetColor();
+            Console.WriteLine("There is a door to the east and south.");
         }
 
-        static void DisplayRoom2()
+        static void DisplayRoom2()//dinning hall
         {
-            Console.WriteLine("Room 2");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.WriteLine("Current location: (1, 2)");
+            Console.ForegroundColor = ConsoleColor.DarkMagenta;
+            Console.WriteLine("Dinning Hall"); //TODO: Finish room description
+            Console.ResetColor();
+            Console.WriteLine("There is a door to the west, south, and east.");
         }
 
-        static void DisplayRoom3()
+        static void DisplayRoom3()//guestroom
         {
-            Console.WriteLine("Room 3");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.WriteLine("Current location: (2, 2)");
+            Console.ForegroundColor = ConsoleColor.DarkMagenta;
+            Console.WriteLine("Guest Room"); //TODO: Finish room description
+            Console.ResetColor();
+            Console.WriteLine("There is a door to the west, south.");
         }
 
-        static void DisplayRoom4()
+        static void DisplayRoom4()//fireplace
         {
-            Console.WriteLine("Room 4");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.WriteLine("Current location: (0, 1)");
+            Console.ForegroundColor = ConsoleColor.DarkMagenta;
+            Console.WriteLine("Fireplace"); //TODO: Finish room description
+            Console.ResetColor();
+            Console.WriteLine("There is a door to the south, north, and east.");
         }
 
-        static void DisplayRoom5()
+        static void DisplayRoom5()//kitchen
         {
-            Console.WriteLine("Room 5");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.WriteLine("Current location: (1, 1)");
+            Console.ForegroundColor = ConsoleColor.DarkMagenta;
+            Console.WriteLine("Kitchen"); //TODO: Finish room description
+            Console.ResetColor();
+            Console.WriteLine("There is a door to the west, north, east, and south.");
         }
 
-        static void DisplayRoom6()
+        static void DisplayRoom6()//balcanoy
         {
-            Console.WriteLine("Room 6");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.WriteLine("Current location: (2, 1)");
+            Console.ForegroundColor = ConsoleColor.DarkMagenta;
+            Console.WriteLine("Balcanoy"); //TODO: Finish room description
+            Console.ResetColor();
+            Console.WriteLine("There is a door to the west, north, and south.");
         }
 
-        static void DisplayRoom7()
+        static void DisplayRoom7()//cellar/basement
         {
-            Console.WriteLine("Room 7");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.WriteLine("Current location: (0, 0)");
+            Console.ForegroundColor = ConsoleColor.DarkMagenta;
+            Console.WriteLine("Cellar"); //TODO: Finish room description
+            Console.ResetColor();
+            Console.WriteLine("There is a door to the north and east.");
         }
 
-        static void DisplayRoom8()
+        static void DisplayRoom8()//entrance
         {
-            Console.WriteLine("Room 8");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.WriteLine("Current location: (1, 0)");
+            Console.ForegroundColor = ConsoleColor.DarkMagenta;
+            Console.WriteLine("Entrance"); //TODO: Finish room description
+            Console.ResetColor();
+            Console.WriteLine("There is a door to the west, north, and east.");
         }
 
-        static void DisplayRoom9()
+        static void DisplayRoom9()//art gallery
         {
-            Console.WriteLine("Room 9");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.WriteLine("Current location: (2, 0)");
+            Console.ForegroundColor = ConsoleColor.DarkMagenta;
+            Console.WriteLine("Art Gallery"); //TODO: Finish room description
+            Console.ResetColor();
+            Console.WriteLine("There is a door to the west and north.");
         }
 
         static void DisplayHelpMenu ()
         {
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("** Help Menu **");
             Console.WriteLine("\"Examin\" ::= Examins the room you are currently in.");
             Console.WriteLine("\"Move\"   ::= Move to a different room, you'll choose between North, East, South, or West");
             Console.WriteLine("\"Quit\"   ::= Exits the game.");
+            Console.ResetColor();
         }
 
         static bool QuitGame(string message)
