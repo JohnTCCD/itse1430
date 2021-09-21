@@ -29,17 +29,11 @@ namespace JohnButler.AdventureGame.ConsoleHost
                     direction = GetDirection("Which direction do you want to move?");
                     roomNumber = MoveDirection(direction);
                     SelectRoomNumber(roomNumber);
-                } 
+                }
                 else if (input == "Quit")
                 {
                     if (QuitGame("Are you sure you want to quit (Y/N)?") == true)
                         break;
-                } 
-                else if (input == "")
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Please enter a command.");
-                    Console.ResetColor();
                 }
                 else
                 {
@@ -60,11 +54,11 @@ namespace JohnButler.AdventureGame.ConsoleHost
             Console.ForegroundColor = ConsoleColor.DarkCyan;
             Console.WriteLine("You were going for a jog in the woods along the country side.");
             Console.WriteLine("Deep in the woods you happen to see an old sign that says \"No Trespassing!\"");
-            Console.WriteLine("Like any good citizen, you decided to venture further through the narrow trail.");
-            Console.WriteLine("After about a few dozen yards, you see an abandoned mansion, forgotten by time.");
-            Console.WriteLine("The exterior is overtaken by a seige of vines and other small plants, most of the");
-            Console.WriteLine("windows cracked or outright gone. Curious, you decided to see if the front door");
-            Console.WriteLine("was locked or not. It was open and you entered...");
+            Console.WriteLine("Like any good citizen, you decided to ignore the sign and venture further through");
+            Console.WriteLine("the narrow trail. After about a few dozen yards, you see an abandoned mansion,");
+            Console.WriteLine("forgotten by time. The exterior is overtaken by a seige of vines and other small");
+            Console.WriteLine("plants, most of the windows cracked or outright broken. Curious, you decided to see");
+            Console.WriteLine("if the front doorwas locked or not. It was open and you entered...");
             Console.ResetColor();
         }
 
@@ -112,20 +106,16 @@ namespace JohnButler.AdventureGame.ConsoleHost
                     Console.ResetColor();
                     direction = Console.ReadLine().Trim();
                 }
-                Console.ForegroundColor = ConsoleColor.Red;
-                if (direction == "North" && nextPositionY + 1 > 0)
+                if ((direction == "North" && nextPositionY + 1 > 0) || (direction == "South" && nextPositionY - 1 < -2) ||
+                    (direction == "East" && nextPositionX + 1 > 2) || (direction == "West" && nextPositionX - 1 < 0))
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("There is no door available in that direction. Please try a different door.");
-                else if (direction == "South" && nextPositionY - 1 < -2)
-                    Console.WriteLine("There is no door available in that direction. Please try a different door.");
-                else if (direction == "East" && nextPositionX + 1 > 2)
-                    Console.WriteLine("There is no door available in that direction. Please try a different door.");
-                else if (direction == "West" && nextPositionX - 1 < 0)
-                    Console.WriteLine("There is no door available in that direction. Please try a different door.");
+                    Console.ResetColor();
+                }
                 else
                     break;
-                Console.ResetColor();
             } while (true);
-            Console.ResetColor();
             return direction;
         }
 
@@ -148,12 +138,13 @@ namespace JohnButler.AdventureGame.ConsoleHost
             Console.WriteLine("Current location: (0, 0)");
             Console.ForegroundColor = ConsoleColor.DarkMagenta;
             Console.WriteLine("The first thing that you notice entering the master bedroom is");
-            Console.WriteLine("that there is an open coffen where a king sized bed should be.");
-            Console.WriteLine("A sense of dread befalls you as become curious if that had or has");
-            Console.WriteLine("a purpose. There is also a large dresser with a frame surround with");
-            Console.WriteLine("shards of a broken mirror. The dresser appears to be empty.");
+            Console.WriteLine("that there is an open coffen where a king sized bed should be!");
+            Console.WriteLine("A sense of dread befalls you as you become curious if that had or has");
+            Console.WriteLine("a purpose. There is also a large dresser that's filled with nothing");
+            Console.WriteLine("but dust and spider webs. On the opposite wall, there is a fancy frame");
+            Console.WriteLine("surrounded by shards of a broken mirror.");
             Console.ResetColor();
-            Console.WriteLine("There is a door to the east and south.");
+            Console.WriteLine("There is a door to the East and South.");
         }
 
         static void DisplayDinningRoom()
@@ -161,12 +152,12 @@ namespace JohnButler.AdventureGame.ConsoleHost
             Console.ForegroundColor = ConsoleColor.Gray;
             Console.WriteLine("Current location: (1, 0)");
             Console.ForegroundColor = ConsoleColor.DarkMagenta;
-            Console.WriteLine("Upon arriving, you can see that a broken table, thrown chairs and");
+            Console.WriteLine("Upon arriving, you can see that a broken table, crumbled chairs and");
             Console.WriteLine("candle holders on the ground are what's left of the dinning area.");
             Console.WriteLine("Underneath one of the broken chairs, there seems to be a kitchen knife");
             Console.WriteLine("with red marks covering the blade.");
             Console.ResetColor();
-            Console.WriteLine("There is a door to the west, south, and east.");
+            Console.WriteLine("There is a door to the West, South, and East.");
         }
 
         static void DisplayGuestRoom()
@@ -180,7 +171,7 @@ namespace JohnButler.AdventureGame.ConsoleHost
             Console.WriteLine("sight of the blanketless queen sized bed covered in dirt and dust.");
             Console.WriteLine("The windows are broken, allowing plants to crawl into the room.");
             Console.ResetColor();
-            Console.WriteLine("There is a door to the west, south.");
+            Console.WriteLine("There is a door to the West, South.");
         }
 
         static void DisplayFirePlace()
@@ -194,7 +185,7 @@ namespace JohnButler.AdventureGame.ConsoleHost
             Console.WriteLine("patterns as part of their design. The soot in the fire place makes it look");
             Console.WriteLine("like it's been used recently? It could use some maintenance though.");
             Console.ResetColor();
-            Console.WriteLine("There is a door to the south, north, and east.");
+            Console.WriteLine("There is a door to the South, North, and East.");
         }
 
         static void DisplayKitchen()
@@ -207,7 +198,7 @@ namespace JohnButler.AdventureGame.ConsoleHost
             Console.WriteLine("soon. The floors are filthy, cooking utensils scattered everywhere, and no");
             Console.WriteLine("working oven. The fridge has food that expired ages ago, smells pretty bad.");
             Console.ResetColor();
-            Console.WriteLine("There is a door to the west, north, east, and south.");
+            Console.WriteLine("There is a door to the West, North, East, and South.");
         }
 
         static void DisplayBalcony()
@@ -219,7 +210,7 @@ namespace JohnButler.AdventureGame.ConsoleHost
             Console.WriteLine("the outdoor area wasn't overrun with vines, ivy, and other plants, there");
             Console.WriteLine("would be more to observe on the outside. You head back down the staircase.");
             Console.ResetColor();
-            Console.WriteLine("There is a door to the west, north, and south.");
+            Console.WriteLine("There is a door to the West, North, and South.");
         }
 
         static void DisplayCellar()
@@ -230,11 +221,11 @@ namespace JohnButler.AdventureGame.ConsoleHost
             Console.WriteLine("There is a staircase that descends into the cellar. At the bottom");
             Console.WriteLine("of the stairs, you are immediately greeted with three towering racks");
             Console.WriteLine("full of dusty wine barrels. A large black cauldron with mixing utinsil");
-            Console.WriteLine("inside sits at the other end of the walk way between racks. The empty");
-            Console.WriteLine("cauldron has intricate patterns eched into its metallic exoskeleton, giving");
-            Console.WriteLine("a rather sinister appearance.");
+            Console.WriteLine("inside sits at the other end of the middle rack. The empty cauldron has");
+            Console.WriteLine("intricate patterns eched into its metallic outter shell, giving it a");
+            Console.WriteLine("rather sinister appearance.");
             Console.ResetColor();
-            Console.WriteLine("There is a door to the north and east.");
+            Console.WriteLine("There is a door to the North and East.");
         }
 
         static void DisplayEntrance()
@@ -247,7 +238,7 @@ namespace JohnButler.AdventureGame.ConsoleHost
             Console.WriteLine("statues weren't broken. The floors have cracks all over them and is littered");
             Console.WriteLine("with dirt and debris. Seems like the nature's been claiming this property.");
             Console.ResetColor();
-            Console.WriteLine("There is a door to the west, north, and east.");
+            Console.WriteLine("There is a door to the West, North, and East.");
         }
 
         static void DisplayArtGallery()
@@ -263,7 +254,7 @@ namespace JohnButler.AdventureGame.ConsoleHost
             Console.WriteLine("of different individuals sitting in a chair. You try to see the eyes of the paintings");
             Console.WriteLine("follow you like in the movies, but alas, that does not seem to be the case...");
             Console.ResetColor();
-            Console.WriteLine("There is a door to the west and north.");
+            Console.WriteLine("There is a door to the West and North.");
         }
 
         static void DisplayHelpMenu ()
