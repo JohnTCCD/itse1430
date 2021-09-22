@@ -11,6 +11,7 @@ namespace JohnButler.AdventureGame.ConsoleHost
     class Program
     {
         static int positionX = 1, positionY = -2;
+
         static void Main(string[] args)
         {
             PrintTitleScreen();
@@ -92,7 +93,6 @@ namespace JohnButler.AdventureGame.ConsoleHost
         static string GetDirection(string message)
         {
             Console.WriteLine(message);
-            const int xMinimum = 0, xMaximum = 2, yMinimum = -2, yMaximum = 0;
             string userDirection;
             do
             {
@@ -104,6 +104,7 @@ namespace JohnButler.AdventureGame.ConsoleHost
                     Console.ResetColor();
                     userDirection = Console.ReadLine().Trim();
                 }
+                const int xMinimum = 0, xMaximum = 2, yMinimum = -2, yMaximum = 0;
                 if ((userDirection == "north" && positionY + 1 > yMaximum) || (userDirection == "south" && positionY - 1 < yMinimum) ||
                     (userDirection == "east" && positionX + 1 > xMaximum) || (userDirection == "west" && positionX - 1 < xMinimum))
                 {
