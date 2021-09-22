@@ -30,15 +30,11 @@ namespace JohnButler.AdventureGame.ConsoleHost
                 }
                 else if (input == "quit")
                 {
-                    if (QuitGame("Are you sure you want to quit (Y/N)?") == true)
+                    if (QuitGame("Are you sure you want to quit (Y/N)?"))
                         break;
                 }
                 else
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Invalid command, please try again.");
-                    Console.ResetColor();
-                }
+                    DisplayError("Invalid command, please try again.");
             } while (true);
         }
 
@@ -86,7 +82,7 @@ namespace JohnButler.AdventureGame.ConsoleHost
                 case 7: DisplayCellar(); break;
                 case 9: DisplayEntrance(); break;
                 case 11: DisplayArtGallery(); break;
-                default: Console.WriteLine("Unknown Error"); break;
+                default: DisplayError("Unknown Error"); break;
             }
         }
 
@@ -99,19 +95,13 @@ namespace JohnButler.AdventureGame.ConsoleHost
                 userDirection = Console.ReadLine().Trim().ToLower();
                 while (userDirection != "north" && userDirection != "south" && userDirection != "east" && userDirection != "west")
                 {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("That's not a valid direction, please try again.");
-                    Console.ResetColor();
+                    DisplayError("That's not a valid direction, please try again.");
                     userDirection = Console.ReadLine().Trim();
                 }
                 const int xMinimum = 0, xMaximum = 2, yMinimum = -2, yMaximum = 0;
                 if ((userDirection == "north" && positionY + 1 > yMaximum) || (userDirection == "south" && positionY - 1 < yMinimum) ||
                     (userDirection == "east" && positionX + 1 > xMaximum) || (userDirection == "west" && positionX - 1 < xMinimum))
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("There is no door available in that direction. Please try a different door.");
-                    Console.ResetColor();
-                }
+                    DisplayError("There is no door available in that direction. Please try a different door.");
                 else
                     break;
             } while (true);
@@ -126,7 +116,7 @@ namespace JohnButler.AdventureGame.ConsoleHost
                 case "south": positionY -= 1; break;
                 case "east": positionX += 1; break;
                 case "west": positionX -= 1; break;
-                default: Console.WriteLine("Unknown Error"); break;
+                default: DisplayError("Unknown Error"); break;
             }
             return (positionX * 2) + (-positionY * 3) + 1;
         }
@@ -288,9 +278,16 @@ namespace JohnButler.AdventureGame.ConsoleHost
                         Console.ResetColor();
                         return false;
                     }
-                    default: Console.WriteLine("Invalid answer, please try again."); break;
+                    default: DisplayError("Invalid answer, please try again."); break;
                 }
             } while (true);
+        }
+
+        static void DisplayError(string errorMessage)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(errorMessage);
+            Console.ResetColor();
         }
     }
 }
