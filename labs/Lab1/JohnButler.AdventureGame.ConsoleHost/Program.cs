@@ -11,26 +11,23 @@ namespace JohnButler.AdventureGame.ConsoleHost
     class Program
     {
         static int positionX = 1, positionY = -2;
-        static string direction;
-
         static void Main(string[] args)
         {
             PrintTitleScreen();
             int roomNumber = 9;
             SelectRoomNumber(roomNumber);
-            string input;
             do
             {
-                input = GetCommand("What will you do?");
-                if (input == "Examin")
+                string input = GetCommand("What will you do?");
+                if (input == "examin")
                     SelectRoomNumber(roomNumber);
-                else if (input == "Move")
+                else if (input == "move")
                 {
-                    direction = GetDirection("Which direction do you want to move?");
+                    string direction = GetDirection("Which direction do you want to move?");
                     roomNumber = MoveDirection(direction);
                     SelectRoomNumber(roomNumber);
                 }
-                else if (input == "Quit")
+                else if (input == "quit")
                 {
                     if (QuitGame("Are you sure you want to quit (Y/N)?") == true)
                         break;
@@ -65,8 +62,8 @@ namespace JohnButler.AdventureGame.ConsoleHost
         static string GetCommand(string message)
         {
             Console.WriteLine(message);
-            string command = Console.ReadLine().Trim();
-            while (command == "Help")
+            string command = Console.ReadLine().Trim().ToLower();
+            while (command == "help")
             {
                 DisplayHelpMenu();
                 Console.WriteLine(message);
@@ -94,20 +91,21 @@ namespace JohnButler.AdventureGame.ConsoleHost
 
         static string GetDirection(string message)
         {
-            int nextPositionX = positionX, nextPositionY = positionY;
             Console.WriteLine(message);
+            const int xMinimum = 0, xMaximum = 2, yMinimum = -2, yMaximum = 0;
+            string userDirection;
             do
             {
-                direction = Console.ReadLine().Trim();
-                while (direction != "North" && direction != "South" && direction != "East" && direction != "West")
+                userDirection = Console.ReadLine().Trim().ToLower();
+                while (userDirection != "north" && userDirection != "south" && userDirection != "east" && userDirection != "west")
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("That's not a valid direction, please try again.");
                     Console.ResetColor();
-                    direction = Console.ReadLine().Trim();
+                    userDirection = Console.ReadLine().Trim();
                 }
-                if ((direction == "North" && nextPositionY + 1 > 0) || (direction == "South" && nextPositionY - 1 < -2) ||
-                    (direction == "East" && nextPositionX + 1 > 2) || (direction == "West" && nextPositionX - 1 < 0))
+                if ((userDirection == "north" && positionY + 1 > yMaximum) || (userDirection == "south" && positionY - 1 < yMinimum) ||
+                    (userDirection == "east" && positionX + 1 > xMaximum) || (userDirection == "west" && positionX - 1 < xMinimum))
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("There is no door available in that direction. Please try a different door.");
@@ -116,17 +114,17 @@ namespace JohnButler.AdventureGame.ConsoleHost
                 else
                     break;
             } while (true);
-            return direction;
+            return userDirection;
         }
 
         static int MoveDirection(string direction)
         {
             switch (direction)
             {
-                case "North": positionY += 1; break;
-                case "South": positionY -= 1; break;
-                case "East": positionX += 1; break;
-                case "West": positionX -= 1; break;
+                case "north": positionY += 1; break;
+                case "south": positionY -= 1; break;
+                case "east": positionX += 1; break;
+                case "west": positionX -= 1; break;
                 default: Console.WriteLine("Unknown Error"); break;
             }
             return (positionX * 2) + (-positionY * 3) + 1;
@@ -261,9 +259,10 @@ namespace JohnButler.AdventureGame.ConsoleHost
         {
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("** Help Menu **");
-            Console.WriteLine("\"Examin\" ::= Examins the room you are currently in.");
-            Console.WriteLine("\"Move\"   ::= Move to a different room, you'll choose between North, East, South, or West");
-            Console.WriteLine("\"Quit\"   ::= Exits the game.");
+            Console.WriteLine("[Examin] ::= Examins the room you are currently in.");
+            Console.WriteLine("[Move]   ::= Move to a different room.");
+            Console.WriteLine("             You'll be prompted to choose between North, East, South, or West");
+            Console.WriteLine("[Quit]   ::= Exits the game.");
             Console.ResetColor();
         }
 
@@ -273,13 +272,22 @@ namespace JohnButler.AdventureGame.ConsoleHost
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine(message);
-                Console.ResetColor();
                 ConsoleKeyInfo answer = Console.ReadKey(true);
                 switch (answer.Key)
                 {
-                    case ConsoleKey.Y: Console.WriteLine("Ending game"); return true;
-                    case ConsoleKey.N: Console.WriteLine("Continuing game."); return false;
-                    default: Console.WriteLine("Invalid answer, try again. (Y/N)"); break;
+                    case ConsoleKey.Y:
+                    {
+                        Console.WriteLine("Ending game");
+                        Console.ResetColor();
+                        return true;
+                    }
+                    case ConsoleKey.N:
+                    {
+                        Console.WriteLine("Continuing game.");
+                        Console.ResetColor();
+                        return false;
+                    }
+                    default: Console.WriteLine("Invalid answer, please try again."); break;
                 }
             } while (true);
         }
