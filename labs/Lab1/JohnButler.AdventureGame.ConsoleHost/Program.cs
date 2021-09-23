@@ -20,14 +20,14 @@ namespace JohnButler.AdventureGame.ConsoleHost
             do
             {
                 string input = GetCommand("What will you do?");
-                if (input == "examin")
-                    SelectRoomNumber(roomNumber);
-                else if (input == "move")
+                if (input == "move")
                 {
                     string direction = GetDirection("Which direction do you want to move?");
                     roomNumber = MoveDirection(direction);
                     SelectRoomNumber(roomNumber);
                 }
+                else if (input == "examin")
+                    SelectRoomNumber(roomNumber);
                 else if (input == "quit")
                 {
                     if (QuitGame("Are you sure you want to quit (Y/N)?"))
@@ -35,6 +35,7 @@ namespace JohnButler.AdventureGame.ConsoleHost
                 }
                 else
                     DisplayError("Invalid command, please try again.");
+
             } while (true);
         }
 
@@ -59,14 +60,20 @@ namespace JohnButler.AdventureGame.ConsoleHost
         static string GetCommand(string message)
         {
             Console.WriteLine(message);
-            string command = Console.ReadLine().Trim().ToLower();
-            while (command == "help")
+            do
             {
-                DisplayHelpMenu();
-                Console.WriteLine(message);
-                command = Console.ReadLine().Trim();
-            }
-            return command;
+                string command = Console.ReadLine().Trim().ToLower();
+                if (String.IsNullOrEmpty(command))
+                    DisplayError("Input is required.");
+                else if (command == "help")
+                { 
+                    DisplayHelpMenu();
+                    Console.WriteLine(message);
+                }
+                else
+                    return command;
+
+            } while (true);
         }
 
         static void SelectRoomNumber(int roomNumber)
@@ -93,17 +100,25 @@ namespace JohnButler.AdventureGame.ConsoleHost
             do
             {
                 userDirection = Console.ReadLine().Trim().ToLower();
+                if (String.IsNullOrEmpty(userDirection))
+                {
+                    DisplayError("Input is required.");
+                    continue;
+                }
+
                 while (userDirection != "north" && userDirection != "south" && userDirection != "east" && userDirection != "west")
                 {
                     DisplayError("That's not a valid direction, please try again.");
                     userDirection = Console.ReadLine().Trim();
                 }
+
                 const int xMinimum = 0, xMaximum = 2, yMinimum = -2, yMaximum = 0;
                 if ((userDirection == "north" && positionY + 1 > yMaximum) || (userDirection == "south" && positionY - 1 < yMinimum) ||
                     (userDirection == "east" && positionX + 1 > xMaximum) || (userDirection == "west" && positionX - 1 < xMinimum))
                     DisplayError("There is no door available in that direction. Please try a different door.");
                 else
                     break;
+
             } while (true);
             return userDirection;
         }
