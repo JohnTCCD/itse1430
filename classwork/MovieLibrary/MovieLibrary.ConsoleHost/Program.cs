@@ -26,43 +26,59 @@ namespace MovieLibrary.ConsoleHost
             } while (!done);
         }
 
-        static Movie movie = new Movie();
+        static Movie movie; // = new Movie();
 
         private static void DeleteMovie ()
         {
+            if (movie == null)
+                return;
+
+            //var newMovie = movie.Copy();
+
             //Confirm
             if (!ReadBoolean("Are you sure (Y/N)? "))
                 return;
 
             //delete movie
-            movie.title = null;
+            movie = null;
         }
 
         static void AddMovie()
         {
-            //Movie details - ignoring warnings for now...
+             var newMovie = new Movie();
 
-             movie.title = ReadString("Enter the movie title: ", true);                     // Required
-             movie.description = ReadString("Enter the optional description: ", false);     // Optional
+            do
+            {
+                newMovie.title = ReadString("Enter the movie title: ", false);                     // Required
+                newMovie.description = ReadString("Enter the optional description: ", false);     // Optional
 
-             movie.runLength = ReadInt32("Enter run length (in minutes): ", 0);                // >= 0
-             movie.releaseYear = ReadInt32("Enter the release year (min 1900): ", 1900);       // 1900+
+                newMovie.runLength = ReadInt32("Enter run length (in minutes): ", 0);                // >= 0
+                newMovie.releaseYear = ReadInt32("Enter the release year (min 1900): ", newMovie.MinimumReleaseYear);// 1900+
 
-            //double reviewRating;     // Optional, 0.0 to 5.0
-             movie.rating = ReadString("Enter the MPAA rating: ", false);           // Optional, MPAA (not enforced)
-             movie.isClassic = ReadBoolean("Is this a classic (Y/N)? ");          // Optional
+                //double reviewRating;     // Optional, 0.0 to 5.0
+                newMovie.rating = ReadString("Enter the MPAA rating: ", false);           // Optional, MPAA (not enforced)
+                newMovie.isClassic = ReadBoolean("Is this a classic (Y/N)? ");          // Optional
+
+                //Validate
+                var error = newMovie.Validate();
+                if (!String.IsNullOrEmpty(error))
+                {
+                    movie = newMovie;
+                    return;
+                };
+                DisplayError(error);
+            } while (true);
         }
 
         static void ViewMovie ()
         {
             //What if they haven't added one yet?
-            if (String.IsNullOrEmpty(movie.title))
+            //if (String.IsNullOrEmpty(movie.title))
+            if (movie == null)
             {
                 Console.WriteLine("No movie available");
                 return;
-            }
-
-
+            };
 
             Console.WriteLine($"{movie.title} ({movie.releaseYear})");
             Console.WriteLine($"Runtime: {movie.runLength} mins");
@@ -71,6 +87,10 @@ namespace MovieLibrary.ConsoleHost
             Console.WriteLine(movie.description);
         }
 
+        /// <summary> Reads an Int32 from the console.</summary>
+        /// <param name="message">The message to display.</param>
+        /// <param name="minimimValue">The minimum value allowed.</param>
+        /// <returns> The integrval value that was entered. </returns>
         static int ReadInt32 ( string message, int minimimValue )
         {
             Console.Write(message);
@@ -153,7 +173,6 @@ namespace MovieLibrary.ConsoleHost
         static char GetInput()
         {
             Console.WriteLine("Movie Library");
-            //Console.WriteLine("---------------");
             Console.WriteLine("".PadLeft(15, '-'));
 
             Console.WriteLine("A) dd");
@@ -165,41 +184,17 @@ namespace MovieLibrary.ConsoleHost
             {
                 //Get input
                 string input = Console.ReadLine().Trim();
-                //if (input == "Q")
-                //    return 'Q';
-                //else if (input == "A")
-                //    return 'A';
-                //else if (input == "V")
-                //    return 'V';
-                //else if (input == "D")
-                //    return 'D';
-
-                // Case insensitive
                 switch (input.ToUpper())
                 {
-                    //No fall thru, unless case statement empty
-                    //Must end with return or break;
-                    //case "B": input = "10"; break;
-                    //case "c":
                     case "C": return 'B';
-
-                    //case "q":
                     case "Q": return 'Q';
-
-                    //case "a":
                     case "A": return 'A';
-
-                    //case "v":
                     case "V": return 'V';
-
-                    //case "d":
                     case "D": return 'D';
-                    //default:;
                 };
 
                 DisplayError("Invalid input");
             };
-            //return default(char); //default
         }
     }
 }
