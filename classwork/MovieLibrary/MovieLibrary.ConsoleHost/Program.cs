@@ -49,15 +49,16 @@ namespace MovieLibrary.ConsoleHost
 
             do
             {
-                newMovie.title = ReadString("Enter the movie title: ", false);                     // Required
-                newMovie.description = ReadString("Enter the optional description: ", false);     // Optional
+                // newMovie.set_Title(...)
+                newMovie.Title = ReadString("Enter the movie title: ", false);                     // Required
+                newMovie.Description = ReadString("Enter the optional description: ", false);     // Optional
 
-                newMovie.runLength = ReadInt32("Enter run length (in minutes): ", 0);                // >= 0
-                newMovie.releaseYear = ReadInt32("Enter the release year (min 1900): ", newMovie.MinimumReleaseYear);// 1900+
+                newMovie.RunLength = ReadInt32("Enter run length (in minutes): ", 0);                // >= 0
+                newMovie.ReleaseYear = ReadInt32("Enter the release year (min 1900): ", Movie.MinimumReleaseYear);// 1900+
 
                 //double reviewRating;     // Optional, 0.0 to 5.0
-                newMovie.rating = ReadString("Enter the MPAA rating: ", false);           // Optional, MPAA (not enforced)
-                newMovie.isClassic = ReadBoolean("Is this a classic (Y/N)? ");          // Optional
+                newMovie.Rating = ReadString("Enter the MPAA rating: ", false);           // Optional, MPAA (not enforced)
+                newMovie.IsClassic = ReadBoolean("Is this a classic (Y/N)? ");          // Optional
 
                 //Validate
                 var error = newMovie.Validate();
@@ -80,11 +81,16 @@ namespace MovieLibrary.ConsoleHost
                 return;
             };
 
-            Console.WriteLine($"{movie.title} ({movie.releaseYear})");
-            Console.WriteLine($"Runtime: {movie.runLength} mins");
-            Console.WriteLine($"MPAA Rating {movie.rating}");
-            Console.WriteLine($"Classic? {movie.isClassic}");
-            Console.WriteLine(movie.description);
+            //movie.get_Title()
+            Console.WriteLine($"{movie.Title} ({movie.ReleaseYear})");
+            Console.WriteLine($"Runtime: {movie.RunLength} mins");
+            Console.WriteLine($"MPAA Rating {movie.Rating}");
+            Console.WriteLine($"Classic? {movie.IsClassic}");
+            Console.WriteLine(movie.Description);
+
+            if (movie.AgeInYears >= 25)
+                Console.WriteLine($"{movie.AgeInYears}th Anniversary");
+            //movie.AgeInYears = 10;
         }
 
         /// <summary> Reads an Int32 from the console.</summary>
