@@ -17,26 +17,33 @@ namespace JohnButler.AdventureGame.ConsoleHost
             PrintTitleScreen();
             int roomNumber = 9;
             SelectRoomNumber(roomNumber);
+            bool quit = false;
             do
             {
                 string input = GetCommand("What will you do?");
-                if (input == "move")
+                switch (input)
                 {
-                    string direction = GetDirection("Which direction do you want to move?");
-                    roomNumber = MoveDirection(direction);
-                    SelectRoomNumber(roomNumber);
-                }
-                else if (input == "examin")
-                    SelectRoomNumber(roomNumber);
-                else if (input == "quit")
-                {
-                    if (QuitGame("Are you sure you want to quit (Y/N)?"))
+                    case "move":
+                    {
+                        string direction = GetDirection("Which direction do you want to move?");
+                        roomNumber = MoveDirection(direction);
+                        SelectRoomNumber(roomNumber);
                         break;
+                    }
+                    case "examine": SelectRoomNumber(roomNumber); break;
+                    case "quit": quit = QuitGame("Are you sure you want to quit (Y/N)?"); break;
+                    default:
+                    {
+                        if (String.IsNullOrEmpty(input))
+                            DisplayError("Input is required.");
+                        else
+                            DisplayError("Invalid command, please try again.");
+                        
+                        break; 
+                    }
                 }
-                else
-                    DisplayError("Invalid command, please try again.");
 
-            } while (true);
+            } while (!quit);
         }
 
         static void PrintTitleScreen()
@@ -63,10 +70,9 @@ namespace JohnButler.AdventureGame.ConsoleHost
             do
             {
                 string command = Console.ReadLine().Trim().ToLower();
-                if (String.IsNullOrEmpty(command))
-                    DisplayError("Input is required.");
-                else if (command == "help")
-                { 
+
+                if (command == "help")
+                {
                     DisplayHelpMenu();
                     Console.WriteLine(message);
                 }
@@ -82,11 +88,11 @@ namespace JohnButler.AdventureGame.ConsoleHost
             {
                 case 1: DisplayMasterBedroom(); break;
                 case 3: DisplayDinningRoom(); break;
-                case 5: DisplayGuestRoom(); break;
                 case 4: DisplayFirePlace(); break;
+                case 5: DisplayGuestRoom(); break;
                 case 6: DisplayKitchen(); break;
-                case 8: DisplayBalcony(); break;
                 case 7: DisplayCellar(); break;
+                case 8: DisplayBalcony(); break;
                 case 9: DisplayEntrance(); break;
                 case 11: DisplayArtGallery(); break;
                 default: DisplayError("Unknown Error"); break;
@@ -120,6 +126,7 @@ namespace JohnButler.AdventureGame.ConsoleHost
                     break;
 
             } while (true);
+
             return userDirection;
         }
 
@@ -133,6 +140,7 @@ namespace JohnButler.AdventureGame.ConsoleHost
                 case "west": positionX -= 1; break;
                 default: DisplayError("Unknown Error"); break;
             }
+
             return (positionX * 2) + (-positionY * 3) + 1;
         }
 
@@ -265,10 +273,10 @@ namespace JohnButler.AdventureGame.ConsoleHost
         {
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("** Help Menu **");
-            Console.WriteLine("[Examin] ::= Examins the room you are currently in.");
-            Console.WriteLine("[Move]   ::= Move to a different room.");
+            Console.WriteLine("[Examine] ::= Examins the room you are currently in.");
+            Console.WriteLine("[Move]    ::= Move to a different room.");
             Console.WriteLine("             You'll be prompted to choose between North, East, South, or West");
-            Console.WriteLine("[Quit]   ::= Exits the game.");
+            Console.WriteLine("[Quit]    ::= Exits the game.");
             Console.ResetColor();
         }
 
@@ -295,6 +303,7 @@ namespace JohnButler.AdventureGame.ConsoleHost
                     }
                     default: DisplayError("Invalid answer, please try again."); break;
                 }
+
             } while (true);
         }
 
