@@ -14,12 +14,22 @@ namespace JohnButler.CharacterCreator.ConsoleHost
         {
             Console.WriteLine("ITSE 1430 Character Creator");
             Console.WriteLine("John Butler  Fall 2021");
+            bool quit = false;
 
             do
             {
                 DisplayMainMenu();
                 int choice = GetMenuChoice();
-            } while (true);
+                switch (choice)
+                {
+                    case 1: Console.WriteLine("You chose Add Character."); break;
+                    case 2: Console.WriteLine("You chose View Character."); break;
+                    case 3: Console.WriteLine("You chose Edit Character."); break;
+                    case 4: Console.WriteLine("You chose Delete Character."); break;
+                    case 5: quit = QuitGame("Are you sure you want to quit?"); break;
+                    default: DisplayError("Unknown Error."); break;
+                }
+            } while (!quit);
 
         }
 
@@ -54,6 +64,33 @@ namespace JohnButler.CharacterCreator.ConsoleHost
                 } 
                 else
                     DisplayError("Input must be an integer.");
+
+            } while (true);
+        }
+
+        static bool QuitGame ( string message )
+        {
+            do
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine(message);
+                ConsoleKeyInfo answer = Console.ReadKey(true);
+                switch (answer.Key)
+                {
+                    case ConsoleKey.Y:
+                    {
+                        Console.WriteLine("Ending game");
+                        Console.ResetColor();
+                        return true;
+                    }
+                    case ConsoleKey.N:
+                    {
+                        Console.WriteLine("Continuing game.");
+                        Console.ResetColor();
+                        return false;
+                    }
+                    default: DisplayError("Invalid answer, please try again."); break;
+                }
 
             } while (true);
         }
