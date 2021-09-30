@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.31624.102
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JohnButler.CharacterCreator.ConsoleHost", "JohnButler.CharacterCreator.ConsoleHost\JohnButler.CharacterCreator.ConsoleHost.csproj", "{13E753BE-2690-46C8-A4EC-A504B9A462F0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JohnButler.CharacterCreator", "JohnButler.CharacterCreator\JohnButler.CharacterCreator.csproj", "{575DE866-FC0F-4C67-9239-0877A991804D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{13E753BE-2690-46C8-A4EC-A504B9A462F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{13E753BE-2690-46C8-A4EC-A504B9A462F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{13E753BE-2690-46C8-A4EC-A504B9A462F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{575DE866-FC0F-4C67-9239-0877A991804D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{575DE866-FC0F-4C67-9239-0877A991804D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{575DE866-FC0F-4C67-9239-0877A991804D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{575DE866-FC0F-4C67-9239-0877A991804D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

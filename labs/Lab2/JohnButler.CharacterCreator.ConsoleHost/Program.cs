@@ -29,6 +29,7 @@ namespace JohnButler.CharacterCreator.ConsoleHost
                     case 5: quit = QuitGame("Are you sure you want to quit?"); break;
                     default: DisplayError("Unknown Error."); break;
                 }
+
             } while (!quit);
 
         }
@@ -66,6 +67,26 @@ namespace JohnButler.CharacterCreator.ConsoleHost
                     DisplayError("Input must be an integer.");
 
             } while (true);
+        }
+
+        static void AddCharacter()
+        {
+
+        }
+
+        static void ViewCharacter()
+        {
+
+        }
+
+        static void EditCharacter()
+        {
+
+        }
+
+        static void DeleteCharacter()
+        {
+
         }
 
         static bool QuitGame ( string message )
