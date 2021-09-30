@@ -92,10 +92,11 @@ namespace JohnButler.CharacterCreator.ConsoleHost
 
         static string GetStringInput(string message, bool required)
         {
-            Console.WriteLine(message);
-            string input = Console.ReadLine().Trim();
             do
             {
+                Console.Write(message);
+                string input = Console.ReadLine().Trim();
+
                 if (!String.IsNullOrEmpty(input) || !required)
                     return input;
                 else
