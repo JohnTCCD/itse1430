@@ -22,7 +22,7 @@ namespace JohnButler.CharacterCreator.ConsoleHost
                 int choice = GetMenuChoice();
                 switch (choice)
                 {
-                    case 1: Console.WriteLine("You chose Add Character."); break;
+                    case 1: AddCharacter(); break;
                     case 2: Console.WriteLine("You chose View Character."); break;
                     case 3: Console.WriteLine("You chose Edit Character."); break;
                     case 4: Console.WriteLine("You chose Delete Character."); break;
@@ -31,7 +31,7 @@ namespace JohnButler.CharacterCreator.ConsoleHost
                 }
 
             } while (!quit);
-
+            
         }
 
         static void DisplayMainMenu()
@@ -71,7 +71,8 @@ namespace JohnButler.CharacterCreator.ConsoleHost
 
         static void AddCharacter()
         {
-
+            Character chr = new Character();
+            chr.Name = GetStringInput("Enter the name for the new character: ", true);
         }
 
         static void ViewCharacter()
@@ -87,6 +88,20 @@ namespace JohnButler.CharacterCreator.ConsoleHost
         static void DeleteCharacter()
         {
 
+        }
+
+        static string GetStringInput(string message, bool required)
+        {
+            Console.WriteLine(message);
+            string input = Console.ReadLine().Trim();
+            do
+            {
+                if (!String.IsNullOrEmpty(input) || !required)
+                    return input;
+                else
+                    DisplayError("Input is required.");
+
+            } while (true);
         }
 
         static bool QuitGame ( string message )
