@@ -16,10 +16,15 @@ namespace MovieLibrary
 
         public string Title
         {
+            //null coalescing ::= E ?? E   (returns first non-null expression)
+            //null conditional ::= E?.M    (returns M?) changes the type of the expression
+
             //Read: T get_Title ()
             get 
             {
-                return (_title != null) ? _title : "";
+                return _title ?? "";
+
+                //return (_title != null) ? _title : "";
                 //if (_title == null)
                 //    return "";
                 
@@ -30,7 +35,11 @@ namespace MovieLibrary
             set 
             {
                 // _title = value; 
-                _title = (value != null) ? value.Trim() : null;
+                //_title = (value != null) ? value.Trim() : null;
+                _title = value?.Trim();
+
+                //Movie m;
+                //int id = m?.Id ?? 0; // int?
             }
         }
 
