@@ -19,21 +19,24 @@ namespace JohnButler.CharacterCreator.ConsoleHost
             do
             {
                 DisplayMainMenu();
-                int choice = GetMenuChoice();
+                int choice = GetIntInput("Enter your choice: ");
                 switch (choice)
                 {
                     case 1: AddCharacter(); break;
-                    case 2: Console.WriteLine("You chose View Character."); break;
-                    case 3: Console.WriteLine("You chose Edit Character."); break;
-                    case 4: Console.WriteLine("You chose Delete Character."); break;
+                    case 2: ViewCharacter(); break;
+                    case 3: EditCharacter(); break;
+                    case 4: DeleteCharacter(); break;
                     case 5: quit = QuitGame("Are you sure you want to quit?"); break;
-                    default: DisplayError("Unknown Error."); break;
+                    default: DisplayError("Value not on the menu."); break;
                 }
 
             } while (!quit);
             
         }
 
+        static Character s_character;
+
+        /// <summary> Displays the menu in console. </summary>
         static void DisplayMainMenu()
         {
             Console.WriteLine("[1] Add Character");
@@ -43,53 +46,46 @@ namespace JohnButler.CharacterCreator.ConsoleHost
             Console.WriteLine("[5] Quit");
         }
 
-        static int GetMenuChoice ()
-        {
-            do
-            {
-                Console.WriteLine("What do you want to do?");
-                string input = Console.ReadLine();
-
-                if (String.IsNullOrEmpty(input))
-                {
-                    DisplayError("Input is required.");
-                    continue;
-                }
-
-                if (Int32.TryParse(input, out int value))
-                {
-                    if (value >= 1 && value <= 5)
-                        return value;
-                    else
-                        DisplayError("Value of input is not in range. (1 - 5)");
-                } 
-                else
-                    DisplayError("Input must be an integer.");
-
-            } while (true);
-        }
-
+        /// <summary> Adds a new character, prompts user to enter information on new character. </summary>
         static void AddCharacter()
         {
-            Character chr = new Character();
-            chr.Name = GetStringInput("Enter the name for the new character: ", true);
+            Character newCharacter = new Character();
+            newCharacter.Name = GetStringInput("Enter the name for the new character: ", true);
+            newCharacter.Profession = GetStringInput("Enter the profession for the new character: ", true);
+            newCharacter.Race = GetStringInput("Enter the race for the new character: ", true);
+            newCharacter.Biography = GetStringInput("Enter the biography for the new character (optional): ", false);
+
+            newCharacter.Strength = GetIntInput("Enter the new character's strength: ");
+            newCharacter.Intelligence = GetIntInput("Enter the new character's intelligence: ");
+            newCharacter.Agility = GetIntInput("Enter the new character's agility: ");
+            newCharacter.Constitution = GetIntInput("Enter the new character's constitution: ");
+            newCharacter.Charisma = GetIntInput("Enter the new character's charisma: ");
+
+            s_character = newCharacter;
         }
 
+        /// <summary> Views a character. </summary>
         static void ViewCharacter()
         {
 
         }
 
+        /// <summary> Edits an existing character. </summary>
         static void EditCharacter()
         {
 
         }
 
+        /// <summary> Deletes an existing character. </summary>
         static void DeleteCharacter()
         {
 
         }
 
+        /// <summary> Reads a string from the console. </summary>
+        /// <param name="message"> The message to display. </param>
+        /// <param name="required"> True if value is required. </param>
+        /// <returns> User input. </returns>
         static string GetStringInput(string message, bool required)
         {
             do
@@ -105,6 +101,33 @@ namespace JohnButler.CharacterCreator.ConsoleHost
             } while (true);
         }
 
+        /// <summary> Reads an int from the console. </summary>
+        /// <param name="message"> Message to display. </param>
+        /// <returns> User input. </returns>
+        static int GetIntInput(string message)
+        {
+            do
+            {
+                Console.Write(message);
+                string input = Console.ReadLine();
+
+                if (String.IsNullOrEmpty(input))
+                {
+                    DisplayError("Input is required.");
+                    continue;
+                }
+
+                if (Int32.TryParse(input, out int value) && value <= Character.maximumValue && value >= Character.minimumValue)
+                    return value;
+                else
+                    DisplayError("Input must be an integer (1 - 100).");  // TODO: Fix input validation for menu range.
+
+            } while (true);
+        }
+
+        /// <summary> Handles quit logic. </summary>
+        /// <param name="message"> Message to display. </param>
+        /// <returns> True if 'y', False if 'n'. </returns>
         static bool QuitGame ( string message )
         {
             do
@@ -132,6 +155,8 @@ namespace JohnButler.CharacterCreator.ConsoleHost
             } while (true);
         }
 
+        /// <summary> Displays an error message. </summary>
+        /// <param name="errorMessage"> Displays message to console. </param>
         static void DisplayError ( string errorMessage )
         {
             Console.ForegroundColor = ConsoleColor.Red;
