@@ -51,8 +51,8 @@ namespace JohnButler.CharacterCreator.ConsoleHost
         {
             Character newCharacter = new Character();
             newCharacter.Name = GetStringInput("Enter the name for the new character: ", true);
-            newCharacter.Profession = GetStringInput("Enter the profession for the new character: ", true);
-            newCharacter.Race = GetStringInput("Enter the race for the new character: ", true);
+            newCharacter.Profession = GetStringInput("Enter the profession for the new character: ", true, "profession");
+            newCharacter.Race = GetStringInput("Enter the race for the new character: ", true, "race");
             newCharacter.Biography = GetStringInput("Enter the biography for the new character (optional): ", false);
 
             newCharacter.Strength = GetIntInput("Enter the new character's strength: ");
@@ -86,15 +86,27 @@ namespace JohnButler.CharacterCreator.ConsoleHost
         /// <param name="message"> The message to display. </param>
         /// <param name="required"> True if value is required. </param>
         /// <returns> User input. </returns>
-        static string GetStringInput(string message, bool required)
+        static string GetStringInput(string message, bool required, string informationType = "")
         {
             do
             {
                 Console.Write(message);
-                string input = Console.ReadLine().Trim();
-
-                if (!String.IsNullOrEmpty(input) || !required)
+                string input = Console.ReadLine().Trim().ToLower();
+                if ((!String.IsNullOrEmpty(input) || !required) && informationType == "")
                     return input;
+                
+                else if ((!String.IsNullOrEmpty(input) || !required) && informationType == "profession" && IsValidProfession(input))
+                    return input;
+                
+                else if ((!String.IsNullOrEmpty(input) || !required) && informationType == "profession" && !IsValidProfession(input))
+                    DisplayError("Not a valid profession");
+                
+                else if ((!String.IsNullOrEmpty(input) || !required) && informationType == "race" && IsValidRace(input))
+                    return input;
+                
+                else if ((!String.IsNullOrEmpty(input) || !required) && informationType == "race" && !IsValidRace(input))
+                    DisplayError("Not a valid profession");
+                
                 else
                     DisplayError("Input is required.");
 
@@ -119,10 +131,35 @@ namespace JohnButler.CharacterCreator.ConsoleHost
 
                 if (Int32.TryParse(input, out int value) && value <= Character.maximumValue && value >= Character.minimumValue)
                     return value;
+                
                 else
                     DisplayError("Input must be an integer (1 - 100).");  // TODO: Fix input validation for menu range.
 
             } while (true);
+        }
+
+        /// <summary> Checks if user input for profession is valid. </summary>
+        /// <param name="input"> User input. </param>
+        /// <returns> True if input is valid. </returns>
+        static bool IsValidProfession(string input)
+        {
+            if (input == "sorcerer" || input == "knight" || input == "blacksmith" || input == "theif" || input == "diplomat")
+                return true;
+
+            else
+                return false;
+        }
+
+        /// <summary> Checks if user input for race is valid. </summary>
+        /// <param name="input"> User input. </param>
+        /// <returns> True if input is valid. </returns>
+        static bool IsValidRace(string input)
+        {
+            if (input == "human" || input == "dwarf" || input == "cyborg" || input == "elf" || input == "martian")
+                return true;
+
+            else
+                return false;
         }
 
         /// <summary> Handles quit logic. </summary>
@@ -135,6 +172,7 @@ namespace JohnButler.CharacterCreator.ConsoleHost
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine(message);
                 ConsoleKeyInfo answer = Console.ReadKey(true);
+                
                 switch (answer.Key)
                 {
                     case ConsoleKey.Y:
