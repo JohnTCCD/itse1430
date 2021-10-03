@@ -14,7 +14,7 @@ namespace JohnButler.CharacterCreator.ConsoleHost
         {
             Console.WriteLine("ITSE 1430 Character Creator");
             Console.WriteLine("John Butler  Fall 2021");
-            bool quit = false;
+            bool exit = false;
 
             do
             {
@@ -26,11 +26,11 @@ namespace JohnButler.CharacterCreator.ConsoleHost
                     case 2: ViewCharacter(); break;
                     case 3: EditCharacter(); break;
                     case 4: DeleteCharacter(); break;
-                    case 5: quit = QuitGame("Are you sure you want to quit?"); break;
+                    case 5: exit = QuitGame("Are you sure you want to quit?"); break;
                     default: DisplayError("Value not on the menu."); break;
                 }
 
-            } while (!quit);
+            } while (!exit);
             
         }
 
@@ -51,15 +51,15 @@ namespace JohnButler.CharacterCreator.ConsoleHost
         {
             Character newCharacter = new Character();
             newCharacter.Name = GetStringInput("Enter the name for the new character: ", true);
-            newCharacter.Profession = GetStringInput("Enter the profession for the new character: ", true, "profession");
-            newCharacter.Race = GetStringInput("Enter the race for the new character: ", true, "race");
+            newCharacter.Profession = GetProfession();
+            newCharacter.Race = GetRace();
             newCharacter.Biography = GetStringInput("Enter the biography for the new character (optional): ", false);
 
-            newCharacter.Strength = GetIntInput("Enter the new character's strength: ");
-            newCharacter.Intelligence = GetIntInput("Enter the new character's intelligence: ");
-            newCharacter.Agility = GetIntInput("Enter the new character's agility: ");
-            newCharacter.Constitution = GetIntInput("Enter the new character's constitution: ");
-            newCharacter.Charisma = GetIntInput("Enter the new character's charisma: ");
+            newCharacter.Strength = GetCharacterAttributeNumber("Enter the new character's strength: ");
+            newCharacter.Intelligence = GetCharacterAttributeNumber("Enter the new character's intelligence: ");
+            newCharacter.Agility = GetCharacterAttributeNumber("Enter the new character's agility: ");
+            newCharacter.Constitution = GetCharacterAttributeNumber("Enter the new character's constitution: ");
+            newCharacter.Charisma = GetCharacterAttributeNumber("Enter the new character's charisma: ");
 
             s_character = newCharacter;
         }
@@ -82,38 +82,57 @@ namespace JohnButler.CharacterCreator.ConsoleHost
 
         }
 
+        /// <summary> Prompts user to provide input for character profession. </summary>
+        /// <returns> User input for character's profession. </returns>
+        static string GetProfession()
+        {
+            do
+            {
+                string profession = GetStringInput("Enter the profession for the new character: ", true);
+
+                if (IsValidProfession(profession))
+                    return profession;
+                else
+                    DisplayError("Not a valid profession.");
+
+            } while (true);
+        }
+
+        /// <summary> Prompts user to provide input for character race. </summary>
+        /// <returns> User input for character's race. </returns>
+        static string GetRace()
+        {
+            do
+            {
+                string race = GetStringInput("Enter the race for the new character: ", true);
+
+                if (IsValidRace(race))
+                    return race;
+                else
+                    DisplayError("Not a valid race.");
+
+            } while (true);
+        }
+
         /// <summary> Reads a string from the console. </summary>
         /// <param name="message"> The message to display. </param>
         /// <param name="required"> True if value is required. </param>
         /// <returns> User input. </returns>
-        static string GetStringInput(string message, bool required, string informationType = "")
+        static string GetStringInput(string message, bool required)
         {
             do
             {
                 Console.Write(message);
                 string input = Console.ReadLine().Trim().ToLower();
-                if ((!String.IsNullOrEmpty(input) || !required) && informationType == "")
+                if (!String.IsNullOrEmpty(input) || !required)
                     return input;
-                
-                else if ((!String.IsNullOrEmpty(input) || !required) && informationType == "profession" && IsValidProfession(input))
-                    return input;
-                
-                else if ((!String.IsNullOrEmpty(input) || !required) && informationType == "profession" && !IsValidProfession(input))
-                    DisplayError("Not a valid profession");
-                
-                else if ((!String.IsNullOrEmpty(input) || !required) && informationType == "race" && IsValidRace(input))
-                    return input;
-                
-                else if ((!String.IsNullOrEmpty(input) || !required) && informationType == "race" && !IsValidRace(input))
-                    DisplayError("Not a valid profession");
-                
                 else
                     DisplayError("Input is required.");
 
             } while (true);
         }
 
-        /// <summary> Reads an int from the console. </summary>
+        /// <summary> Reads the attribute number from the console. </summary>
         /// <param name="message"> Message to display. </param>
         /// <returns> User input. </returns>
         static int GetIntInput(string message)
@@ -129,13 +148,41 @@ namespace JohnButler.CharacterCreator.ConsoleHost
                     continue;
                 }
 
-                if (Int32.TryParse(input, out int value) && value <= Character.maximumValue && value >= Character.minimumValue)
+                if (Int32.TryParse(input, out int value))
                     return value;
-                
                 else
-                    DisplayError("Input must be an integer (1 - 100).");  // TODO: Fix input validation for menu range.
+                    DisplayError("Input must be an integer.");
 
             } while (true);
+        }
+
+        /// <summary> Gets an integar user input and checks if
+        /// it's in range. </summary>
+        /// <param name="message"> Message to display. </param>
+        /// <returns> Value for a character's attribute. </returns>
+        static int GetCharacterAttributeNumber(string message)
+        {
+            do
+            {
+                int attributeNumber = GetIntInput(message);
+
+                if (IsAttributeRangeValid(attributeNumber))
+                    return attributeNumber;
+                else
+                    DisplayError("Value not in range. (1 - 100)");
+
+            } while (true);
+        }
+
+        /// <summary> Checks if the value is in range. 1 - 100 </summary>
+        /// <param name="value"> Character attribute number. </param>
+        /// <returns> True if value is in range. </returns>
+        static bool IsAttributeRangeValid(int value)
+        {
+            if (value <= Character.maximumValue && value >= Character.minimumValue)
+                return true;
+            else
+                return false;
         }
 
         /// <summary> Checks if user input for profession is valid. </summary>
@@ -157,7 +204,6 @@ namespace JohnButler.CharacterCreator.ConsoleHost
         {
             if (input == "human" || input == "dwarf" || input == "cyborg" || input == "elf" || input == "martian")
                 return true;
-
             else
                 return false;
         }
