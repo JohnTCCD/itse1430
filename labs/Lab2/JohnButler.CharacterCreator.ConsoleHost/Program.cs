@@ -54,32 +54,95 @@ namespace JohnButler.CharacterCreator.ConsoleHost
             newCharacter.Profession = GetProfession();
             newCharacter.Race = GetRace();
             newCharacter.Biography = GetStringInput("Enter the biography for the new character (optional): ", false);
-
-            newCharacter.Strength = GetCharacterAttributeNumber("Enter the new character's strength: ");
-            newCharacter.Intelligence = GetCharacterAttributeNumber("Enter the new character's intelligence: ");
-            newCharacter.Agility = GetCharacterAttributeNumber("Enter the new character's agility: ");
-            newCharacter.Constitution = GetCharacterAttributeNumber("Enter the new character's constitution: ");
-            newCharacter.Charisma = GetCharacterAttributeNumber("Enter the new character's charisma: ");
-
+            newCharacter.Strength = GetCharacterAttributeNumber("Enter the character's strength: ");
+            newCharacter.Intelligence = GetCharacterAttributeNumber("Enter the character's intelligence: ");
+            newCharacter.Agility = GetCharacterAttributeNumber("Enter the character's agility: ");
+            newCharacter.Constitution = GetCharacterAttributeNumber("Enter the character's constitution: ");
+            newCharacter.Charisma = GetCharacterAttributeNumber("Enter the character's charisma: ");
             s_character = newCharacter;
         }
 
-        /// <summary> Views a character. </summary>
+        /// <summary> Views an existing character. </summary>
         static void ViewCharacter()
         {
-
+            if (s_character != null)
+            {
+                Console.WriteLine("** Character Information **");
+                Console.WriteLine($"Name: {s_character.Name}");
+                Console.WriteLine($"Profession: {s_character.Profession}");
+                Console.WriteLine($"Race: {s_character.Race}");
+                Console.WriteLine($"Biography: {s_character.Biography}");
+                Console.WriteLine($"Strength: {s_character.Strength}");
+                Console.WriteLine($"Intelligence: {s_character.Intelligence}");
+                Console.WriteLine($"Agility: {s_character.Agility}");
+                Console.WriteLine($"Constitution: {s_character.Constitution}");
+                Console.WriteLine($"Charisma: {s_character.Charisma}");
+                Console.WriteLine();
+            }
+            else
+                DisplayError("There is no character created.");
         }
 
         /// <summary> Edits an existing character. </summary>
         static void EditCharacter()
         {
+            if (s_character == null)
+                AddCharacter();
 
+            Console.WriteLine($"Name: {s_character.Name}");
+            if (DisplayConfirmation("Do you want to change the character's name? (Y/N)"))
+                s_character.Name = GetStringInput("Enter the new name for the character: ", true);
+
+            Console.WriteLine($"Profession: {s_character.Profession}");
+            if (DisplayConfirmation("Do you want to change the character's profession? (Y/N)"))
+                s_character.Profession = GetProfession();
+
+            Console.WriteLine($"Race: {s_character.Race}");
+            if (DisplayConfirmation("Do you want to change the character's race? (Y/N)"))
+                s_character.Race = GetRace();
+
+            Console.WriteLine($"Biography: {s_character.Biography}");
+            if (DisplayConfirmation("Do you want to change the character's biography? (Y/N)"))
+                s_character.Biography = GetStringInput("Enter the new biography for the character: ", false);
+
+            Console.WriteLine($"Strength: {s_character.Strength}");
+            if (DisplayConfirmation("Do you want to change the character's strength? (Y/N)"))
+                s_character.Strength = GetIntInput("Enter the character's strength: ");
+
+            Console.WriteLine($"Intelligence: {s_character.Intelligence}");
+            if (DisplayConfirmation("Do you want to change the character's intelligence? (Y/N"))
+                s_character.Intelligence = GetIntInput("Enter the character's intelligence: ");
+
+            Console.WriteLine($"Agility: {s_character.Agility}");
+            if (DisplayConfirmation("Do you want to change the character's Agility? (Y/N)"))
+                s_character.Agility = GetIntInput("Enter the character's agility: ");
+
+            Console.WriteLine($"Constitution: {s_character.Constitution}");
+            if (DisplayConfirmation("Do you want to change the character's Constitution? (Y/N)"))
+                s_character.Constitution = GetIntInput("Enter the character's constitution: ");
+
+            Console.WriteLine($"Charisma: {s_character.Charisma}");
+            if (DisplayConfirmation("Do you want to change the character's Charisma?"))
+                s_character.Charisma = GetIntInput("Enter the character's charisma: ");
+
+            ViewCharacter();
         }
 
         /// <summary> Deletes an existing character. </summary>
         static void DeleteCharacter()
         {
-
+            if (s_character != null)
+            {
+                if (DisplayConfirmation("Are you sure you want to delete the character? (Y/N)"))
+                {
+                    s_character = null;
+                    Console.WriteLine("Character deleted.");
+                } 
+                else
+                    Console.WriteLine("Character not deleted.");
+            }
+            else
+                DisplayError("There is no character to delete.");
         }
 
         /// <summary> Prompts user to provide input for character profession. </summary>
@@ -88,7 +151,7 @@ namespace JohnButler.CharacterCreator.ConsoleHost
         {
             do
             {
-                string profession = GetStringInput("Enter the profession for the new character: ", true);
+                string profession = GetStringInput("Enter the profession for the character: ", true);
 
                 if (IsValidProfession(profession))
                     return profession;
@@ -104,7 +167,7 @@ namespace JohnButler.CharacterCreator.ConsoleHost
         {
             do
             {
-                string race = GetStringInput("Enter the race for the new character: ", true);
+                string race = GetStringInput("Enter the race for the character: ", true);
 
                 if (IsValidRace(race))
                     return race;
@@ -123,7 +186,7 @@ namespace JohnButler.CharacterCreator.ConsoleHost
             do
             {
                 Console.Write(message);
-                string input = Console.ReadLine().Trim().ToLower();
+                string input = Console.ReadLine().Trim();
                 if (!String.IsNullOrEmpty(input) || !required)
                     return input;
                 else
@@ -190,9 +253,10 @@ namespace JohnButler.CharacterCreator.ConsoleHost
         /// <returns> True if input is valid. </returns>
         static bool IsValidProfession(string input)
         {
+            input = input.ToLower();
+
             if (input == "sorcerer" || input == "knight" || input == "blacksmith" || input == "theif" || input == "diplomat")
                 return true;
-
             else
                 return false;
         }
@@ -202,11 +266,34 @@ namespace JohnButler.CharacterCreator.ConsoleHost
         /// <returns> True if input is valid. </returns>
         static bool IsValidRace(string input)
         {
+            input = input.ToLower();
+
             if (input == "human" || input == "dwarf" || input == "cyborg" || input == "elf" || input == "martian")
                 return true;
             else
                 return false;
         }
+
+        /// <summary> Displays a confirmation. </summary>
+        /// <param name="message"> Message to display. </param>
+        /// <returns> True if Y, false if N. </returns>
+        static bool DisplayConfirmation(string message)
+        {
+            do
+            {
+                Console.WriteLine(message);
+                ConsoleKeyInfo answer = Console.ReadKey(true);
+
+                switch (answer.Key)
+                {
+                    case ConsoleKey.Y: return true;
+                    case ConsoleKey.N: return false;
+                    default: DisplayError("Invalid input."); break;
+                }
+
+            } while (true);
+        }
+
 
         /// <summary> Handles quit logic. </summary>
         /// <param name="message"> Message to display. </param>
