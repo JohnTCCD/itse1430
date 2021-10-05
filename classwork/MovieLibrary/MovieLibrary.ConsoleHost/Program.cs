@@ -45,7 +45,9 @@ namespace MovieLibrary.ConsoleHost
 
         static void AddMovie()
         {
-             var newMovie = new Movie();
+             var newMovie = new Movie(10, "temp");
+            //newMovie.Id = 10;
+            //newMovie.Title = "temp";
 
             do
             {
