@@ -20,6 +20,7 @@ namespace JohnButler.CharacterCreator.ConsoleHost
             {
                 DisplayMainMenu();
                 int choice = GetIntInput("Enter your choice: ");
+
                 switch (choice)
                 {
                     case 1: AddCharacter(); break;
@@ -49,17 +50,22 @@ namespace JohnButler.CharacterCreator.ConsoleHost
         /// <summary> Adds a new character, prompts user to enter information on new character. </summary>
         static void AddCharacter()
         {
-            Character newCharacter = new Character();
-            newCharacter.Name = GetStringInput("Enter the name for the new character: ", true);
-            newCharacter.Profession = GetProfession();
-            newCharacter.Race = GetRace();
-            newCharacter.Biography = GetStringInput("Enter the biography for the new character (optional): ", false);
-            newCharacter.Strength = GetCharacterAttributeNumber("Enter the character's strength: ");
-            newCharacter.Intelligence = GetCharacterAttributeNumber("Enter the character's intelligence: ");
-            newCharacter.Agility = GetCharacterAttributeNumber("Enter the character's agility: ");
-            newCharacter.Constitution = GetCharacterAttributeNumber("Enter the character's constitution: ");
-            newCharacter.Charisma = GetCharacterAttributeNumber("Enter the character's charisma: ");
-            s_character = newCharacter;
+            if (s_character != null)
+                DisplayError("There is already a character made.");
+            else
+            {
+                Character newCharacter = new Character();
+                newCharacter.Name = GetStringInput("Enter the name for the new character: ", true);
+                newCharacter.Profession = GetProfession();
+                newCharacter.Race = GetRace();
+                newCharacter.Biography = GetStringInput("Enter the biography for the new character (optional): ", false);
+                newCharacter.Strength = GetCharacterAttributeNumber("Enter the character's strength: ");
+                newCharacter.Intelligence = GetCharacterAttributeNumber("Enter the character's intelligence: ");
+                newCharacter.Agility = GetCharacterAttributeNumber("Enter the character's agility: ");
+                newCharacter.Constitution = GetCharacterAttributeNumber("Enter the character's constitution: ");
+                newCharacter.Charisma = GetCharacterAttributeNumber("Enter the character's charisma: ");
+                s_character = newCharacter;
+            }
         }
 
         /// <summary> Views an existing character. </summary>
@@ -67,6 +73,7 @@ namespace JohnButler.CharacterCreator.ConsoleHost
         {
             if (s_character != null)
             {
+                Console.WriteLine();
                 Console.WriteLine("** Character Information **");
                 Console.WriteLine($"Name: {s_character.Name}");
                 Console.WriteLine($"Profession: {s_character.Profession}");
@@ -87,43 +94,13 @@ namespace JohnButler.CharacterCreator.ConsoleHost
         static void EditCharacter()
         {
             if (s_character == null)
+            {
+                Console.WriteLine("No character created yet, creating new character.");
                 AddCharacter();
-
-            Console.WriteLine($"Name: {s_character.Name}");
-            if (DisplayConfirmation("Do you want to change the character's name? (Y/N)"))
-                s_character.Name = GetStringInput("Enter the new name for the character: ", true);
-
-            Console.WriteLine($"Profession: {s_character.Profession}");
-            if (DisplayConfirmation("Do you want to change the character's profession? (Y/N)"))
-                s_character.Profession = GetProfession();
-
-            Console.WriteLine($"Race: {s_character.Race}");
-            if (DisplayConfirmation("Do you want to change the character's race? (Y/N)"))
-                s_character.Race = GetRace();
-
-            Console.WriteLine($"Biography: {s_character.Biography}");
-            if (DisplayConfirmation("Do you want to change the character's biography? (Y/N)"))
-                s_character.Biography = GetStringInput("Enter the new biography for the character: ", false);
-
-            Console.WriteLine($"Strength: {s_character.Strength}");
-            if (DisplayConfirmation("Do you want to change the character's strength? (Y/N)"))
-                s_character.Strength = GetIntInput("Enter the character's strength: ");
-
-            Console.WriteLine($"Intelligence: {s_character.Intelligence}");
-            if (DisplayConfirmation("Do you want to change the character's intelligence? (Y/N"))
-                s_character.Intelligence = GetIntInput("Enter the character's intelligence: ");
-
-            Console.WriteLine($"Agility: {s_character.Agility}");
-            if (DisplayConfirmation("Do you want to change the character's Agility? (Y/N)"))
-                s_character.Agility = GetIntInput("Enter the character's agility: ");
-
-            Console.WriteLine($"Constitution: {s_character.Constitution}");
-            if (DisplayConfirmation("Do you want to change the character's Constitution? (Y/N)"))
-                s_character.Constitution = GetIntInput("Enter the character's constitution: ");
-
-            Console.WriteLine($"Charisma: {s_character.Charisma}");
-            if (DisplayConfirmation("Do you want to change the character's Charisma?"))
-                s_character.Charisma = GetIntInput("Enter the character's charisma: ");
+            }
+                
+            for (int i = 1; i <= 9; i++)
+                DisplayCharacteristic(i);
 
             ViewCharacter();
         }
@@ -133,16 +110,63 @@ namespace JohnButler.CharacterCreator.ConsoleHost
         {
             if (s_character != null)
             {
-                if (DisplayConfirmation("Are you sure you want to delete the character? (Y/N)"))
+                Console.WriteLine();
+
+                if (ConfirmChange("Are you sure you want to delete the character? (Y/N)"))
                 {
                     s_character = null;
                     Console.WriteLine("Character deleted.");
                 } 
                 else
                     Console.WriteLine("Character not deleted.");
+
+                Console.WriteLine();
             }
             else
                 DisplayError("There is no character to delete.");
+        }
+
+        /// <summary> Displays an individual characteristic of the character. </summary>
+        /// <param name="characteristicNumber"> Which characteristic to display. </param>
+        static void DisplayCharacteristic (int characteristicNumber)
+        {
+            Console.WriteLine();
+
+            switch (characteristicNumber)
+            {
+                case 1: Console.WriteLine($"Name: {s_character.Name}"); break;
+                case 2: Console.WriteLine($"Profession: {s_character.Profession}"); break;
+                case 3: Console.WriteLine($"Race: {s_character.Race}"); break;
+                case 4: Console.WriteLine($"Biography: {s_character.Biography}"); break;
+                case 5: Console.WriteLine($"Strength: {s_character.Strength}"); break;
+                case 6: Console.WriteLine($"Intelligence: {s_character.Intelligence}"); break;
+                case 7: Console.WriteLine($"Agility: {s_character.Agility}"); break;
+                case 8: Console.WriteLine($"Constitution: {s_character.Constitution}"); break;
+                case 9: Console.WriteLine($"Charisma: {s_character.Charisma}"); break;
+                default: DisplayError("Unknown Error."); break;
+            }
+
+            if (ConfirmChange("Do you want to change this value? (Y/N)"))
+                ChangeCharacteristic(characteristicNumber);
+        }
+
+        /// <summary> Prompts user to change the value of characteristic. </summary>
+        /// <param name="characteristicNumber"> Which characteristic to change. </param>
+        static void ChangeCharacteristic(int characteristicNumber)
+        {
+            switch (characteristicNumber)
+            {
+                case 1: s_character.Name = GetStringInput("Enter the new name for the character: ", true); break;
+                case 2: s_character.Profession = GetProfession(); break;
+                case 3: s_character.Race = GetRace(); break;
+                case 4: s_character.Biography = GetStringInput("Enter the new biography for the character (optional): ", false); break;
+                case 5: s_character.Strength = GetIntInput("Enter the new strength for the character: "); break;
+                case 6: s_character.Intelligence = GetIntInput("Enter the new intelligence for the character: "); break;
+                case 7: s_character.Agility = GetIntInput("Enter the new agility for the character: "); break;
+                case 8: s_character.Constitution = GetIntInput("Enter the new constitution for the character: "); break;
+                case 9: s_character.Charisma = GetIntInput("Enter the new charisma for the character: "); break;
+                default: DisplayError("Unknown Error."); break;
+            }
         }
 
         /// <summary> Prompts user to provide input for character profession. </summary>
@@ -151,9 +175,10 @@ namespace JohnButler.CharacterCreator.ConsoleHost
         {
             do
             {
-                string profession = GetStringInput("Enter the profession for the character: ", true);
+                Console.WriteLine("[Sorcerer]  [Knight]  [Diplomat]  [Blacksmith]  [Theif]");
+                string profession = GetStringInput("Enter one of the five professions above for the character: ", true);
 
-                if (IsValidProfession(profession))
+                if (ValidateProfession(profession))
                     return profession;
                 else
                     DisplayError("Not a valid profession.");
@@ -167,9 +192,10 @@ namespace JohnButler.CharacterCreator.ConsoleHost
         {
             do
             {
-                string race = GetStringInput("Enter the race for the character: ", true);
+                Console.WriteLine("[Human]  [Elf]  [Cyborg]  [Dwarf]  [Martian]");
+                string race = GetStringInput("Enter one of the five races above for the character: ", true);
 
-                if (IsValidRace(race))
+                if (ValidateRace(race))
                     return race;
                 else
                     DisplayError("Not a valid race.");
@@ -187,6 +213,7 @@ namespace JohnButler.CharacterCreator.ConsoleHost
             {
                 Console.Write(message);
                 string input = Console.ReadLine().Trim();
+
                 if (!String.IsNullOrEmpty(input) || !required)
                     return input;
                 else
@@ -229,7 +256,7 @@ namespace JohnButler.CharacterCreator.ConsoleHost
             {
                 int attributeNumber = GetIntInput(message);
 
-                if (IsAttributeRangeValid(attributeNumber))
+                if (ValidateRange(attributeNumber))
                     return attributeNumber;
                 else
                     DisplayError("Value not in range. (1 - 100)");
@@ -240,7 +267,7 @@ namespace JohnButler.CharacterCreator.ConsoleHost
         /// <summary> Checks if the value is in range. 1 - 100 </summary>
         /// <param name="value"> Character attribute number. </param>
         /// <returns> True if value is in range. </returns>
-        static bool IsAttributeRangeValid(int value)
+        static bool ValidateRange(int value)
         {
             if (value <= Character.maximumValue && value >= Character.minimumValue)
                 return true;
@@ -251,33 +278,39 @@ namespace JohnButler.CharacterCreator.ConsoleHost
         /// <summary> Checks if user input for profession is valid. </summary>
         /// <param name="input"> User input. </param>
         /// <returns> True if input is valid. </returns>
-        static bool IsValidProfession(string input)
+        static bool ValidateProfession(string input)
         {
-            input = input.ToLower();
-
-            if (input == "sorcerer" || input == "knight" || input == "blacksmith" || input == "theif" || input == "diplomat")
-                return true;
-            else
-                return false;
+            switch (input.ToLower())
+            {
+                case "sorcerer":
+                case "knight":
+                case "blacksmith":
+                case "theif":
+                case "diplomat": return true;
+                default: return false;
+            }
         }
 
         /// <summary> Checks if user input for race is valid. </summary>
         /// <param name="input"> User input. </param>
         /// <returns> True if input is valid. </returns>
-        static bool IsValidRace(string input)
+        static bool ValidateRace(string input)
         {
-            input = input.ToLower();
-
-            if (input == "human" || input == "dwarf" || input == "cyborg" || input == "elf" || input == "martian")
-                return true;
-            else
-                return false;
+            switch (input.ToLower())
+            {
+                case "human":
+                case "dwarf":
+                case "cyborg":
+                case "elf":
+                case "martian": return true;
+                default: return false;
+            }
         }
 
         /// <summary> Displays a confirmation. </summary>
         /// <param name="message"> Message to display. </param>
         /// <returns> True if Y, false if N. </returns>
-        static bool DisplayConfirmation(string message)
+        static bool ConfirmChange(string message)
         {
             do
             {
@@ -326,7 +359,7 @@ namespace JohnButler.CharacterCreator.ConsoleHost
             } while (true);
         }
 
-        /// <summary> Displays an error message. </summary>
+        /// <summary> Displays an error message with red text. </summary>
         /// <param name="errorMessage"> Displays message to console. </param>
         static void DisplayError ( string errorMessage )
         {
