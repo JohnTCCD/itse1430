@@ -36,27 +36,27 @@ namespace JohnButler.CharacterCreator
             set { _biography = value?.Trim(); }
         }
 
-        public const int maximumValue = 100, minimumValue = 1;
+        public const int MaximumValue = 100, MinimumValue = 1;
 
         /// <summary> Gets or sets the strength. </summary>
         /// <value> minimumValue </value>
-        public int Strength { get; set; } = minimumValue;
+        public int Strength { get; set; } = MinimumValue;
 
         /// <summary> Gets or sets the intelligence. </summary>
         /// <value> minimumValue </value>
-        public int Intelligence { get; set; } = minimumValue;
+        public int Intelligence { get; set; } = MinimumValue;
 
         /// <summary> Gets or sets the agility. </summary>
         /// <value> minimumValue </value>
-        public int Agility { get; set; } = minimumValue;
+        public int Agility { get; set; } = MinimumValue;
 
         /// <summary> Gets or sets the constitution. </summary>
         /// <value> minimumValue </value>
-        public int Constitution { get; set; } = minimumValue;
+        public int Constitution { get; set; } = MinimumValue;
 
         /// <summary> Gets or sets the charisma. </summary>
         /// <value> minimumValue </value>
-        public int Charisma { get; set; } = minimumValue;
+        public int Charisma { get; set; } = MinimumValue;
 
     }
 }

@@ -14,6 +14,7 @@ namespace JohnButler.CharacterCreator.ConsoleHost
         {
             Console.WriteLine("ITSE 1430 Character Creator");
             Console.WriteLine("John Butler  Fall 2021");
+            Console.WriteLine();
             bool exit = false;
 
             do
@@ -98,8 +99,9 @@ namespace JohnButler.CharacterCreator.ConsoleHost
                 Console.WriteLine("No character created yet, creating new character.");
                 AddCharacter();
             }
-                
-            for (int i = 1; i <= 9; i++)
+
+            const int NumberOfCharacteristics = 9;
+            for (int i = 1; i <= NumberOfCharacteristics; i++)
                 DisplayCharacteristic(i);
 
             ViewCharacter();
@@ -160,11 +162,11 @@ namespace JohnButler.CharacterCreator.ConsoleHost
                 case 2: s_character.Profession = GetProfession(); break;
                 case 3: s_character.Race = GetRace(); break;
                 case 4: s_character.Biography = GetStringInput("Enter the new biography for the character (optional): ", false); break;
-                case 5: s_character.Strength = GetIntInput("Enter the new strength for the character: "); break;
-                case 6: s_character.Intelligence = GetIntInput("Enter the new intelligence for the character: "); break;
-                case 7: s_character.Agility = GetIntInput("Enter the new agility for the character: "); break;
-                case 8: s_character.Constitution = GetIntInput("Enter the new constitution for the character: "); break;
-                case 9: s_character.Charisma = GetIntInput("Enter the new charisma for the character: "); break;
+                case 5: s_character.Strength = GetCharacterAttributeNumber("Enter the new strength for the character: "); break;
+                case 6: s_character.Intelligence = GetCharacterAttributeNumber("Enter the new intelligence for the character: "); break;
+                case 7: s_character.Agility = GetCharacterAttributeNumber("Enter the new agility for the character: "); break;
+                case 8: s_character.Constitution = GetCharacterAttributeNumber("Enter the new constitution for the character: "); break;
+                case 9: s_character.Charisma = GetCharacterAttributeNumber("Enter the new charisma for the character: "); break;
                 default: DisplayError("Unknown Error."); break;
             }
         }
@@ -269,7 +271,7 @@ namespace JohnButler.CharacterCreator.ConsoleHost
         /// <returns> True if value is in range. </returns>
         static bool ValidateRange(int value)
         {
-            if (value <= Character.maximumValue && value >= Character.minimumValue)
+            if (value <= Character.MaximumValue && value >= Character.MinimumValue)
                 return true;
             else
                 return false;
