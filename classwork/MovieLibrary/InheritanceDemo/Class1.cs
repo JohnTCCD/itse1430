@@ -54,7 +54,10 @@ namespace InheritanceDemo
     {
         public int Radius { get; set; }
 
-        public abstract void Draw ();
+        public override void Draw ()
+        {
+            // Draw a circle
+        }
 
         public override void DisplayText ()
         {
