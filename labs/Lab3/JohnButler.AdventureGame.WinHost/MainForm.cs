@@ -29,5 +29,11 @@ namespace JohnButler.AdventureGame.WinHost
         {
             return MessageBox.Show(message, title, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes;
         }
+
+        private void OnHelpAbout ( object sender, EventArgs e )
+        {
+            var dialog = new AboutBox();
+            dialog.ShowDialog();
+        }
     }
 }
