@@ -165,6 +165,11 @@ namespace MovieLibrary
             return movie;
         }
 
+        public override string ToString ()
+        {
+            return $"{Title} ({ReleaseYear})";
+        }
+
         public string Validate ( /*Movie this*/ )
         {
             //Title is required
