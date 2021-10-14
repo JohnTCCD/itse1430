@@ -1,4 +1,9 @@
-﻿using System;
+﻿/*========================
+John Butler
+ITSE 1430 Fall 2021
+Lab 2 : Character Creator
+========================*/
+using System;
 
 namespace JohnButler.CharacterCreator
 {
@@ -6,7 +11,6 @@ namespace JohnButler.CharacterCreator
     public class Character
     {
         private string _name, _profession, _race, _biography;
-        private int _strength, _intelligence, _agility, _constitution, _charisma;
 
         /// <summary> Gets or sets the name. </summary>
         public string Name
