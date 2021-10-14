@@ -36,7 +36,7 @@ namespace MovieLibrary.WinHost
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this._isClassic = new System.Windows.Forms.CheckBox();
+            this._chkIsClassic = new System.Windows.Forms.CheckBox();
             this._cbRating = new System.Windows.Forms.ComboBox();
             this._txtTitle = new System.Windows.Forms.TextBox();
             this._txtRunLength = new System.Windows.Forms.TextBox();
@@ -46,6 +46,7 @@ namespace MovieLibrary.WinHost
             // 
             // _butnCancel
             // 
+            this._butnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this._butnCancel.Location = new System.Drawing.Point(665, 384);
             this._butnCancel.Name = "_butnCancel";
             this._butnCancel.Size = new System.Drawing.Size(75, 23);
@@ -55,6 +56,7 @@ namespace MovieLibrary.WinHost
             // 
             // _butnSave
             // 
+            this._butnSave.DialogResult = System.Windows.Forms.DialogResult.OK;
             this._butnSave.Location = new System.Drawing.Point(565, 384);
             this._butnSave.Name = "_butnSave";
             this._butnSave.Size = new System.Drawing.Size(75, 23);
@@ -108,18 +110,19 @@ namespace MovieLibrary.WinHost
             this.label5.TabIndex = 6;
             this.label5.Text = "Description";
             // 
-            // _isClassic
+            // _chkIsClassic
             // 
-            this._isClassic.AutoSize = true;
-            this._isClassic.Location = new System.Drawing.Point(108, 294);
-            this._isClassic.Name = "_isClassic";
-            this._isClassic.Size = new System.Drawing.Size(81, 19);
-            this._isClassic.TabIndex = 8;
-            this._isClassic.Text = "Is Classic ?";
-            this._isClassic.UseVisualStyleBackColor = true;
+            this._chkIsClassic.AutoSize = true;
+            this._chkIsClassic.Location = new System.Drawing.Point(108, 294);
+            this._chkIsClassic.Name = "_chkIsClassic";
+            this._chkIsClassic.Size = new System.Drawing.Size(81, 19);
+            this._chkIsClassic.TabIndex = 8;
+            this._chkIsClassic.Text = "Is Classic ?";
+            this._chkIsClassic.UseVisualStyleBackColor = true;
             // 
             // _cbRating
             // 
+            this._cbRating.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this._cbRating.FormattingEnabled = true;
             this._cbRating.Items.AddRange(new object[] {
             "G",
@@ -169,7 +172,7 @@ namespace MovieLibrary.WinHost
             this.Controls.Add(this._txtRunLength);
             this.Controls.Add(this._txtTitle);
             this.Controls.Add(this._cbRating);
-            this.Controls.Add(this._isClassic);
+            this.Controls.Add(this._chkIsClassic);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -193,7 +196,7 @@ namespace MovieLibrary.WinHost
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.CheckBox _isClassic;
+        private System.Windows.Forms.CheckBox _chkIsClassic;
         private System.Windows.Forms.ComboBox _cbRating;
         private System.Windows.Forms.TextBox _txtTitle;
         private System.Windows.Forms.TextBox _txtRunLength;
