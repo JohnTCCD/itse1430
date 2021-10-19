@@ -1,7 +1,7 @@
 ﻿/*========================
 John Butler
 ITSE 1430 Fall 2021
-Lab 2 : Character Creator
+Lab 3 : Character Creator
 ========================*/
 using System;
 
