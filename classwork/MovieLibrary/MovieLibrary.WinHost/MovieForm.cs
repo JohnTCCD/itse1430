@@ -39,14 +39,14 @@ namespace MovieLibrary.WinHost
             _chkIsClassic.Checked = movie.IsClassic;
         }
 
-        //Callsed when Save lcilcked
+        //Called when Save cilcked
         private void OnSave ( object sender, EventArgs e )
         {
             //Build up a Movie
             var movie = new Movie();
             movie.Title = _txtTitle.Text;
             movie.Description = _txtDescription.Text;
-            movie.Rating = _cbRating.SelectedText;
+            movie.Rating = _cbRating.Text;
             movie.RunLength = GetInt32(_txtRunLength);
             movie.ReleaseYear = GetInt32(_txtReleaseYear);
             movie.IsClassic = _chkIsClassic.Checked;
@@ -80,6 +80,13 @@ namespace MovieLibrary.WinHost
                 return result;
 
             return -1;
+        }
+
+        private void _txtTitle_KeyUp ( object sender, KeyEventArgs e )
+        {
+            var target = sender as TextBox;
+
+            System.Diagnostics.Debug.WriteLine($"[KeyUp: Text={target.Name} Key={e.KeyCode}");
         }
     }
 }
