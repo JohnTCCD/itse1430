@@ -40,6 +40,7 @@ namespace JohnButler.AdventureGame.WinHost
         {
             var dialog = new CharacterForm();
             dialog.StartPosition = FormStartPosition.CenterParent;
+            dialog.ShowDialog();
         }
     }
 }

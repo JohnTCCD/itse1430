@@ -174,7 +174,14 @@ namespace JohnButler.AdventureGame.WinHost
             // 
             // _cbProfession
             // 
+            this._cbProfession.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this._cbProfession.FormattingEnabled = true;
+            this._cbProfession.Items.AddRange(new object[] {
+            "Sorcerer",
+            "Diplomat",
+            "Theif",
+            "Blacksmith",
+            "Knight"});
             this._cbProfession.Location = new System.Drawing.Point(92, 80);
             this._cbProfession.Name = "_cbProfession";
             this._cbProfession.Size = new System.Drawing.Size(121, 23);
@@ -182,7 +189,14 @@ namespace JohnButler.AdventureGame.WinHost
             // 
             // _cbRace
             // 
+            this._cbRace.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this._cbRace.FormattingEnabled = true;
+            this._cbRace.Items.AddRange(new object[] {
+            "Dwarf",
+            "Elf",
+            "Human",
+            "Martian",
+            "Cyborg"});
             this._cbRace.Location = new System.Drawing.Point(92, 109);
             this._cbRace.Name = "_cbRace";
             this._cbRace.Size = new System.Drawing.Size(121, 23);
