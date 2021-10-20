@@ -32,9 +32,20 @@ namespace JohnButler.AdventureGame.WinHost
             character.Constitution = GetIntInput(_txtConstitution);
             character.Charisma = GetIntInput(_txtCharisma);
 
-            //TODO: validate new character
+            var error = character.Validate();
+            if (!String.IsNullOrEmpty(error))
+            {
+                DisplayError(error, "Error");
+                DialogResult = DialogResult.None;
+                return;
+            }
 
             Character = character;
+        }
+
+        private void OnCancel ( object sender, EventArgs e )
+        {
+            Close();
         }
 
         private int GetIntInput(Control control)
@@ -44,6 +55,11 @@ namespace JohnButler.AdventureGame.WinHost
                 return result;
 
             return -1;
+        }
+
+        private void DisplayError ( string message, string title )
+        {
+            MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }

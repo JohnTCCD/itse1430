@@ -62,5 +62,34 @@ namespace JohnButler.AdventureGame
         /// <value> minimumValue </value>
         public int Charisma { get; set; } = MinimumValue;
 
+        public string Validate()
+        {
+            if (String.IsNullOrEmpty(Name))
+                return "Name is required.";
+
+            if (String.IsNullOrEmpty(Profession))
+                return "Profession is required.";
+
+            if (String.IsNullOrEmpty(Race))
+                return "Race is required.";
+
+            if (Intelligence < MinimumValue || Intelligence > MaximumValue)
+                return "Intelligence must be 1 - 100.";
+
+            if (Strength < MinimumValue || Strength > MaximumValue)
+                return "Strength must be 1 - 100.";
+
+            if (Agility < MinimumValue || Agility > MaximumValue)
+                return "Agility must be 1 - 100.";
+
+            if (Constitution < MinimumValue || Constitution > MaximumValue)
+                return "Constitution must be 1 - 100.";
+
+            if (Charisma < MinimumValue || Charisma > MaximumValue)
+                return "Charisma must be 1 - 100.";
+
+            return null;
+        }
+
     }
 }

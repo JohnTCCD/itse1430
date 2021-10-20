@@ -59,9 +59,11 @@ namespace JohnButler.AdventureGame.WinHost
             this._btnCancel.TabIndex = 10;
             this._btnCancel.Text = "Cancel";
             this._btnCancel.UseVisualStyleBackColor = true;
+            this._btnCancel.Click += new System.EventHandler(this.OnCancel);
             // 
             // _btnSave
             // 
+            this._btnSave.DialogResult = System.Windows.Forms.DialogResult.OK;
             this._btnSave.Location = new System.Drawing.Point(138, 331);
             this._btnSave.Name = "_btnSave";
             this._btnSave.Size = new System.Drawing.Size(75, 23);
@@ -83,6 +85,7 @@ namespace JohnButler.AdventureGame.WinHost
             this._txtIntelligence.Name = "_txtIntelligence";
             this._txtIntelligence.Size = new System.Drawing.Size(44, 23);
             this._txtIntelligence.TabIndex = 4;
+            this._txtIntelligence.Text = "50";
             // 
             // _txtBiography
             // 
@@ -208,6 +211,7 @@ namespace JohnButler.AdventureGame.WinHost
             this._txtStrength.Name = "_txtStrength";
             this._txtStrength.Size = new System.Drawing.Size(44, 23);
             this._txtStrength.TabIndex = 5;
+            this._txtStrength.Text = "50";
             // 
             // _txtAgility
             // 
@@ -215,6 +219,7 @@ namespace JohnButler.AdventureGame.WinHost
             this._txtAgility.Name = "_txtAgility";
             this._txtAgility.Size = new System.Drawing.Size(44, 23);
             this._txtAgility.TabIndex = 6;
+            this._txtAgility.Text = "50";
             // 
             // _txtConstitution
             // 
@@ -222,6 +227,7 @@ namespace JohnButler.AdventureGame.WinHost
             this._txtConstitution.Name = "_txtConstitution";
             this._txtConstitution.Size = new System.Drawing.Size(44, 23);
             this._txtConstitution.TabIndex = 7;
+            this._txtConstitution.Text = "50";
             // 
             // _txtCharisma
             // 
@@ -229,6 +235,7 @@ namespace JohnButler.AdventureGame.WinHost
             this._txtCharisma.Name = "_txtCharisma";
             this._txtCharisma.Size = new System.Drawing.Size(44, 23);
             this._txtCharisma.TabIndex = 8;
+            this._txtCharisma.Text = "50";
             // 
             // CharacterForm
             // 
@@ -255,6 +262,7 @@ namespace JohnButler.AdventureGame.WinHost
             this.Controls.Add(this._txtName);
             this.Controls.Add(this._btnSave);
             this.Controls.Add(this._btnCancel);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "CharacterForm";
