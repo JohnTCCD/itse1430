@@ -38,6 +38,7 @@ namespace JohnButler.AdventureGame.WinHost
             this.addCharacterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this._lbCharacters = new System.Windows.Forms.ListBox();
+            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -89,7 +90,8 @@ namespace JohnButler.AdventureGame.WinHost
             // characterToolStripMenuItem
             // 
             this.characterToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.addCharacterToolStripMenuItem});
+            this.addCharacterToolStripMenuItem,
+            this.editToolStripMenuItem});
             this.characterToolStripMenuItem.Name = "characterToolStripMenuItem";
             this.characterToolStripMenuItem.Size = new System.Drawing.Size(70, 20);
             this.characterToolStripMenuItem.Text = "&Character";
@@ -120,6 +122,7 @@ namespace JohnButler.AdventureGame.WinHost
             // _lbCharacters
             // 
             this.tableLayoutPanel1.SetColumnSpan(this._lbCharacters, 2);
+            this._lbCharacters.DisplayMember = "Name";
             this._lbCharacters.Dock = System.Windows.Forms.DockStyle.Fill;
             this._lbCharacters.FormattingEnabled = true;
             this._lbCharacters.ItemHeight = 15;
@@ -127,6 +130,14 @@ namespace JohnButler.AdventureGame.WinHost
             this._lbCharacters.Name = "_lbCharacters";
             this._lbCharacters.Size = new System.Drawing.Size(778, 157);
             this._lbCharacters.TabIndex = 0;
+            // 
+            // editToolStripMenuItem
+            // 
+            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+            this.editToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D0)));
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.editToolStripMenuItem.Text = "E&dit";
+            this.editToolStripMenuItem.Click += new System.EventHandler(this.OnCharacterEdit);
             // 
             // MainForm
             // 
@@ -158,6 +169,7 @@ namespace JohnButler.AdventureGame.WinHost
         private System.Windows.Forms.ToolStripMenuItem addCharacterToolStripMenuItem;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.ListBox _lbCharacters;
+        private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
     }
 }
 
