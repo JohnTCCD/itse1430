@@ -36,9 +36,10 @@ namespace JohnButler.AdventureGame.WinHost
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.characterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addCharacterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this._lbCharacters = new System.Windows.Forms.ListBox();
-            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -91,7 +92,8 @@ namespace JohnButler.AdventureGame.WinHost
             // 
             this.characterToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.addCharacterToolStripMenuItem,
-            this.editToolStripMenuItem});
+            this.editToolStripMenuItem,
+            this.deleteToolStripMenuItem});
             this.characterToolStripMenuItem.Name = "characterToolStripMenuItem";
             this.characterToolStripMenuItem.Size = new System.Drawing.Size(70, 20);
             this.characterToolStripMenuItem.Text = "&Character";
@@ -100,9 +102,17 @@ namespace JohnButler.AdventureGame.WinHost
             // 
             this.addCharacterToolStripMenuItem.Name = "addCharacterToolStripMenuItem";
             this.addCharacterToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.addCharacterToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.addCharacterToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.addCharacterToolStripMenuItem.Text = "N&ew";
             this.addCharacterToolStripMenuItem.Click += new System.EventHandler(this.OnCharacterAdd);
+            // 
+            // editToolStripMenuItem
+            // 
+            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+            this.editToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D0)));
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.editToolStripMenuItem.Text = "E&dit";
+            this.editToolStripMenuItem.Click += new System.EventHandler(this.OnCharacterEdit);
             // 
             // tableLayoutPanel1
             // 
@@ -131,13 +141,13 @@ namespace JohnButler.AdventureGame.WinHost
             this._lbCharacters.Size = new System.Drawing.Size(778, 157);
             this._lbCharacters.TabIndex = 0;
             // 
-            // editToolStripMenuItem
+            // deleteToolStripMenuItem
             // 
-            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D0)));
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.editToolStripMenuItem.Text = "E&dit";
-            this.editToolStripMenuItem.Click += new System.EventHandler(this.OnCharacterEdit);
+            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
+            this.deleteToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Delete;
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.deleteToolStripMenuItem.Text = "D&elete";
+            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.OnCharacterDelete);
             // 
             // MainForm
             // 
@@ -170,6 +180,7 @@ namespace JohnButler.AdventureGame.WinHost
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.ListBox _lbCharacters;
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
     }
 }
 

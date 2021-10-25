@@ -125,6 +125,7 @@ namespace JohnButler.AdventureGame.WinHost
             this.labelCompanyName.Name = "labelCompanyName";
             this.labelCompanyName.Size = new System.Drawing.Size(316, 20);
             this.labelCompanyName.TabIndex = 22;
+            this.labelCompanyName.Tag = "";
             this.labelCompanyName.Text = "Character Creator";
             this.labelCompanyName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -140,7 +141,6 @@ namespace JohnButler.AdventureGame.WinHost
             this.textBoxDescription.Size = new System.Drawing.Size(316, 147);
             this.textBoxDescription.TabIndex = 23;
             this.textBoxDescription.TabStop = false;
-            this.textBoxDescription.Text = "John Butler\r\nITSE 1430\r\nLab 3";
             // 
             // okButton
             // 

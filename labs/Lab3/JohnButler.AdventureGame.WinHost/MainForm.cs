@@ -88,6 +88,21 @@ namespace JohnButler.AdventureGame.WinHost
             UpdateUI();
         }
 
+        /// <summary> Handles when Character/Delete is chosen. </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnCharacterDelete ( object sender, EventArgs e )
+        {
+            if (_character == null)
+                return;
+
+            if (!Confirm($"Are you sure you want to delete {_character.Name}?", "Delete Character"))
+                return;
+
+            _character = null;
+            UpdateUI();
+        }
+
         /// <summary> Updates UI if something's changed. </summary>
         private void UpdateUI()
         {
