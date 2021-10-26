@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*========================
+John Butler
+ITSE 1430 Fall 2021
+Lab 3 : Character Creator
+========================*/
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,6 +16,7 @@ using System.Windows.Forms;
 
 namespace JohnButler.AdventureGame.WinHost
 {
+    /// <summary> Character window </summary>
     public partial class CharacterForm : Form
     {
         public CharacterForm ()
@@ -20,8 +27,8 @@ namespace JohnButler.AdventureGame.WinHost
         public Character Character { get; set; }
 
         /// <summary> Handles when save button is clicked. </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender"> Event Sender </param>
+        /// <param name="e"> Event Data </param>
         private void OnSave ( object sender, EventArgs e )
         {
             if (!ValidateChildren())
@@ -52,6 +59,8 @@ namespace JohnButler.AdventureGame.WinHost
             Character = character;
         }
 
+        /// <summary> Loads character if not null, validates child controls. </summary>
+        /// <param name="e"> Event data. </param>
         protected override void OnLoad ( EventArgs e )
         {
             base.OnLoad(e);
@@ -62,6 +71,8 @@ namespace JohnButler.AdventureGame.WinHost
             ValidateChildren();
         }
 
+        /// <summary> Loads text fields with data from Character instance. </summary>
+        /// <param name="character"> Instance of Character Class. </param>
         private void LoadCharacter ( Character character )
         {
             _txtName.Text = character.Name;
@@ -76,8 +87,8 @@ namespace JohnButler.AdventureGame.WinHost
         }
 
         /// <summary> Handles when the cancel button is clicked. </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender"> Event Sender </param>
+        /// <param name="e"> Event Data </param>
         private void OnCancel ( object sender, EventArgs e )
         {
             Close();
@@ -96,8 +107,8 @@ namespace JohnButler.AdventureGame.WinHost
         }
 
         /// <summary> Validates control </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender"> Event Sender </param>
+        /// <param name="e"> Event Data </param>
         private void OnValidatingName ( object sender, System.ComponentModel.CancelEventArgs e )
         {
             var control = sender as Control;
@@ -113,8 +124,8 @@ namespace JohnButler.AdventureGame.WinHost
         }
 
         /// <summary> Validates control </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender"> Event Sender </param>
+        /// <param name="e"> Event Data </param>
         private void OnValidatingProfession ( object sender, System.ComponentModel.CancelEventArgs e )
         {
             var control = sender as Control;
@@ -130,8 +141,8 @@ namespace JohnButler.AdventureGame.WinHost
         }
 
         /// <summary> Validates control </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender"> Event Sender </param>
+        /// <param name="e"> Event Data </param>
         private void OnValidatingRace ( object sender, System.ComponentModel.CancelEventArgs e )
         {
             var control = sender as Control;
@@ -147,8 +158,8 @@ namespace JohnButler.AdventureGame.WinHost
         }
 
         /// <summary> Validates control </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender"> Event Sender </param>
+        /// <param name="e"> Event Data </param>
         private void OnValidatingIntelligence ( object sender, System.ComponentModel.CancelEventArgs e )
         {
             var control = sender as Control;
@@ -165,8 +176,8 @@ namespace JohnButler.AdventureGame.WinHost
         }
 
         /// <summary> Validates control </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender"> Event Sender </param>
+        /// <param name="e"> Event Data </param>
         private void OnValidatingStrength ( object sender, System.ComponentModel.CancelEventArgs e )
         {
             var control = sender as Control;
@@ -183,8 +194,8 @@ namespace JohnButler.AdventureGame.WinHost
         }
 
         /// <summary> Validates control </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender"> Event Sender </param>
+        /// <param name="e"> Event Data </param>
         private void OnValidatingAgility ( object sender, System.ComponentModel.CancelEventArgs e )
         {
             var control = sender as Control;
@@ -201,8 +212,8 @@ namespace JohnButler.AdventureGame.WinHost
         }
 
         /// <summary> Validates control </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender"> Event Sender </param>
+        /// <param name="e"> Event Data </param>
         private void OnValidatingConstitution ( object sender, System.ComponentModel.CancelEventArgs e )
         {
             var control = sender as Control;
@@ -219,8 +230,8 @@ namespace JohnButler.AdventureGame.WinHost
         }
 
         /// <summary> Validates control </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender"> Event Sender </param>
+        /// <param name="e"> Event Data </param>
         private void OnValidatingCharisma ( object sender, System.ComponentModel.CancelEventArgs e )
         {
             var control = sender as Control;

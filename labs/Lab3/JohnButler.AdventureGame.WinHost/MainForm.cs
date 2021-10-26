@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*========================
+John Butler
+ITSE 1430 Fall 2021
+Lab 3 : Character Creator
+========================*/
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -21,8 +27,8 @@ namespace JohnButler.AdventureGame.WinHost
         private Character _character;
 
         /// <summary> Handles when File/Exit is chosen. </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender"> Event Sender </param>
+        /// <param name="e"> Event Data </param>
         private void OnFileExit ( object sender, EventArgs e )
         {
             if (!Confirm("Are you sure you want to exit?", "Confirm"))
@@ -41,8 +47,8 @@ namespace JohnButler.AdventureGame.WinHost
         }
 
         /// <summary> Handles when Help/About is chosen. </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender"> Event Sender </param>
+        /// <param name="e"> Event Data </param>
         private void OnHelpAbout ( object sender, EventArgs e )
         {
             var dialog = new AboutBox();
@@ -50,8 +56,8 @@ namespace JohnButler.AdventureGame.WinHost
         }
 
         /// <summary> Handles when Character/Add is chosen. </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender"> Event Sender </param>
+        /// <param name="e"> Event Data </param>
         private void OnCharacterAdd ( object sender, EventArgs e )
         {
             if (_character != null)
@@ -70,8 +76,8 @@ namespace JohnButler.AdventureGame.WinHost
         }
 
         /// <summary> Handles when Character/Edit is chosen. </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender"> Event Sender </param>
+        /// <param name="e"> Event Data </param>
         private void OnCharacterEdit ( object sender, EventArgs e )
         {
             if (_character == null)
@@ -89,8 +95,8 @@ namespace JohnButler.AdventureGame.WinHost
         }
 
         /// <summary> Handles when Character/Delete is chosen. </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender"> Event Sender </param>
+        /// <param name="e"> Event Data </param>
         private void OnCharacterDelete ( object sender, EventArgs e )
         {
             if (_character == null)

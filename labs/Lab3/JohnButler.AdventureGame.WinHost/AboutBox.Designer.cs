@@ -101,7 +101,7 @@ namespace JohnButler.AdventureGame.WinHost
             this.labelVersion.Name = "labelVersion";
             this.labelVersion.Size = new System.Drawing.Size(316, 20);
             this.labelVersion.TabIndex = 0;
-            this.labelVersion.Text = "Fall 2021";
+            this.labelVersion.Text = "ITSE 1430";
             this.labelVersion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // labelCopyright
@@ -113,7 +113,7 @@ namespace JohnButler.AdventureGame.WinHost
             this.labelCopyright.Name = "labelCopyright";
             this.labelCopyright.Size = new System.Drawing.Size(316, 20);
             this.labelCopyright.TabIndex = 21;
-            this.labelCopyright.Text = "ITSE 1430";
+            this.labelCopyright.Text = "Lab 3";
             this.labelCopyright.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // labelCompanyName
@@ -126,7 +126,7 @@ namespace JohnButler.AdventureGame.WinHost
             this.labelCompanyName.Size = new System.Drawing.Size(316, 20);
             this.labelCompanyName.TabIndex = 22;
             this.labelCompanyName.Tag = "";
-            this.labelCompanyName.Text = "Character Creator";
+            this.labelCompanyName.Text = "Fall 2021";
             this.labelCompanyName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // textBoxDescription
