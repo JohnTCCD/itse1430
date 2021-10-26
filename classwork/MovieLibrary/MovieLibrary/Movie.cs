@@ -35,7 +35,7 @@ namespace MovieLibrary
 
         //Mixed accessibility - one accessor may be more restrictive
         //public int Id { get; private set; }
-        public int Id { get; } // private ;
+        public int Id { get; set; } // private ;
 
         public string Title
         {
@@ -151,9 +151,10 @@ namespace MovieLibrary
 
         /// <summary> Copies movie </summary>
         /// <returns> A copy of the movie </returns>
-        public Movie Copy ()
+        public Movie Clone ()
         {
             var movie = new Movie();
+            movie.Id = Id;
             movie.Title = Title;
             movie.Description = Description;
             movie.RunLength = RunLength;
