@@ -89,7 +89,7 @@ namespace JohnButler.AdventureGame.WinHost
             this.labelProductName.Name = "labelProductName";
             this.labelProductName.Size = new System.Drawing.Size(316, 20);
             this.labelProductName.TabIndex = 19;
-            this.labelProductName.Text = "John Butler";
+            this.labelProductName.Text = "Product Name";
             this.labelProductName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // labelVersion
@@ -101,7 +101,7 @@ namespace JohnButler.AdventureGame.WinHost
             this.labelVersion.Name = "labelVersion";
             this.labelVersion.Size = new System.Drawing.Size(316, 20);
             this.labelVersion.TabIndex = 0;
-            this.labelVersion.Text = "ITSE 1430";
+            this.labelVersion.Text = "Version";
             this.labelVersion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // labelCopyright
@@ -113,7 +113,7 @@ namespace JohnButler.AdventureGame.WinHost
             this.labelCopyright.Name = "labelCopyright";
             this.labelCopyright.Size = new System.Drawing.Size(316, 20);
             this.labelCopyright.TabIndex = 21;
-            this.labelCopyright.Text = "Lab 3";
+            this.labelCopyright.Text = "Copyright";
             this.labelCopyright.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // labelCompanyName
@@ -126,11 +126,12 @@ namespace JohnButler.AdventureGame.WinHost
             this.labelCompanyName.Size = new System.Drawing.Size(316, 20);
             this.labelCompanyName.TabIndex = 22;
             this.labelCompanyName.Tag = "";
-            this.labelCompanyName.Text = "Fall 2021";
+            this.labelCompanyName.Text = "Company Name";
             this.labelCompanyName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // textBoxDescription
             // 
+            this.textBoxDescription.AccessibleDescription = "";
             this.textBoxDescription.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBoxDescription.Location = new System.Drawing.Point(167, 123);
             this.textBoxDescription.Margin = new System.Windows.Forms.Padding(7, 3, 4, 3);
@@ -141,6 +142,7 @@ namespace JohnButler.AdventureGame.WinHost
             this.textBoxDescription.Size = new System.Drawing.Size(316, 147);
             this.textBoxDescription.TabIndex = 23;
             this.textBoxDescription.TabStop = false;
+            this.textBoxDescription.Text = "Description";
             // 
             // okButton
             // 

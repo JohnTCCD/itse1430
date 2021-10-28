@@ -15,10 +15,10 @@ namespace JohnButler.AdventureGame.WinHost
         {
             InitializeComponent();
             this.Text = String.Format("About {0}", AssemblyTitle);
-            this.labelProductName.Text = AssemblyProduct;
-            this.labelVersion.Text = String.Format("Version {0}", AssemblyVersion);
-            this.labelCopyright.Text = AssemblyCopyright;
-            this.labelCompanyName.Text = AssemblyCompany;
+            this.labelProductName.Text = "John Butler";
+            this.labelVersion.Text = "ITSE 1430";
+            this.labelCopyright.Text = "Lab 3";
+            this.labelCompanyName.Text = "Fall 2021";
             this.textBoxDescription.Text = AssemblyDescription;
         }
 
