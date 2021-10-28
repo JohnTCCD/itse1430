@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
 
+using MovieLibrary.Memory;
+
 namespace MovieLibrary.WinHost
 {
     public partial class MainForm : Form
@@ -50,17 +52,23 @@ namespace MovieLibrary.WinHost
         {
             var dlg = new MovieForm();
 
-            //ShowDialog -> DialogResult
-            if (dlg.ShowDialog(this) != DialogResult.OK)
-                return;
+            do
+            {
+                //ShowDialog -> DialogResult
+                if (dlg.ShowDialog(this) != DialogResult.OK)
+                    return;
 
-            //TODO: Save movie
-            _movie = dlg.Movie;
+                //TODO: Save movie
+                if (_movies.Add(dlg.Movie, out var error) != null)
+                    break;
+                    
+                DisplayError(error, "Add Failed");
+            } while (true);
+            
             UpdateUI();
         }
 
-        private Movie _movie;
-        private MovieDatabase _movies = new MovieDatabase();
+        private MemoryMovieDatabase _movies = new MemoryMovieDatabase();
 
         private void UpdateUI ()
         {
@@ -79,33 +87,51 @@ namespace MovieLibrary.WinHost
 
         private void OnMovieDelete ( object sender, EventArgs e )
         {
-            if (_movie == null)
+            var movie = GetSelectedMovie();
+            if (movie == null)
                 return;
 
             //Confirmation
-            if (!Confirm($"Are you sure you want to delete '{_movie.Title}'?", "Delete"))
+            if (!Confirm($"Are you sure you want to delete '{movie.Title}'?", "Delete"))
                 return;
 
             //TODO: Delete
-            _movie = null;
+            _movies.Delete(movie.Id);
             UpdateUI();
+        }
+
+        private Movie GetSelectedMovie ()
+        {
+            return _listMovies.SelectedItem as Movie;
         }
 
         private void OnMovieEdit ( object sender, EventArgs e )
         {
-            if (_movie == null)
+            var movie = GetSelectedMovie();
+            if (movie == null)
                 return;
 
             var dlg = new MovieForm();
-            dlg.Movie = _movie;
+            dlg.Movie = movie;
 
-            //ShowDialog -> DialogResult
-            if (dlg.ShowDialog() != DialogResult.OK)
-                return;
+            do
+            {
+                //ShowDialog -> DialogResult
+                if (dlg.ShowDialog() != DialogResult.OK)
+                    return;
 
-            //TODO: Save movie
-            _movie = dlg.Movie;
-            UpdateUI();
+                //TODO: Save movie
+                var error = _movies.Update(movie.Id, dlg.Movie);
+                if (String.IsNullOrEmpty(error))
+                    break;
+
+                DisplayError(error, "Update Failed");
+            } while (true);
+        }
+
+        private void DisplayError ( string message, string title )
+        {
+            MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }
