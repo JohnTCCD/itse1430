@@ -68,7 +68,7 @@ namespace MovieLibrary.WinHost
             UpdateUI();
         }
 
-        private MemoryMovieDatabase _movies = new MemoryMovieDatabase();
+        private IMovieDatabase _movies = new MemoryMovieDatabase();
 
         private void UpdateUI ()
         {
@@ -87,6 +87,7 @@ namespace MovieLibrary.WinHost
 
         private void OnMovieDelete ( object sender, EventArgs e )
         {
+            //_movies.IsOnlyAvailableInMemoryMovieDatabase();
             var movie = GetSelectedMovie();
             if (movie == null)
                 return;

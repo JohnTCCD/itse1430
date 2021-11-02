@@ -9,34 +9,63 @@ using System.Threading.Tasks;
 
 namespace MovieLibrary.Memory
 {
-    public class MemoryMovieDatabase
+    public class MemoryMovieDatabase : IMovieDatabase
     {
 
         public MemoryMovieDatabase ()
         {
-            //TODO: Seed
+            //Collection initializer syntax
+            var movies = new[]
+            {
+                new Movie() {
+                    Title = "Jaws",
+                    Rating = "PG",
+                    RunLength = 210,
+                    ReleaseYear = 1977,
+                    Description = "Shark movie",
+                    Id = 1,
+                },
+                new Movie() {
+                    Title = "Dune",
+                    Rating = "PG",
+                    ReleaseYear = 1979,
+                    RunLength = 133,
+                    Id = 2,
+                },
+                new Movie() {
+                    Title = "Sand",
+                    Rating = "R",
+                    ReleaseYear = 1988,
+                    RunLength = 209,
+                    Id = 3,
+                }
+            };
+
+            _items.AddRange(movies);
+
+
             //Object initializer - creating and initializing new object
             // new T() {
             //   property1 = value 1
             //   property2 = value 2
             //};
-            
-            _items.Add(new Movie() {
-                Title = "Jaws",
-                Rating = "PG",
-                RunLength = 210,
-                ReleaseYear = 1975,
-                Description = "Shark film",
-                Id = 1,
-            });
 
-            _items.Add(new Movie() {
-                Title = "Dune",
-                Rating = "PG",
-                ReleaseYear = 1979,
-                RunLength = 133,
-                Id = 2,
-            });
+            //_items.Add(new Movie() {
+            //    Title = "Jaws",
+            //    Rating = "PG",
+            //    RunLength = 210,
+            //    ReleaseYear = 1975,
+            //    Description = "Shark film",
+            //    Id = 1,
+            //});
+
+            //_items.Add(new Movie() {
+            //    Title = "Dune",
+            //    Rating = "PG",
+            //    ReleaseYear = 1979,
+            //    RunLength = 133,
+            //    Id = 2,
+            //});
 
 
             //movie = new Movie() {
@@ -48,17 +77,20 @@ namespace MovieLibrary.Memory
             //};
             //_items[2] = movie;
 
-            _items.Add(new Movie() {
-                Title = "Sand",
-                Rating = "R",
-                ReleaseYear = 1988,
-                RunLength = 209,
-                Id = 3,
-            });
+            //_items.Add(new Movie() {
+            //    Title = "Sand",
+            //    Rating = "R",
+            //    ReleaseYear = 1988,
+            //    RunLength = 209,
+            //    Id = 3,
+            //});
         }
 
+        public void IsOnlyAvailableInMemoryMovieDatabase ()
+        { }
+
         //TODO: Add
-        public Movie Add (Movie movie, out string error)
+        public Movie Add ( Movie movie, out string error )
         {
             //Movie must be valid
             error = movie.Validate();
@@ -85,7 +117,7 @@ namespace MovieLibrary.Memory
             return movie;
         }
 
-        private Movie FindByTitle(string title)
+        private Movie FindByTitle ( string title )
         {
             foreach (var movie in _items)
                 if (String.Compare(title, movie.Title, true) == 0)
@@ -95,7 +127,7 @@ namespace MovieLibrary.Memory
         }
 
         //TODO: Update
-        public string Update (int id, Movie movie)
+        public string Update ( int id, Movie movie )
         {
             //Movie must be valid
             var error = movie.Validate();
@@ -116,7 +148,7 @@ namespace MovieLibrary.Memory
             return null;
         }
 
-        private void Copy (Movie target, Movie source)
+        private void Copy ( Movie target, Movie source )
         {
             target.Title = source.Title;
             target.Description = source.Description;
@@ -127,7 +159,7 @@ namespace MovieLibrary.Memory
         }
 
         //TODO: Delete
-        public void Delete (int id)
+        public void Delete ( int id )
         {
             //TODO: Validate id
             var movie = FindById(id);
@@ -145,7 +177,7 @@ namespace MovieLibrary.Memory
         }
 
         //TODO: Get
-        public Movie Get (int id)
+        public Movie Get ( int id )
         {
             //TODO: Validate id
             var movie = FindById(id);
@@ -156,7 +188,7 @@ namespace MovieLibrary.Memory
         //TODO: Get All
         public Movie[] GetAll ()
         {
-            
+
             //NEVER DO THIS - should not return a ref type directly
             //return _items;
             //Array.Copy() - Will copy array but not ref movies
@@ -169,11 +201,11 @@ namespace MovieLibrary.Memory
             //        ++count;
             //}
 
-            
+
 
             //Must clone both array and avoies to return new copies
             //new Movie[0];
-            
+
 
             //Don't need the for loop
             //for (int index = 0; index < _items.Length; ++index)
@@ -190,7 +222,7 @@ namespace MovieLibrary.Memory
             var index = 0;
             foreach (var item in _items)
                 items[index++] = item.Clone();
-            
+
             return items;
         }
 
