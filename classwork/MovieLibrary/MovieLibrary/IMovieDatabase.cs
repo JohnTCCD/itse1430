@@ -1,6 +1,8 @@
 ﻿// ITSE 1430
 // Movie Library
 
+using System.Collections.Generic;
+
 namespace MovieLibrary
 {
     public interface IMovieDatabase
@@ -12,7 +14,7 @@ namespace MovieLibrary
         Movie Add ( Movie movie, out string error );
         void Delete ( int id );
         Movie Get ( int id );
-        Movie[] GetAll ();
+        IEnumerable<Movie> GetAll ();
         string Update ( int id, Movie movie );
     }
 }

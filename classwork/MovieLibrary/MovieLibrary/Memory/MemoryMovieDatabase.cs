@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -92,10 +93,14 @@ namespace MovieLibrary.Memory
         //TODO: Add
         public Movie Add ( Movie movie, out string error )
         {
-            //Movie must be valid
-            error = movie.Validate();
-            if (!String.IsNullOrEmpty(error))
+            var validator = new ObjectValidator();
+            if (!validator.TryValidate(movie, out error))
                 return null;
+            
+            //Movie must be valid
+            //error = movie.Validate();
+            //if (!String.IsNullOrEmpty(error))
+            //    return null;
 
             //Movie title must be unique
             var existing = FindByTitle(movie.Title);
@@ -130,8 +135,8 @@ namespace MovieLibrary.Memory
         public string Update ( int id, Movie movie )
         {
             //Movie must be valid
-            var error = movie.Validate();
-            if (!String.IsNullOrEmpty(error))
+            var validator = new ObjectValidator();
+            if (!validator.TryValidate(movie, out var error))
                 return error;
 
             //Movie must exsit
@@ -185,8 +190,8 @@ namespace MovieLibrary.Memory
             return movie?.Clone();
         }
 
-        //TODO: Get All
-        public Movie[] GetAll ()
+        //Get All
+        public IEnumerable<Movie> GetAll ()
         {
 
             //NEVER DO THIS - should not return a ref type directly
@@ -217,13 +222,20 @@ namespace MovieLibrary.Memory
             //   Item is read only
             //   Array cannot change for the life of the loop (keep a separate list)
 
-            var items = new Movie[_items.Count];
+            //var items = new Movie[_items.Count];
 
-            var index = 0;
+            //var index = 0;
+            //foreach (var item in _items)
+            //    items[index++] = item.Clone();
+
+            //return items;
+            int counter = 0;
+
             foreach (var item in _items)
-                items[index++] = item.Clone();
-
-            return items;
+            {
+                ++counter;
+                yield return item.Clone();
+            }
         }
 
         //Dynamically resizing array

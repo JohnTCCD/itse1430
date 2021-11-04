@@ -80,8 +80,8 @@ namespace MovieLibrary.WinHost
             movie.IsClassic = _chkIsClassic.Checked;
 
             //TODO: Validate
-            var error = movie.Validate();
-            if (!String.IsNullOrEmpty(error))
+            var validator = new ObjectValidator();
+            if (!validator.TryValidate(movie, out var error))
             {
                 DisplayError(error, "Error");
                 DialogResult = DialogResult.None;
