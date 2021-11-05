@@ -22,17 +22,20 @@ namespace JohnButler.AdventureGame
             _areas.Add(area);
         }
 
-        public Area FindArea (int id) //Place holder
+        public Area FindAreaById (int id)
         {
-            if (_areas.ElementAt(id - 1).Id == id)
-            {
-                var area = _areas.ElementAt(id - 1);
-                return area;
-            }
-            else
-                return null;
+            foreach (var area in _areas)
+                if (id == area.Id)
+                    return area;
+
+            return null;
         }
 
-       
+       //public Area GetAllAreas ()
+       // {
+       //     IEnumerable<Area> areas =
+       // }
+
+
     }
 }
