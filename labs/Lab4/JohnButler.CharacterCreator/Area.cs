@@ -23,6 +23,13 @@ namespace JohnButler.AdventureGame
 
         private List<int> _accessible = new List<int>();
 
-
+        internal Area Clone ()
+        {
+            var area = new Area();
+            area.Id = Id;
+            area.Description = Description;
+            //_accessible?
+            return area;
+        }
     }
 }

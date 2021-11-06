@@ -31,10 +31,27 @@ namespace JohnButler.AdventureGame
             return null;
         }
 
-       //public Area GetAllAreas ()
-       // {
-       //     IEnumerable<Area> areas =
-       // }
+        public Area[] GetAllAreas ()
+        {
+            var count = 0;
+
+            foreach (var area in _areas)
+            {
+                if (area != null)
+                    ++count;
+            }
+
+            var areas = new Area[count];
+            var index = 0;
+
+            foreach (var area in _areas)
+            {
+                if (area != null)
+                    areas[index++] = area.Clone();
+            }
+
+            return areas;
+        }
 
 
     }
