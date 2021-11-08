@@ -10,12 +10,12 @@ namespace JohnButler.AdventureGame.ConsoleHost
 {
     class Program
     {
-        static int positionX = 1, positionY = -2;
+        static int positionX = 2, positionY = 3;
 
         static void Main(string[] args)
         {
             PrintTitleScreen();
-            int roomNumber = 9;
+            int roomNumber = 8;
             SelectRoomNumber(roomNumber);
             bool quit = false;
             do
@@ -86,15 +86,15 @@ namespace JohnButler.AdventureGame.ConsoleHost
         {
             switch (roomNumber)
             {
-                case 1: DisplayMasterBedroom(); break;
-                case 3: DisplayDinningRoom(); break;
+                case 1: DisplayGuestRoom(); break;
+                case 2: DisplayDinningRoom(); break;
+                case 3: DisplayMasterBedroom(); break;
                 case 4: DisplayFirePlace(); break;
-                case 5: DisplayGuestRoom(); break;
-                case 6: DisplayKitchen(); break;
-                case 7: DisplayCellar(); break;
-                case 8: DisplayBalcony(); break;
-                case 9: DisplayEntrance(); break;
-                case 11: DisplayArtGallery(); break;
+                case 5: DisplayKitchen(); break;
+                case 6: DisplayBalcony(); break;
+                case 7: DisplayArtGallery(); break;
+                case 8: DisplayEntrance(); break;
+                case 9: DisplayCellar(); break;
                 default: DisplayError("Unknown Error"); break;
             }
         }
@@ -118,8 +118,8 @@ namespace JohnButler.AdventureGame.ConsoleHost
                     userDirection = Console.ReadLine().Trim();
                 }
 
-                const int xMinimum = 0, xMaximum = 2, yMinimum = -2, yMaximum = 0;
-                if ((userDirection == "north" && positionY + 1 > yMaximum) || (userDirection == "south" && positionY - 1 < yMinimum) ||
+                const int xMinimum = 1, xMaximum = 3, yMinimum = 1, yMaximum = 3;
+                if ((userDirection == "north" && positionY - 1 < yMinimum) || (userDirection == "south" && positionY + 1 > yMaximum) ||
                     (userDirection == "east" && positionX + 1 > xMaximum) || (userDirection == "west" && positionX - 1 < xMinimum))
                     DisplayError("There is no door available in that direction. Please try a different door.");
                 else
@@ -134,20 +134,21 @@ namespace JohnButler.AdventureGame.ConsoleHost
         {
             switch (direction)
             {
-                case "north": positionY += 1; break;
-                case "south": positionY -= 1; break;
+                case "north": positionY -= 1; break;
+                case "south": positionY += 1; break;
                 case "east": positionX += 1; break;
                 case "west": positionX -= 1; break;
                 default: DisplayError("Unknown Error"); break;
             }
 
-            return (positionX * 2) + (-positionY * 3) + 1;
+            const int xMaximum = 3;
+            return positionX + (xMaximum * (positionY - 1));
         }
 
         static void DisplayMasterBedroom()
         {                         
             Console.ForegroundColor = ConsoleColor.Gray;
-            Console.WriteLine("Current location: (0, 0)");
+            Console.WriteLine("Current location: (3, 1)");
             Console.ForegroundColor = ConsoleColor.DarkMagenta;
             Console.WriteLine("The first thing that you notice entering the master bedroom is");
             Console.WriteLine("that there is an open coffen where a king sized bed should be!");
@@ -156,13 +157,13 @@ namespace JohnButler.AdventureGame.ConsoleHost
             Console.WriteLine("but dust and spider webs. On the opposite wall, there is a fancy frame");
             Console.WriteLine("surrounded by shards of a broken mirror.");
             Console.ResetColor();
-            Console.WriteLine("There is a door to the East and South.");
+            Console.WriteLine("There is a door to the West and South.");
         }
 
         static void DisplayDinningRoom()
         {
             Console.ForegroundColor = ConsoleColor.Gray;
-            Console.WriteLine("Current location: (1, 0)");
+            Console.WriteLine("Current location: (2, 1)");
             Console.ForegroundColor = ConsoleColor.DarkMagenta;
             Console.WriteLine("Upon arriving, you can see that a broken table, crumbled chairs and");
             Console.WriteLine("candle holders on the ground are what's left of the dinning area.");
@@ -175,7 +176,7 @@ namespace JohnButler.AdventureGame.ConsoleHost
         static void DisplayGuestRoom()
         {
             Console.ForegroundColor = ConsoleColor.Gray;
-            Console.WriteLine("Current location: (2, 0)");
+            Console.WriteLine("Current location: (1, 1)");
             Console.ForegroundColor = ConsoleColor.DarkMagenta;
             Console.WriteLine("For a guest room, it's pretty spacious, you suppose it is a mansion");
             Console.WriteLine("afterall. It even has its own walk-in closet, for a breif moment, you");
@@ -183,13 +184,13 @@ namespace JohnButler.AdventureGame.ConsoleHost
             Console.WriteLine("sight of the blanketless queen sized bed covered in dirt and dust.");
             Console.WriteLine("The windows are broken, allowing plants to crawl into the room.");
             Console.ResetColor();
-            Console.WriteLine("There is a door to the West, South.");
+            Console.WriteLine("There is a door to the East, South.");
         }
 
         static void DisplayFirePlace()
         {
             Console.ForegroundColor = ConsoleColor.Gray;
-            Console.WriteLine("Current location: (0, -1)");
+            Console.WriteLine("Current location: (1, 2)");
             Console.ForegroundColor = ConsoleColor.DarkMagenta;
             Console.WriteLine("This hall leads to an extravagant fire place, towering over two luxery");
             Console.WriteLine("chairs. You can't help but admire the craftmanship behinde the fireplace");
@@ -203,7 +204,7 @@ namespace JohnButler.AdventureGame.ConsoleHost
         static void DisplayKitchen()
         {
             Console.ForegroundColor = ConsoleColor.Gray;
-            Console.WriteLine("Current location: (1, -1)");
+            Console.WriteLine("Current location: (2, 2)");
             Console.ForegroundColor = ConsoleColor.DarkMagenta;
             Console.WriteLine("The kitchen, the part of a house that real estate agents say will sell a");
             Console.WriteLine("house. This kitchen, however, looks like it won't be selling anything anytime");
@@ -216,7 +217,7 @@ namespace JohnButler.AdventureGame.ConsoleHost
         static void DisplayBalcony()
         {
             Console.ForegroundColor = ConsoleColor.Gray;
-            Console.WriteLine("Current location: (2, -1)");
+            Console.WriteLine("Current location: (3, 2)");
             Console.ForegroundColor = ConsoleColor.DarkMagenta;
             Console.WriteLine("There is a staircase that leads up to the outdoor balcony. Perhaps if");
             Console.WriteLine("the outdoor area wasn't overrun with vines, ivy, and other plants, there");
@@ -228,7 +229,7 @@ namespace JohnButler.AdventureGame.ConsoleHost
         static void DisplayCellar()
         {
             Console.ForegroundColor = ConsoleColor.Gray;
-            Console.WriteLine("Current location: (0, -2)");
+            Console.WriteLine("Current location: (3, 3)");
             Console.ForegroundColor = ConsoleColor.DarkMagenta;
             Console.WriteLine("There is a staircase that descends into the cellar. At the bottom");
             Console.WriteLine("of the stairs, you are immediately greeted with three towering racks");
@@ -237,13 +238,13 @@ namespace JohnButler.AdventureGame.ConsoleHost
             Console.WriteLine("intricate patterns eched into its metallic outter shell, giving it a");
             Console.WriteLine("rather sinister appearance.");
             Console.ResetColor();
-            Console.WriteLine("There is a door to the North and East.");
+            Console.WriteLine("There is a door to the North and West.");
         }
 
         static void DisplayEntrance()
         {
             Console.ForegroundColor = ConsoleColor.Gray;
-            Console.WriteLine("Current location: (1, -2)");
+            Console.WriteLine("Current location: (2 ,3)");
             Console.ForegroundColor = ConsoleColor.DarkMagenta;
             Console.WriteLine("The hall of the entrance already commands your attention with its four");
             Console.WriteLine("breath-taking, grandiose renaissance era statues... or it would if the");
@@ -256,7 +257,7 @@ namespace JohnButler.AdventureGame.ConsoleHost
         static void DisplayArtGallery()
         {
             Console.ForegroundColor = ConsoleColor.Gray;
-            Console.WriteLine("Current location: (2, -2)");
+            Console.WriteLine("Current location: (1, 3)");
             Console.ForegroundColor = ConsoleColor.DarkMagenta;
             Console.WriteLine("This room has a seemingly infinite amount of paintings along the walls.");
             Console.WriteLine("You wonder how much each of these paintings cost, even the frames alone must cost");
@@ -266,7 +267,7 @@ namespace JohnButler.AdventureGame.ConsoleHost
             Console.WriteLine("of different individuals sitting in a chair. You try to see the eyes of the paintings");
             Console.WriteLine("follow you like in the movies, but alas, that does not seem to be the case...");
             Console.ResetColor();
-            Console.WriteLine("There is a door to the West and North.");
+            Console.WriteLine("There is a door to the East and North.");
         }
 
         static void DisplayHelpMenu ()
