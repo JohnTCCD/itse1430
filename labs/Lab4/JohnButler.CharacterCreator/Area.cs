@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace JohnButler.AdventureGame
 {
     /// <summary> Represents an area in the game. </summary>
-    class Area
+    public class Area
     {
         /// <summary> Gets or sets the area id. </summary>
         public int Id { get; set; }
@@ -21,14 +21,15 @@ namespace JohnButler.AdventureGame
         /// <summary> Gets or sets the area description. </summary>
         public string Description { get; set; }
 
-        private List<int> _accessible = new List<int>();
+        /// <summary> Gets or sets the accessible areas. </summary>
+        public int[] AccessibleIds { get; set; }
 
-        internal Area Clone ()
+        internal Area Copy ()
         {
             var area = new Area();
             area.Id = Id;
             area.Description = Description;
-            //_accessible?
+            //AccessibleIds = new int[AccessibleIds.Length];
             return area;
         }
     }

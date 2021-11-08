@@ -12,16 +12,21 @@ using System.Threading.Tasks;
 
 namespace JohnButler.AdventureGame
 {
-    /// <summary> Represents the world of the game. </summary>
-    class World
+    /// <summary> Represents a world. </summary>
+    public class World
     {
         private List<Area> _areas = new List<Area>();
 
-        public void AddArea (Area area)
+        /// <summary> Adds a new area. </summary>
+        /// <param name="area"> Area to add. </param>
+        protected void AddArea (Area area)
         {
             _areas.Add(area);
         }
 
+        /// <summary> Finds an area by its Id. </summary>
+        /// <param name="id"> Id of the area to find. </param>
+        /// <returns> Area of specified area if true, null if false. </returns>
         public Area FindAreaById (int id)
         {
             foreach (var area in _areas)
@@ -31,6 +36,8 @@ namespace JohnButler.AdventureGame
             return null;
         }
 
+        /// <summary> Gets all available areas. </summary>
+        /// <returns> A copy of a array of all available areas. </returns>
         public Area[] GetAllAreas ()
         {
             var count = 0;
@@ -47,12 +54,16 @@ namespace JohnButler.AdventureGame
             foreach (var area in _areas)
             {
                 if (area != null)
-                    areas[index++] = area.Clone();
+                    areas[index++] = area.Copy();
             }
 
             return areas;
         }
 
-
+        public Area FindStartingArea ()
+        {
+            //TODO: Return the starting area of the game.
+            return null;
+        }
     }
 }
