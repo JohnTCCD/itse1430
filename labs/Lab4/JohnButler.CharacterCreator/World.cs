@@ -60,9 +60,16 @@ namespace JohnButler.AdventureGame
             return areas;
         }
 
+        /// <summary> Identifies the starting area for the game. </summary>
+        /// <returns> Area the game starts with. </returns>
         public Area FindStartingArea ()
         {
-            //TODO: Return the starting area of the game.
+            foreach (var area in _areas)
+            {
+                if (area.Id == 8)
+                    return area;
+            }
+
             return null;
         }
     }
