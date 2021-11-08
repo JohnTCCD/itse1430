@@ -16,10 +16,49 @@ namespace JohnButler.AdventureGame
             {
                 new Area() {
                     Id = 1,
+                    Description = "Guest Room",
+                    AccessibleIds = new int[2],
+                },
+                new Area() {
+                    Id = 2,
+                    Description = "Dinning Room",
+                    AccessibleIds = new int[3],
+                },
+                new Area() {
+                    Id = 3,
                     Description = "Master Bedroom",
-                    AccessibleIds = new int[1],
-                }
-                //TODO: Add the rest of the areas.
+                    AccessibleIds = new int[2],
+                },
+                new Area() {
+                    Id = 4,
+                    Description = "Fire Place",
+                    AccessibleIds = new int[3],
+                },
+                new Area() {
+                    Id = 5,
+                    Description = "Kitchen",
+                    AccessibleIds = new int[4],
+                },
+                new Area() {
+                    Id = 6,
+                    Description = "Balcony",
+                    AccessibleIds = new int[3],
+                },
+                new Area() {
+                    Id = 7,
+                    Description = "Art Gallery",
+                    AccessibleIds = new int[2],
+                },
+                new Area() {
+                    Id = 8,
+                    Description = "Entrance",
+                    AccessibleIds = new int[3],
+                },
+                new Area() {
+                    Id = 9,
+                    Description = "Cellar",
+                    AccessibleIds = new int[2],
+                },
             };
         }
 
