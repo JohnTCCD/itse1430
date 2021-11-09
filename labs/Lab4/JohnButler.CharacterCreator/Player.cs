@@ -15,18 +15,19 @@ namespace JohnButler.AdventureGame
     /// <summary> Represents a player in the game. </summary>
     public class Player
     {
-        //TODO: Add character information.
+        private Character _character;
 
-        /// <summary> Gets or sets the players position. </summary>
-        public int Position { get; set; }
-
-        /// <summary> Gets the character's information. </summary>
-        /// <returns> Character </returns>
-        public Character GetCharacter ()
+        /// <summary> Sets the character. </summary>
+        /// <param name="character"> Character to set. </param>
+        public void SetCharacter (Character character)
         {
-            
-
-            return null;
+            _character = character;
         }
+
+
+        //public Area GetPosition ()
+        //{
+            
+        //}
     }
 }

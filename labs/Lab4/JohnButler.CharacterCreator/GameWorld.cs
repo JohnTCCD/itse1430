@@ -71,17 +71,5 @@ namespace JohnButler.AdventureGame
                 if (area != null)
                     AddArea(area);
         }
-
-
-        /// <summary> Adds areas to the game world. </summary>
-        /// <param name="areas"> Areas to add. </param>
-        //public void AddAreasToGame (Area[] areas)
-        //{
-        //    foreach (var area in areas)
-        //    {
-        //        if (area != null)
-        //            AddArea(area);
-        //    }
-        //}
     }
 }

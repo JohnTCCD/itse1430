@@ -19,7 +19,7 @@ namespace JohnButler.AdventureGame
 
         /// <summary> Adds a new area. </summary>
         /// <param name="area"> Area to add. </param>
-        protected void AddArea (Area area)
+        public void AddArea (Area area)
         {
             _areas.Add(area);
         }

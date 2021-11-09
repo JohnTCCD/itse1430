@@ -128,5 +128,17 @@ namespace JohnButler.AdventureGame.WinHost
         {
             MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
+
+        private void OnNewGame ( object sender, EventArgs e )
+        {
+            if (_character == null)
+            {
+                DisplayError("There must be a character created.", "Error");
+                return;
+            }
+
+            Player player = new Player();
+            player.SetCharacter(_character);
+        }
     }
 }
