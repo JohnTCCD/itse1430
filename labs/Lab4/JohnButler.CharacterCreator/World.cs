@@ -54,7 +54,7 @@ namespace JohnButler.AdventureGame
             foreach (var area in _areas)
             {
                 if (area != null)
-                    areas[index++] = area.Copy();
+                    areas[index++] = area.Clone();
             }
 
             return areas;

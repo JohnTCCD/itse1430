@@ -24,12 +24,16 @@ namespace JohnButler.AdventureGame
         /// <summary> Gets or sets the accessible areas. </summary>
         public int[] AccessibleIds { get; set; }
 
-        internal Area Copy ()
+        public Area Clone ()
         {
             var area = new Area();
             area.Id = Id;
             area.Description = Description;
-            //AccessibleIds = new int[AccessibleIds.Length];
+            int index = 0;
+
+            foreach (var a in AccessibleIds)
+                area.AccessibleIds[index++] = a;
+
             return area;
         }
     }

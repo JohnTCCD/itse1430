@@ -1,7 +1,7 @@
 ﻿/*========================
 John Butler
 ITSE 1430 Fall 2021
-Lab 3 : Character Creator
+Lab 4
 ========================*/
 
 using System;
@@ -31,7 +31,7 @@ namespace JohnButler.AdventureGame.WinHost
         /// <param name="e"> Event Data </param>
         private void OnFileExit ( object sender, EventArgs e )
         {
-            if (!Confirm("Are you sure you want to exit?", "Confirm"))
+            if (!Confirm("Are you sure you want to quit?", "Confirm"))
                 return;
 
             Close();
