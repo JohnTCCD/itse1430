@@ -5,99 +5,24 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MovieLibrary.Memory
 {
+    //Implements IMovieDatabase but derives from object
+    /// <summary>Provides an in-memory movie database.</summary>
     public class MemoryMovieDatabase : IMovieDatabase
     {
-
-        public MemoryMovieDatabase ()
-        {
-            //Collection initializer syntax
-            var movies = new[]
-            {
-                new Movie() {
-                    Title = "Jaws",
-                    Rating = "PG",
-                    RunLength = 210,
-                    ReleaseYear = 1977,
-                    Description = "Shark movie",
-                    Id = 1,
-                },
-                new Movie() {
-                    Title = "Dune",
-                    Rating = "PG",
-                    ReleaseYear = 1979,
-                    RunLength = 133,
-                    Id = 2,
-                },
-                new Movie() {
-                    Title = "Sand",
-                    Rating = "R",
-                    ReleaseYear = 1988,
-                    RunLength = 209,
-                    Id = 3,
-                }
-            };
-
-            _items.AddRange(movies);
-
-
-            //Object initializer - creating and initializing new object
-            // new T() {
-            //   property1 = value 1
-            //   property2 = value 2
-            //};
-
-            //_items.Add(new Movie() {
-            //    Title = "Jaws",
-            //    Rating = "PG",
-            //    RunLength = 210,
-            //    ReleaseYear = 1975,
-            //    Description = "Shark film",
-            //    Id = 1,
-            //});
-
-            //_items.Add(new Movie() {
-            //    Title = "Dune",
-            //    Rating = "PG",
-            //    ReleaseYear = 1979,
-            //    RunLength = 133,
-            //    Id = 2,
-            //});
-
-
-            //movie = new Movie() {
-            //    Title = "Sand",
-            //    Rating = "R",
-            //    ReleaseYear = 1988,
-            //    RunLength = 209,
-            //    Id = 3,
-            //};
-            //_items[2] = movie;
-
-            //_items.Add(new Movie() {
-            //    Title = "Sand",
-            //    Rating = "R",
-            //    ReleaseYear = 1988,
-            //    RunLength = 209,
-            //    Id = 3,
-            //});
-        }
-
+        //Not visible to code that uses the interface
         public void IsOnlyAvailableInMemoryMovieDatabase ()
         { }
 
-        //TODO: Add
+        //TODO: Error handling
         public Movie Add ( Movie movie, out string error )
         {
-            var validator = new ObjectValidator();
-            if (!validator.TryValidate(movie, out error))
-                return null;
-            
             //Movie must be valid
+            if (!ObjectValidator.TryValidate(movie, out error))
+                return null;
+
             //error = movie.Validate();
             //if (!String.IsNullOrEmpty(error))
             //    return null;
@@ -108,7 +33,7 @@ namespace MovieLibrary.Memory
             {
                 error = "Movie must be unique";
                 return null;
-            }
+            };
 
             //Clone
             var newMovie = movie.Clone();
@@ -122,24 +47,14 @@ namespace MovieLibrary.Memory
             return movie;
         }
 
-        private Movie FindByTitle ( string title )
-        {
-            foreach (var movie in _items)
-                if (String.Compare(title, movie.Title, true) == 0)
-                    return movie;
-
-            return null;
-        }
-
-        //TODO: Update
+        // Update
         public string Update ( int id, Movie movie )
         {
             //Movie must be valid
-            var validator = new ObjectValidator();
-            if (!validator.TryValidate(movie, out var error))
+            if (!ObjectValidator.TryValidate(movie, out var error))
                 return error;
 
-            //Movie must exsit
+            //Movie must exist
             var existing = FindById(id);
             if (existing == null)
                 return "Movie not found";
@@ -153,17 +68,7 @@ namespace MovieLibrary.Memory
             return null;
         }
 
-        private void Copy ( Movie target, Movie source )
-        {
-            target.Title = source.Title;
-            target.Description = source.Description;
-            target.Rating = source.Rating;
-            target.ReleaseYear = source.ReleaseYear;
-            target.RunLength = source.RunLength;
-            target.IsClassic = source.IsClassic;
-        }
-
-        //TODO: Delete
+        //Delete
         public void Delete ( int id )
         {
             //TODO: Validate id
@@ -172,16 +77,7 @@ namespace MovieLibrary.Memory
                 _items.Remove(movie);
         }
 
-        private object FindById ( int id )
-        {
-            foreach (var movie in _items)
-                if (movie.Id == id)
-                    return movie;
-
-            return null;
-        }
-
-        //TODO: Get
+        //Get
         public Movie Get ( int id )
         {
             //TODO: Validate id
@@ -193,35 +89,21 @@ namespace MovieLibrary.Memory
         //Get All
         public IEnumerable<Movie> GetAll ()
         {
-
-            //NEVER DO THIS - should not return a ref type directly
+            //NEVER DO THIS - should not return a ref type directly, it can be modified
             //return _items;
-            //Array.Copy() - Will copy array but not ref movies
 
-            //Need to filter out null movies
-            //var count = 0;
-            //foreach (var item in _items)
-            //{
-            //    if (item != null)
-            //        ++count;
-            //}
+            //int counter = 0;
 
+            //Use iterator syntax
+            foreach (var item in _items)
+            {
+                //++counter;
+                System.Diagnostics.Debug.WriteLine($"Returning {item.Title}");
+                yield return item.Clone();
+            };
 
-
-            //Must clone both array and avoies to return new copies
-            //new Movie[0];
-
-
-            //Don't need the for loop
-            //for (int index = 0; index < _items.Length; ++index)
-            //{items[index] = Copy(_items[index]);}
-
-            //Each iteration the next element is copied to the item variable
-            // 3 limitations
-            //   No index (use a simple index variable)
-            //   Item is read only
-            //   Array cannot change for the life of the loop (keep a separate list)
-
+            ////Must clone both array and movies to return new copies
+            ////Each iteration the next element is copied to the item variable            
             //var items = new Movie[_items.Count];
 
             //var index = 0;
@@ -229,17 +111,41 @@ namespace MovieLibrary.Memory
             //    items[index++] = item.Clone();
 
             //return items;
-            int counter = 0;
+        }
 
-            foreach (var item in _items)
-            {
-                ++counter;
-                yield return item.Clone();
-            }
+        #region Private Members
+
+        private void Copy ( Movie target, Movie source )
+        {
+            target.Title = source.Title;
+            target.Description = source.Description;
+            target.Rating = source.Rating;
+            target.RunLength = source.RunLength;
+            target.ReleaseYear = source.ReleaseYear;
+            target.IsClassic = source.IsClassic;
+        }
+
+        private Movie FindByTitle ( string title )
+        {
+            foreach (var movie in _items)
+                if (String.Compare(title, movie.Title, true) == 0)
+                    return movie;
+
+            return null;
+        }
+
+        private Movie FindById ( int id )
+        {
+            foreach (var movie in _items)
+                if (movie.Id == id)
+                    return movie;
+
+            return null;
         }
 
         //Dynamically resizing array
         private List<Movie> _items = new List<Movie>();
         private int _nextId = 1;
+        #endregion
     }
 }
