@@ -110,7 +110,7 @@ namespace JohnButler.AdventureGame.WinHost
         }
 
         /// <summary> Updates UI if something's changed. </summary>
-        private void UpdateUI()
+        private void UpdateUI(Player player = null)
         {
             var characters = (_character != null) ? new Character[1] : new Character[0];
             if (_character != null)
@@ -119,6 +119,11 @@ namespace JohnButler.AdventureGame.WinHost
             var bindingSource = new BindingSource();
             bindingSource.DataSource = characters;
             _lbCharacters.DataSource = bindingSource;
+
+            if (player == null)
+                return;
+
+            textBox1.Text = player.GetPosition(8).Description;
         }
 
         /// <summary> Displays an error window. </summary>
@@ -137,8 +142,17 @@ namespace JohnButler.AdventureGame.WinHost
                 return;
             }
 
+            characterToolStripMenuItem.Enabled = false;
+            StartGame();
+        }
+
+        private void StartGame ()
+        {
             Player player = new Player();
             player.SetCharacter(_character);
+            
+            var currentPosition = player.GetStartingPosition().Description;
+            UpdateUI(player);
         }
     }
 }
