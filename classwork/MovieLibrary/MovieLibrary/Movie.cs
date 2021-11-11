@@ -41,38 +41,45 @@ namespace MovieLibrary
 
         public string Title
         {
-            //null coalescing ::= E ?? E   (returns first non-null expression)
-            //null conditional ::= E?.M    (returns M?) changes the type of the expression
+            ////null coalescing ::= E ?? E   (returns first non-null expression)
+            ////null conditional ::= E?.M    (returns M?) changes the type of the expression
 
-            //Read: T get_Title ()
-            get 
-            {
-                return _title ?? "";
+            ////Read: T get_Title ()
+            //get 
+            //{
+            //    return _title ?? "";
 
-                //return (_title != null) ? _title : "";
-                //if (_title == null)
-                //    return "";
-                
-                //return _title; 
-            }
+            //    //return (_title != null) ? _title : "";
+            //    //if (_title == null)
+            //    //    return "";
 
-            //Write void set_Title ( string value )
-            set 
-            {
-                // _title = value; 
-                //_title = (value != null) ? value.Trim() : null;
-                _title = value?.Trim();
+            //    //return _title; 
+            //}
 
-                //Movie m;
-                //int id = m?.Id ?? 0; // int?
-            }
+            ////Write void set_Title ( string value )
+            //set 
+            //{
+            //    // _title = value; 
+            //    //_title = (value != null) ? value.Trim() : null;
+            //    _title = value?.Trim();
+
+            //    //Movie m;
+            //    //int id = m?.Id ?? 0; // int?
+            //}
+
+            //Expression body for single line accessors
+            get => _title ?? "";
+            set => _title = value?.Trim();
         }
 
         /// <summary> Gets for sets the description </summary>
         public string Description
         {
-            get { return (_description != null) ? _description : ""; }
-            set { _description = (value != null ? value.Trim() : null); }
+            //get { return (_description != null) ? _description : ""; }
+            //set { _description = (value != null ? value.Trim() : null); }
+
+            get => (_description != null) ? _description : "";
+            set => _description = (value != null ? value.Trim() : null);
         }
 
         /// <summary> Gets or sets the rating 
@@ -142,10 +149,12 @@ namespace MovieLibrary
         //    return ReleaseYear < 1922;
         //}
 
-        public bool IsBlackAndWhite
-        {
-            get { return ReleaseYear < 1922; }
-        }
+        //Expresson body for calculated property
+        public bool IsBlackAndWhite => ReleaseYear < 1922;
+        //{
+        //    //get { return ReleaseYear < 1922; }
+        //    get => ReleaseYear < 1922;
+        //}
 
         // Methods - provide functionality (function inside a class)
         // Can reference fields in method
@@ -153,25 +162,36 @@ namespace MovieLibrary
 
         /// <summary> Copies movie </summary>
         /// <returns> A copy of the movie </returns>
-        public Movie Clone ()
-        {
-            var movie = new Movie();
-            movie.Id = Id;
-            movie.Title = Title;
-            movie.Description = Description;
-            movie.RunLength = RunLength;
-            movie.ReleaseYear = ReleaseYear;
-            movie.ReviewRating = ReviewRating;
-            movie.Rating = Rating;
-            movie.IsClassic = IsClassic;
+        //public Movie Clone ()
+        //{
+        //    var movie = new Movie();
+        //    movie.Id = Id;
+        //    movie.Title = Title;
+        //    movie.Description = Description;
+        //    movie.RunLength = RunLength;
+        //    movie.ReleaseYear = ReleaseYear;
+        //    movie.ReviewRating = ReviewRating;
+        //    movie.Rating = Rating;
+        //    movie.IsClassic = IsClassic;
 
-            return movie;
-        }
+        //    return movie;
+        //}
 
-        public override string ToString ()
-        {
-            return $"{Title} ({ReleaseYear})";
-        }
+
+        public Movie Clone () => new Movie() {
+
+            Id = Id,
+            Title = Title,
+            Description = Description,
+            RunLength = RunLength,
+            ReleaseYear = ReleaseYear,
+            ReviewRating = ReviewRating,
+            Rating = Rating,
+            IsClassic = IsClassic,
+        };
+
+        public override string ToString () => $"{Title} ({ReleaseYear})";
+        
 
         public IEnumerable<ValidationResult> Validate ( ValidationContext validationContext )
         {
