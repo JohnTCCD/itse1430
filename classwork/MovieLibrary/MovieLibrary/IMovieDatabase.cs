@@ -11,10 +11,10 @@ namespace MovieLibrary
         //Only type members that are not implementation details are allowed:
         //    Methods, properties, events
         //The implementation is not provided
-        Movie Add ( Movie movie, out string error );
+        Movie Add ( Movie movie );
         void Delete ( int id );
         Movie Get ( int id );
         IEnumerable<Movie> GetAll ();
-        string Update ( int id, Movie movie );
+        void Update ( int id, Movie movie );
     }
 }
