@@ -55,5 +55,13 @@ namespace JohnButler.AdventureGame
         {
             _inventory.AddItem(item);
         }
+
+        public Inventory GetInventory ()
+        {
+            if (_inventory == null)
+                return null;
+
+            return _inventory;
+        }
     }
 }

@@ -171,6 +171,7 @@ namespace JohnButler.AdventureGame.WinHost
             button3.Enabled = false;
             button4.Enabled = false;
             button5.Enabled = false;
+            button6.Enabled = false;
 
             var currentArea = _player.GetCurrentPosition();
             foreach (var idNext in currentArea.AccessibleIds)
@@ -185,6 +186,8 @@ namespace JohnButler.AdventureGame.WinHost
                     button2.Enabled = true;
                 if (currentArea.HasItem)
                     button5.Enabled = true;
+                if (_player.GetInventory() != null)
+                    button6.Enabled = true;
             }
         }
 
@@ -266,6 +269,17 @@ namespace JohnButler.AdventureGame.WinHost
             currentArea.RemoveItem();
             currentArea.HasItem = false;
             UpdateUI(currentArea);
+        }
+
+        /// <summary> Handles when View Inventory is clicked. </summary>
+        /// <param name="sender"> Event Sender </param>
+        /// <param name="e">Event Data </param>
+        private void OnViewInventory ( object sender, EventArgs e )
+        {
+            var dialog = new InventoryForm();
+            dialog.Player = _player;
+            dialog.ShowDialog();
+
         }
     }
 }

@@ -47,6 +47,7 @@ namespace JohnButler.AdventureGame.WinHost
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -151,6 +152,7 @@ namespace JohnButler.AdventureGame.WinHost
             this.tableLayoutPanel1.Controls.Add(this.button3, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.button4, 2, 2);
             this.tableLayoutPanel1.Controls.Add(this.button5, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.button6, 2, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 24);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -242,16 +244,27 @@ namespace JohnButler.AdventureGame.WinHost
             // 
             // button5
             // 
-            this.tableLayoutPanel1.SetColumnSpan(this.button5, 2);
             this.button5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button5.Enabled = false;
             this.button5.Location = new System.Drawing.Point(395, 167);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(386, 29);
+            this.button5.Size = new System.Drawing.Size(190, 29);
             this.button5.TabIndex = 6;
             this.button5.Text = "Pick Up Item";
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.OnPickUpItem);
+            // 
+            // button6
+            // 
+            this.button6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button6.Enabled = false;
+            this.button6.Location = new System.Drawing.Point(591, 167);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(190, 29);
+            this.button6.TabIndex = 7;
+            this.button6.Text = "View Inventory";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.OnViewInventory);
             // 
             // MainForm
             // 
@@ -293,6 +306,7 @@ namespace JohnButler.AdventureGame.WinHost
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button button6;
     }
 }
 

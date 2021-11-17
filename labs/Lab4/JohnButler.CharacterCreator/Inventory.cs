@@ -25,15 +25,11 @@ namespace JohnButler.AdventureGame
         }
 
         /// <summary> Gets the item of the name specified. </summary>
-        /// <param name="name"> Name of the item to be returned. </param>
-        /// <returns> The item if name is found. </returns>
-        public Item GetItemByName(string name)
+        /// <returns> Items if not null. </returns>
+        public List<Item> GetAllItems()
         {
-            foreach(var item in _items)
-            {
-                if (String.Compare(item.Name, name) == 0)
-                    return item;
-            }
+            if (_items != null)
+                return _items;
 
             return null;
         }
