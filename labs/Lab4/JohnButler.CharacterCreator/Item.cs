@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace JohnButler.AdventureGame
 {
     /// <summary> Represents an item the player may carry. </summary>
-    class Item
+    public class Item
     {
         /// <summary> Gets or sets the name of the item. </summary>
         public string Name { get; set; }

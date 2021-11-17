@@ -15,6 +15,8 @@ namespace JohnButler.AdventureGame
     /// <summary> Represents an area in the game. </summary>
     public class Area
     {
+        private Item _item;
+
         /// <summary> Gets or sets the area id. </summary>
         public int Id { get; set; }
 
@@ -23,6 +25,9 @@ namespace JohnButler.AdventureGame
 
         /// <summary> Gets or sets an array of accessible area ids. </summary>
         public int[] AccessibleIds { get; set; }
+
+        /// <summary> Gets or sets if the area has an item or not. </summary>
+        public bool HasItem { get; set; } = false;
 
         public Area Clone ()
         {
@@ -35,6 +40,25 @@ namespace JohnButler.AdventureGame
                 area.AccessibleIds[index++] = a;
 
             return area;
+        }
+
+        public void SetItem( Item item )
+        {
+            if (_item == null)
+                _item = new Item();
+
+            _item = item;
+        }
+
+        public Item GetItem ()
+        {
+            if (_item != null)
+            {
+                var item = _item;
+                return item;
+            }
+
+            return null;
         }
     }
 }

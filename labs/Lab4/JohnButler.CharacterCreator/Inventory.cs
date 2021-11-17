@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace JohnButler.AdventureGame
 {
     /// <summary> Holds a collection of items. </summary>
-    class Inventory
+    public class Inventory
     {
         private List<Item> _items = new List<Item>();
 

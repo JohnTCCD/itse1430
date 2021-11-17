@@ -16,8 +16,8 @@ namespace JohnButler.AdventureGame
     public class Player
     {
         private Character _character;
-        private GameWorld _gameWorld;
-        private Inventory _inventory;
+        private GameWorld _gameWorld = new GameWorld();
+        private Inventory _inventory = new Inventory();
         private int _positionId;
 
         /// <summary> Sets the character. </summary>
@@ -38,7 +38,7 @@ namespace JohnButler.AdventureGame
         /// <returns> Area the game starts in. </returns>
         public Area GetStartingPosition ()
         {
-            _gameWorld = new GameWorld();
+            //_gameWorld = new GameWorld();
             _gameWorld.CreateGameWorld();
             return _gameWorld.FindStartingArea();
         }
