@@ -27,7 +27,19 @@ namespace JohnButler.AdventureGame
         public int[] AccessibleIds { get; set; }
 
         /// <summary> Gets or sets if the area has an item or not. </summary>
-        public bool HasItem { get; set; } = false;
+        public bool HasItem { get; set; }
+
+        public string DisplayDescription (int id, bool hasItem = false)
+        {
+            if (id == 2 && hasItem)
+                return Description + "There is a knief that can be picked up.";
+            else if (id == 7 && hasItem)
+                return Description + "There is a hand mirror that can be picked up.";
+            else if (id == 9 && hasItem)
+                return Description + "There is an herbal remedey book that can be picked up.";
+            else
+                return Description;
+        }
 
         public Area Clone ()
         {
@@ -59,6 +71,14 @@ namespace JohnButler.AdventureGame
             }
 
             return null;
+        }
+
+        public void RemoveItem ()
+        {
+            if (_item == null)
+                return;
+
+            _item = null;
         }
     }
 }

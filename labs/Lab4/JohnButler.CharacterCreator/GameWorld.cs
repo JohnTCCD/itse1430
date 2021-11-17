@@ -79,12 +79,39 @@ namespace JohnButler.AdventureGame
             foreach (var area in areas)
                 if (area != null)
                     AddArea(area);
+
+            AddItems(areas);
         }
+
+        private void AddItems( Area[] areas )
+        {
+            Item[] items = new[]
+            {
+                new Item() {
+                    Name = "Knief",
+                    Value = 16,
+                    Weight = 2,
+                },
+                new Item() {
+                    Name = "Hand Mirror",
+                    Value = 24,
+                    Weight = 1,
+                },
+                new Item() {
+                    Name = "Book",
+                    Value = 10,
+                    Weight = 2,
+                },
+            };
+
+            areas[1].SetItem(items[0]);
+            areas[6].SetItem(items[1]);
+            areas[8].SetItem(items[2]);
+        }
+
 
         private string DisplayMasterBedroom ()
         {
-            
-
             string description = "Current location: (3, 1) " +
             "The first thing that you notice entering the master bedroom is " +
             "that there is an open coffen where a king sized bed should be! " +
@@ -102,9 +129,7 @@ namespace JohnButler.AdventureGame
             string description = "Current location: (2, 1) " +
             "Upon arriving, you can see that a broken table, crumbled chairs and " +
             "candle holders on the ground are what's left of the dinning area. " +
-            "Underneath one of the broken chairs. There seems to be a kitchen knife " +
-            "with red marks covering the blade. " +
-            "There is a door to the West, South, and East. ";
+            "Underneath one of the broken chairs. There is a door to the West, South, and East. ";
 
             return description;
         }
@@ -167,7 +192,7 @@ namespace JohnButler.AdventureGame
             "inside sits at the other end of the middle rack. The empty cauldron has " +
             "intricate patterns eched into its metallic outter shell, giving it a " +
             "rather sinister appearance. " +
-            "There is a door to the North and West.";
+            "There is a door to the North and West. ";
 
             return description;
         }
@@ -194,7 +219,7 @@ namespace JohnButler.AdventureGame
             "paintings have been well kept and clean. Second, all of these paintings are an image " +
             "of different individuals sitting in a chair. You try to see the eyes of the paintings " +
             "follow you like in the movies, but alas, that does not seem to be the case... " +
-            "There is a door to the East and North.";
+            "There is a door to the East and North. ";
 
             return description;
         }

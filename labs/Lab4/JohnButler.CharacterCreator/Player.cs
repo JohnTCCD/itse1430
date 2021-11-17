@@ -38,7 +38,6 @@ namespace JohnButler.AdventureGame
         /// <returns> Area the game starts in. </returns>
         public Area GetStartingPosition ()
         {
-            //_gameWorld = new GameWorld();
             _gameWorld.CreateGameWorld();
             return _gameWorld.FindStartingArea();
         }
@@ -48,6 +47,11 @@ namespace JohnButler.AdventureGame
         public Area GetCurrentPosition ()
         {
             return _gameWorld.FindAreaById(_positionId);
+        }
+
+        public void TakeItem (Item item)
+        {
+            _inventory.AddItem(item);
         }
     }
 }

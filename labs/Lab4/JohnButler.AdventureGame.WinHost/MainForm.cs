@@ -127,7 +127,7 @@ namespace JohnButler.AdventureGame.WinHost
                 return;
             
             _player.SetCurrentPosition(area.Id);
-            textBox1.Text = _player.GetCurrentPosition().Description;
+            textBox1.Text = _player.GetCurrentPosition().DisplayDescription(area.Id, area.HasItem);
             EnableButtons(area.Id);
         }
 
@@ -171,6 +171,7 @@ namespace JohnButler.AdventureGame.WinHost
             button2.Enabled = false;
             button3.Enabled = false;
             button4.Enabled = false;
+            button5.Enabled = false;
             switch (id)
             {
                 case 1:
@@ -184,6 +185,7 @@ namespace JohnButler.AdventureGame.WinHost
                     button2.Enabled = true;
                     button3.Enabled = true;
                     button4.Enabled = true;
+                    button5.Enabled = true;
                     break;
                 }
                 case 3:
@@ -218,6 +220,7 @@ namespace JohnButler.AdventureGame.WinHost
                 {
                     button1.Enabled = true;
                     button2.Enabled = true;
+                    button5.Enabled = true;
                     break;
                 }
                 case 8:
@@ -231,6 +234,7 @@ namespace JohnButler.AdventureGame.WinHost
                 {
                     button1.Enabled = true;
                     button4.Enabled = true;
+                    button5.Enabled = true;
                     break;
                 }
                 default: DisplayError("Unknown Error", "Error"); break;
@@ -302,6 +306,15 @@ namespace JohnButler.AdventureGame.WinHost
             }
 
             currentArea = _player.GetCurrentPosition();
+            UpdateUI(currentArea);
+        }
+
+        private void OnPickUpItem ( object sender, EventArgs e )
+        {
+            var currentArea = _player.GetCurrentPosition();
+            _player.TakeItem(currentArea.GetItem());
+            currentArea.RemoveItem();
+            currentArea.HasItem = false;
             UpdateUI(currentArea);
         }
     }
