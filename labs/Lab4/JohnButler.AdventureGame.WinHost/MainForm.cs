@@ -128,7 +128,7 @@ namespace JohnButler.AdventureGame.WinHost
             
             _player.SetCurrentPosition(area.Id);
             textBox1.Text = _player.GetCurrentPosition().DisplayDescription(area.Id, area.HasItem);
-            EnableButtons(area.Id);
+            EnableButtons();
         }
 
         /// <summary> Displays an error window. </summary>
@@ -164,80 +164,27 @@ namespace JohnButler.AdventureGame.WinHost
         }
 
         /// <summary> Enables/Disables move buttons according to the current area. </summary>
-        /// <param name="id"> Area id. </param>
-        private void EnableButtons(int id)
+        private void EnableButtons()
         {
             button1.Enabled = false;
             button2.Enabled = false;
             button3.Enabled = false;
             button4.Enabled = false;
             button5.Enabled = false;
-            switch (id)
+
+            var currentArea = _player.GetCurrentPosition();
+            foreach (var idNext in currentArea.AccessibleIds)
             {
-                case 1:
-                {
-                    button2.Enabled = true;
+                if (currentArea.Id - 3 == idNext)
+                    button1.Enabled = true;
+                if (currentArea.Id + 3 == idNext)
                     button3.Enabled = true;
-                    break;
-                }
-                case 2:
-                {
-                    button2.Enabled = true;
-                    button3.Enabled = true;
+                if (currentArea.Id - 1 == idNext)
                     button4.Enabled = true;
+                if (currentArea.Id + 1 == idNext)
+                    button2.Enabled = true;
+                if (currentArea.HasItem)
                     button5.Enabled = true;
-                    break;
-                }
-                case 3:
-                {
-                    button3.Enabled = true;
-                    button4.Enabled = true;
-                    break;
-                }
-                case 4:
-                {
-                    button1.Enabled = true;
-                    button2.Enabled = true;
-                    button3.Enabled = true;
-                    break;
-                }
-                case 5:
-                {
-                    button1.Enabled = true;
-                    button2.Enabled = true;
-                    button3.Enabled = true;
-                    button4.Enabled = true;
-                    break;
-                }
-                case 6:
-                {
-                    button1.Enabled = true;
-                    button3.Enabled = true;
-                    button4.Enabled = true;
-                    break;
-                }
-                case 7:
-                {
-                    button1.Enabled = true;
-                    button2.Enabled = true;
-                    button5.Enabled = true;
-                    break;
-                }
-                case 8:
-                {
-                    button1.Enabled = true;
-                    button2.Enabled = true;
-                    button4.Enabled = true;
-                    break;
-                }
-                case 9:
-                {
-                    button1.Enabled = true;
-                    button4.Enabled = true;
-                    button5.Enabled = true;
-                    break;
-                }
-                default: DisplayError("Unknown Error", "Error"); break;
             }
         }
 
@@ -309,6 +256,9 @@ namespace JohnButler.AdventureGame.WinHost
             UpdateUI(currentArea);
         }
 
+        /// <summary> Handles when the pick up button is clicked. </summary>
+        /// <param name="sender"> Event Sender. </param>
+        /// <param name="e"> Event Data. </param>
         private void OnPickUpItem ( object sender, EventArgs e )
         {
             var currentArea = _player.GetCurrentPosition();

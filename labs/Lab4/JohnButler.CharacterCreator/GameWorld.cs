@@ -83,6 +83,8 @@ namespace JohnButler.AdventureGame
             AddItems(areas);
         }
 
+        /// <summary> Adds items to some areas. </summary>
+        /// <param name="areas"> Areas to add items to. </param>
         private void AddItems( Area[] areas )
         {
             Item[] items = new[]
@@ -109,7 +111,8 @@ namespace JohnButler.AdventureGame
             areas[8].SetItem(items[2]);
         }
 
-
+        /// <summary> Contains the description of the Master Bedroom. </summary>
+        /// <returns> String description to be displayed. </returns>
         private string DisplayMasterBedroom ()
         {
             string description = "Current location: (3, 1) " +
@@ -124,6 +127,8 @@ namespace JohnButler.AdventureGame
             return description;
         }
 
+        /// <summary> Contains the description of the Dinning Room. </summary>
+        /// <returns> String description to be displayed. </returns>
         private string DisplayDinningRoom ()
         {
             string description = "Current location: (2, 1) " +
@@ -134,6 +139,8 @@ namespace JohnButler.AdventureGame
             return description;
         }
 
+        /// <summary> Contains the description of the Guest Room. </summary>
+        /// <returns> String description to be displayed. </returns>
         private string DisplayGuestRoom ()
         {
             string description = "Current location: (1, 1) " +
@@ -147,6 +154,8 @@ namespace JohnButler.AdventureGame
             return description;
         }
 
+        /// <summary> Contains the description of the Fire Place. </summary>
+        /// <returns> String description to be displayed. </returns>
         private string DisplayFirePlace ()
         {
             string description = "Current location: (1, 2) " +
@@ -160,6 +169,8 @@ namespace JohnButler.AdventureGame
             return description;
         }
 
+        /// <summary> Contains the description of the Kitchen. </summary>
+        /// <returns> String description to be displayed. </returns>
         private string DisplayKitchen ()
         {
             string description = "Current location: (2, 2) " +
@@ -172,6 +183,8 @@ namespace JohnButler.AdventureGame
             return description;
         }
 
+        /// <summary> Contains the description of the Balcony. </summary>
+        /// <returns> String description to be displayed. </returns>
         private string DisplayBalcony ()
         {
             string description = "Current location: (3, 2) " +
@@ -183,6 +196,8 @@ namespace JohnButler.AdventureGame
             return description;
         }
 
+        /// <summary> Contains the description of the Cellar. </summary>
+        /// <returns> String description to be displayed. </returns>
         private string DisplayCellar ()
         {
             string description = "Current location: (3, 3) " +
@@ -197,6 +212,8 @@ namespace JohnButler.AdventureGame
             return description;
         }
 
+        /// <summary> Contains the description of the Entrance. </summary>
+        /// <returns> String description to be displayed. </returns>
         private string DisplayEntrance ()
         {
             string description = "Current location: (2 ,3) " +
@@ -209,6 +226,8 @@ namespace JohnButler.AdventureGame
             return description;
         }
 
+        /// <summary> Contains the description of the Art Gallery. </summary>
+        /// <returns> String description to be displayed. </returns>
         private string DisplayArtGallery ()
         {
             string description = "Current location: (1, 3) " +

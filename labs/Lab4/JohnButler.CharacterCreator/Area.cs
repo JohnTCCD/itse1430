@@ -29,6 +29,10 @@ namespace JohnButler.AdventureGame
         /// <summary> Gets or sets if the area has an item or not. </summary>
         public bool HasItem { get; set; }
 
+        /// <summary> Displays the description of the current area. </summary>
+        /// <param name="id"> Area id. </param>
+        /// <param name="hasItem"> Determines if area has an item or not. </param>
+        /// <returns> String description to be displayed. </returns>
         public string DisplayDescription (int id, bool hasItem = false)
         {
             if (id == 2 && hasItem)
@@ -41,6 +45,8 @@ namespace JohnButler.AdventureGame
                 return Description;
         }
 
+        /// <summary> Makes a copy of an area. </summary>
+        /// <returns> Copied area. </returns>
         public Area Clone ()
         {
             var area = new Area();
@@ -54,6 +60,8 @@ namespace JohnButler.AdventureGame
             return area;
         }
 
+        /// <summary> Sets an item in the current area. </summary>
+        /// <param name="item"> Item to be set. </param>
         public void SetItem( Item item )
         {
             if (_item == null)
@@ -62,6 +70,8 @@ namespace JohnButler.AdventureGame
             _item = item;
         }
 
+        /// <summary> Gets an item from the current area. </summary>
+        /// <returns> Item in the area. </returns>
         public Item GetItem ()
         {
             if (_item != null)
@@ -73,6 +83,7 @@ namespace JohnButler.AdventureGame
             return null;
         }
 
+        /// <summary> Deletes the item in the current area. </summary>
         public void RemoveItem ()
         {
             if (_item == null)

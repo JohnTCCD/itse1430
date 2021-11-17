@@ -49,6 +49,8 @@ namespace JohnButler.AdventureGame
             return _gameWorld.FindAreaById(_positionId);
         }
 
+        /// <summary> Adds an item to the player's inventory. </summary>
+        /// <param name="item"> Item to add to inventory. </param>
         public void TakeItem (Item item)
         {
             _inventory.AddItem(item);
