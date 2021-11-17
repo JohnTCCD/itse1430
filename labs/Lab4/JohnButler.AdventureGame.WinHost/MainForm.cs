@@ -139,6 +139,9 @@ namespace JohnButler.AdventureGame.WinHost
             MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
+        /// <summary> Handles when File/NewGame is selected. </summary>
+        /// <param name="sender"> Event Sender. </param>
+        /// <param name="e"> Event Data. </param>
         private void OnNewGame ( object sender, EventArgs e )
         {
             if (_character == null)
@@ -151,6 +154,7 @@ namespace JohnButler.AdventureGame.WinHost
             StartGame();
         }
 
+        /// <summary> Starts a new game. </summary>
         private void StartGame ()
         {
             _player = new Player();
@@ -159,6 +163,8 @@ namespace JohnButler.AdventureGame.WinHost
             UpdateUI(currentArea);
         }
 
+        /// <summary> Enables/Disables move buttons according to the current area. </summary>
+        /// <param name="id"> Area id. </param>
         private void EnableButtons(int id)
         {
             button1.Enabled = false;
@@ -231,6 +237,9 @@ namespace JohnButler.AdventureGame.WinHost
             }
         }
 
+        /// <summary> Button to move north. </summary>
+        /// <param name="sender"> Event Sender </param>
+        /// <param name="e"> Event Data </param>
         private void OnMoveNorth ( object sender, EventArgs e )
         {
             var currentArea = _player.GetCurrentPosition();
@@ -245,6 +254,9 @@ namespace JohnButler.AdventureGame.WinHost
             UpdateUI(currentArea);
         }
 
+        /// <summary> Button to move south. </summary>
+        /// <param name="sender"> Event Sender. </param>
+        /// <param name="e"> Event Data. </param>
         private void OnMoveSouth ( object sender, EventArgs e )
         {
             var currentArea = _player.GetCurrentPosition();
@@ -259,6 +271,9 @@ namespace JohnButler.AdventureGame.WinHost
             UpdateUI(currentArea);
         }
 
+        /// <summary> Button to move East. </summary>
+        /// <param name="sender"> Event Sender. </param>
+        /// <param name="e"> Event Data. </param>
         private void OnMoveEast ( object sender, EventArgs e )
         {
             var currentArea = _player.GetCurrentPosition();
@@ -273,6 +288,9 @@ namespace JohnButler.AdventureGame.WinHost
             UpdateUI(currentArea);
         }
 
+        /// <summary> Button to move west. </summary>
+        /// <param name="sender"> Event Sender. </param>
+        /// <param name="e"> Event Data. </param>
         private void OnMoveWest ( object sender, EventArgs e )
         {
             var currentArea = _player.GetCurrentPosition();

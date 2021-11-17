@@ -16,7 +16,7 @@ namespace JohnButler.AdventureGame
     public class GameWorld : World
     {
         /// <summary> Creates and adds the nine areas to the game. </summary>
-        public GameWorld ()
+        public void CreateGameWorld()
         {
             var areas = new[]
             {
