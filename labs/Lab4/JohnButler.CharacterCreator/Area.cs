@@ -21,7 +21,7 @@ namespace JohnButler.AdventureGame
         /// <summary> Gets or sets the area description. </summary>
         public string Description { get; set; }
 
-        /// <summary> Gets or sets the accessible areas. </summary>
+        /// <summary> Gets or sets an array of accessible area ids. </summary>
         public int[] AccessibleIds { get; set; }
 
         public Area Clone ()

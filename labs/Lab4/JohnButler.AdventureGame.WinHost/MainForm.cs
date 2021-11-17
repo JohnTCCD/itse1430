@@ -25,6 +25,7 @@ namespace JohnButler.AdventureGame.WinHost
         }
 
         private Character _character;
+        private Player _player;
 
         /// <summary> Handles when File/Exit is chosen. </summary>
         /// <param name="sender"> Event Sender </param>
@@ -110,20 +111,24 @@ namespace JohnButler.AdventureGame.WinHost
         }
 
         /// <summary> Updates UI if something's changed. </summary>
-        private void UpdateUI(Player player = null)
+        private void UpdateUI(Area area = null)
         {
             var characters = (_character != null) ? new Character[1] : new Character[0];
+                
             if (_character != null)
                 characters[0] = _character;
 
             var bindingSource = new BindingSource();
             bindingSource.DataSource = characters;
             _lbCharacters.DataSource = bindingSource;
+            _lbCharacters.DisplayMember = nameof(Name);
 
-            if (player == null)
+            if (_player == null || area == null)
                 return;
-
-            textBox1.Text = player.GetPosition(8).Description;
+            
+            _player.SetCurrentPosition(area.Id);
+            textBox1.Text = _player.GetCurrentPosition().Description;
+            EnableButtons(area.Id);
         }
 
         /// <summary> Displays an error window. </summary>
@@ -148,11 +153,138 @@ namespace JohnButler.AdventureGame.WinHost
 
         private void StartGame ()
         {
-            Player player = new Player();
-            player.SetCharacter(_character);
-            
-            var currentPosition = player.GetStartingPosition().Description;
-            UpdateUI(player);
+            _player = new Player();
+            _player.SetCharacter(_character);
+            var currentArea = _player.GetStartingPosition();
+            UpdateUI(currentArea);
+        }
+
+        private void EnableButtons(int id)
+        {
+            button1.Enabled = false;
+            button2.Enabled = false;
+            button3.Enabled = false;
+            button4.Enabled = false;
+            switch (id)
+            {
+                case 1:
+                {
+                    button2.Enabled = true;
+                    button3.Enabled = true;
+                    break;
+                }
+                case 2:
+                {
+                    button2.Enabled = true;
+                    button3.Enabled = true;
+                    button4.Enabled = true;
+                    break;
+                }
+                case 3:
+                {
+                    button3.Enabled = true;
+                    button4.Enabled = true;
+                    break;
+                }
+                case 4:
+                {
+                    button1.Enabled = true;
+                    button2.Enabled = true;
+                    button3.Enabled = true;
+                    break;
+                }
+                case 5:
+                {
+                    button1.Enabled = true;
+                    button2.Enabled = true;
+                    button3.Enabled = true;
+                    button4.Enabled = true;
+                    break;
+                }
+                case 6:
+                {
+                    button1.Enabled = true;
+                    button3.Enabled = true;
+                    button4.Enabled = true;
+                    break;
+                }
+                case 7:
+                {
+                    button1.Enabled = true;
+                    button2.Enabled = true;
+                    break;
+                }
+                case 8:
+                {
+                    button1.Enabled = true;
+                    button2.Enabled = true;
+                    button4.Enabled = true;
+                    break;
+                }
+                case 9:
+                {
+                    button1.Enabled = true;
+                    button4.Enabled = true;
+                    break;
+                }
+                default: DisplayError("Unknown Error", "Error"); break;
+            }
+        }
+
+        private void OnMoveNorth ( object sender, EventArgs e )
+        {
+            var currentArea = _player.GetCurrentPosition();
+
+            foreach (var areaId in currentArea.AccessibleIds)
+            {
+                if (currentArea.Id - 3 == areaId)
+                    _player.SetCurrentPosition(areaId);
+            }
+
+            currentArea = _player.GetCurrentPosition();
+            UpdateUI(currentArea);
+        }
+
+        private void OnMoveSouth ( object sender, EventArgs e )
+        {
+            var currentArea = _player.GetCurrentPosition();
+
+            foreach (var areaId in currentArea.AccessibleIds)
+            {
+                if (currentArea.Id + 3 == areaId)
+                    _player.SetCurrentPosition(areaId);
+            }
+
+            currentArea = _player.GetCurrentPosition();
+            UpdateUI(currentArea);
+        }
+
+        private void OnMoveEast ( object sender, EventArgs e )
+        {
+            var currentArea = _player.GetCurrentPosition();
+
+            foreach (var areaId in currentArea.AccessibleIds)
+            {
+                if (currentArea.Id + 1 == areaId)
+                    _player.SetCurrentPosition(areaId);
+            }
+
+            currentArea = _player.GetCurrentPosition();
+            UpdateUI(currentArea);
+        }
+
+        private void OnMoveWest ( object sender, EventArgs e )
+        {
+            var currentArea = _player.GetCurrentPosition();
+
+            foreach (var areaId in currentArea.AccessibleIds)
+            {
+                if (currentArea.Id - 1 == areaId)
+                    _player.SetCurrentPosition(areaId);
+            }
+
+            currentArea = _player.GetCurrentPosition();
+            UpdateUI(currentArea);
         }
     }
 }
