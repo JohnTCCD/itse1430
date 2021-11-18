@@ -111,17 +111,15 @@ namespace JohnButler.AdventureGame.WinHost
         }
 
         /// <summary> Updates UI if something's changed. </summary>
-        private void UpdateUI(Area area = null)
+        private void UpdateUI( Area area = null, bool gameStarted = false )
         {
             var characters = (_character != null) ? new Character[1] : new Character[0];
                 
             if (_character != null)
                 characters[0] = _character;
 
-            var bindingSource = new BindingSource();
-            bindingSource.DataSource = characters;
-            _lbCharacters.DataSource = bindingSource;
-            _lbCharacters.DisplayMember = nameof(Name);
+            if (!gameStarted)
+                _lbCharacters.Items.Add($"{characters[0].Name}");
 
             if (_player == null || area == null)
                 return;
@@ -158,9 +156,9 @@ namespace JohnButler.AdventureGame.WinHost
         private void StartGame ()
         {
             _player = new Player();
-            _player.SetCharacter(_character);
+            _player.Character = _character;
             var currentArea = _player.GetStartingPosition();
-            UpdateUI(currentArea);
+            UpdateUI(currentArea, true);
         }
 
         /// <summary> Enables/Disables move buttons according to the current area. </summary>
@@ -205,7 +203,7 @@ namespace JohnButler.AdventureGame.WinHost
             }
 
             currentArea = _player.GetCurrentPosition();
-            UpdateUI(currentArea);
+            UpdateUI(currentArea, true);
         }
 
         /// <summary> Button to move south. </summary>
@@ -222,7 +220,7 @@ namespace JohnButler.AdventureGame.WinHost
             }
 
             currentArea = _player.GetCurrentPosition();
-            UpdateUI(currentArea);
+            UpdateUI(currentArea, true);
         }
 
         /// <summary> Button to move East. </summary>
@@ -239,7 +237,7 @@ namespace JohnButler.AdventureGame.WinHost
             }
 
             currentArea = _player.GetCurrentPosition();
-            UpdateUI(currentArea);
+            UpdateUI(currentArea, true);
         }
 
         /// <summary> Button to move west. </summary>
@@ -256,7 +254,7 @@ namespace JohnButler.AdventureGame.WinHost
             }
 
             currentArea = _player.GetCurrentPosition();
-            UpdateUI(currentArea);
+            UpdateUI(currentArea, true);
         }
 
         /// <summary> Handles when the pick up button is clicked. </summary>
@@ -265,10 +263,10 @@ namespace JohnButler.AdventureGame.WinHost
         private void OnPickUpItem ( object sender, EventArgs e )
         {
             var currentArea = _player.GetCurrentPosition();
-            _player.TakeItem(currentArea.GetItem());
-            currentArea.RemoveItem();
+            _player.TakeItem(currentArea.Item);
+            currentArea.Item = null;
             currentArea.HasItem = false;
-            UpdateUI(currentArea);
+            UpdateUI(currentArea, true);
         }
 
         /// <summary> Handles when View Inventory is clicked. </summary>
@@ -279,7 +277,6 @@ namespace JohnButler.AdventureGame.WinHost
             var dialog = new InventoryForm();
             dialog.Player = _player;
             dialog.ShowDialog();
-
         }
     }
 }

@@ -125,13 +125,11 @@ namespace JohnButler.AdventureGame.WinHost
             this.labelCompanyName.Name = "labelCompanyName";
             this.labelCompanyName.Size = new System.Drawing.Size(316, 20);
             this.labelCompanyName.TabIndex = 22;
-            this.labelCompanyName.Tag = "";
             this.labelCompanyName.Text = "Company Name";
             this.labelCompanyName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // textBoxDescription
             // 
-            this.textBoxDescription.AccessibleDescription = "";
             this.textBoxDescription.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBoxDescription.Location = new System.Drawing.Point(167, 123);
             this.textBoxDescription.Margin = new System.Windows.Forms.Padding(7, 3, 4, 3);

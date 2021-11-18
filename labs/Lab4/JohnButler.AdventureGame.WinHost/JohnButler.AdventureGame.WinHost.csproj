@@ -4,6 +4,13 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
+    <Authors>John Butler</Authors>
+    <Version>1</Version>
+    <Company>Fall 2021</Company>
+    <Product>Adventure Game</Product>
+    <Description>Lab 4</Description>
+    <PackageId>About Box</PackageId>
+    <Copyright>John Butler</Copyright>
   </PropertyGroup>
 
   <ItemGroup>
