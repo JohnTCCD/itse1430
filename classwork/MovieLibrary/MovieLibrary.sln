@@ -5,7 +5,11 @@ VisualStudioVersion = 16.0.31515.178
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieLibrary", "MovieLibrary\MovieLibrary.csproj", "{33C04CBF-DE26-4BDB-BA31-3FDABB2FD6F8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieLibrary.WinHost", "MovieLibrary.WinHost\MovieLibrary.WinHost.csproj", "{FF3E6FCC-7A2B-41EB-AB95-1364615C531D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieLibrary.WinHost", "MovieLibrary.WinHost\MovieLibrary.WinHost.csproj", "{FF3E6FCC-7A2B-41EB-AB95-1364615C531D}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "MovieDb", "MovieDb\MovieDb.sqlproj", "{BDE72751-B36A-499E-81E4-7FB8951B67F5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieLibrary.Sql", "MovieLibrarysql\MovieLibrary.Sql.csproj", "{44F83045-A101-4493-83C7-84E4009DF532}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,16 @@ Global
 		{FF3E6FCC-7A2B-41EB-AB95-1364615C531D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF3E6FCC-7A2B-41EB-AB95-1364615C531D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF3E6FCC-7A2B-41EB-AB95-1364615C531D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BDE72751-B36A-499E-81E4-7FB8951B67F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDE72751-B36A-499E-81E4-7FB8951B67F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDE72751-B36A-499E-81E4-7FB8951B67F5}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{BDE72751-B36A-499E-81E4-7FB8951B67F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDE72751-B36A-499E-81E4-7FB8951B67F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BDE72751-B36A-499E-81E4-7FB8951B67F5}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{44F83045-A101-4493-83C7-84E4009DF532}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44F83045-A101-4493-83C7-84E4009DF532}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44F83045-A101-4493-83C7-84E4009DF532}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44F83045-A101-4493-83C7-84E4009DF532}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

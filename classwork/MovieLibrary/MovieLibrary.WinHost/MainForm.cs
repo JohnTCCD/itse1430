@@ -4,6 +4,8 @@ using System.Windows.Forms;
 
 using MovieLibrary.Memory;
 
+using MovieLibrarySql;
+
 namespace MovieLibrary.WinHost
 {
     public partial class MainForm : Form
@@ -89,7 +91,7 @@ namespace MovieLibrary.WinHost
             
         }
 
-        private IMovieDatabase _movies = new MemoryMovieDatabase();
+        private IMovieDatabase _movies = new SqlMovieDatabase(@"Data Source=(localdb)\ProjectsV13;Initial Catalog=MovieDb;Integrated Security=True;");
 
         private void UpdateUI ( bool isFirstRun = false)
         {
