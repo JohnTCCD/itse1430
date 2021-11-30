@@ -90,7 +90,7 @@ namespace JohnButler.AdventureGame
             Item[] items = new[]
             {
                 new Item() {
-                    Name = "Knief",
+                    Name = "Knife",
                     Value = 16,
                     Weight = 2,
                 },
@@ -106,9 +106,9 @@ namespace JohnButler.AdventureGame
                 },
             };
 
-            areas[1].SetItem(items[0]);
-            areas[6].SetItem(items[1]);
-            areas[8].SetItem(items[2]);
+            areas[1].Item = items[0];
+            areas[6].Item = items[1];
+            areas[8].Item = items[2];
         }
 
         /// <summary> Contains the description of the Master Bedroom. </summary>

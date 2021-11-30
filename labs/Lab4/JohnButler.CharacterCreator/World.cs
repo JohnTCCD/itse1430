@@ -38,7 +38,7 @@ namespace JohnButler.AdventureGame
 
         /// <summary> Gets all available areas. </summary>
         /// <returns> A copy of a array of all available areas. </returns>
-        public Area[] GetAllAreas ()
+        public IEnumerable<Area> GetAllAreas ()
         {
             var count = 0;
 

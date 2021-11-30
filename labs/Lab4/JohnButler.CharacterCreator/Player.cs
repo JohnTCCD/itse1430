@@ -15,17 +15,12 @@ namespace JohnButler.AdventureGame
     /// <summary> Represents a player in the game. </summary>
     public class Player
     {
-        private Character _character;
         private GameWorld _gameWorld = new GameWorld();
         private Inventory _inventory = new Inventory();
         private int _positionId;
 
-        /// <summary> Sets the character. </summary>
-        /// <param name="character"> Character to set. </param>
-        public void SetCharacter (Character character)
-        {
-            _character = character;
-        }
+        /// <summary> Gets or sets the character. </summary>
+        public Character Character { get; set; }
 
         /// <summary> Sets the current position of the player. </summary>
         /// <param name="id"> Id of the area. </param>
@@ -56,6 +51,8 @@ namespace JohnButler.AdventureGame
             _inventory.AddItem(item);
         }
 
+        /// <summary> Gets the player's inventory. </summary>
+        /// <returns> Inventory. </returns>
         public Inventory GetInventory ()
         {
             if (_inventory == null)

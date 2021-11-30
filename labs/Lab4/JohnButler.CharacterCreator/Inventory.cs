@@ -26,7 +26,7 @@ namespace JohnButler.AdventureGame
 
         /// <summary> Gets the item of the name specified. </summary>
         /// <returns> Items if not null. </returns>
-        public List<Item> GetAllItems()
+        public IEnumerable<Item> GetAllItems()
         {
             if (_items != null)
                 return _items;
