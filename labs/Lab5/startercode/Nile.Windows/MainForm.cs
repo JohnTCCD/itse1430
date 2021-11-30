@@ -94,6 +94,12 @@ namespace Nile.Windows
             e.SuppressKeyPress = true;
         }
 
+        private void OnHelpAbout ( object sender, EventArgs e )
+        {
+            var child = new AboutBox();
+            child.ShowDialog(this);
+        }
+
         #endregion
 
         #region Private Members
@@ -143,6 +149,7 @@ namespace Nile.Windows
                 => Program.Configuration.GetConnectionString(name);        
 
         private readonly IProductDatabase _database = new Nile.Stores.MemoryProductDatabase();
+        
         #endregion
     }
 }
