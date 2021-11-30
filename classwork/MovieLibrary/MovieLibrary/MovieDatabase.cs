@@ -1,4 +1,6 @@
-﻿using System;
+﻿// ITSE 1430
+// Movie Library
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -51,7 +53,6 @@ namespace MovieLibrary
 
         protected abstract Movie GetCore ( int id );
 
-
         public IEnumerable<Movie> GetAll () => GetAllCore() ?? Enumerable.Empty<Movie>();
 
         protected abstract IEnumerable<Movie> GetAllCore ();
@@ -91,4 +92,3 @@ namespace MovieLibrary
         protected abstract Movie FindByTitle ( string title );
     }
 }
-
