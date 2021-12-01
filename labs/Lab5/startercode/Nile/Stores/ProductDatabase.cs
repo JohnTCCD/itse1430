@@ -16,6 +16,8 @@ namespace Nile.Stores
         public Product Add ( Product product )
         {
             //TODO: Check arguments
+            if (product == null)
+                throw new ArgumentNullException("Product is null.");
 
             //TODO: Validate product
             var context = new ValidationContext(product);
@@ -30,6 +32,8 @@ namespace Nile.Stores
         public Product Get ( int id )
         {
             //TODO: Check arguments
+            if (id < 0)
+                throw new ArgumentOutOfRangeException("Id must be equal to or greater than 0.");
 
             return GetCore(id);
         }
@@ -46,6 +50,8 @@ namespace Nile.Stores
         public void Remove ( int id )
         {
             //TODO: Check arguments
+            if (id < 0)
+                throw new ArgumentOutOfRangeException("Id must be equal to or greater than 0.");
 
             RemoveCore(id);
         }
@@ -56,6 +62,8 @@ namespace Nile.Stores
         public Product Update ( Product product )
         {
             //TODO: Check arguments
+            if (product == null)
+                throw new ArgumentNullException("Product is null.");
 
             //TODO: Validate product
             var context = new ValidationContext(product);
