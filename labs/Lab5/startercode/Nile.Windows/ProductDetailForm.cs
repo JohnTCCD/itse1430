@@ -2,6 +2,7 @@
  * ITSE 1430
  */
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Windows.Forms;
@@ -73,6 +74,14 @@ namespace Nile.Windows
             //TODO: Validate product
             var context = new ValidationContext(product);
             var validation = product.Validate(context);
+
+            foreach (var vali in validation)
+            {
+                if (vali.MemberNames != null)
+                {
+                    MessageBox.Show(this, vali.ErrorMessage, "Error", MessageBoxButtons.OK);
+                }
+            }
 
             Product = product;
             DialogResult = DialogResult.OK;

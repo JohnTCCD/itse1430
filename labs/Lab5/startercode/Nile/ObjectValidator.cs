@@ -9,20 +9,28 @@ namespace Nile
 {
     public static class ObjectValidator
     {
-        public static bool TryValidateFullObject ( object value, out IEnumerable<ValidationResult> results )
+        public static IEnumerable<ValidationResult> TryValidate ( IValidatableObject instance )
         {
-            results = new List<ValidationResult>();
+            var errors = new List<ValidationResult>();
+            var context = new ValidationContext(instance);
 
-            var context = new ValidationContext(value);
+            Validator.TryValidateObject(instance, context, errors);
 
-            return Validator.TryValidateObject(value, context, (ICollection<ValidationResult>)results, true);
+            return errors;
         }
 
-        public static void ValidateFullObject ( object value )
+        public static bool TryValidate ( IValidatableObject instance, out string error )
         {
-            var context = new ValidationContext(value);
+            var errors = TryValidate(instance);
+            error = errors.FirstOrDefault()?.ErrorMessage;
 
-            Validator.ValidateObject(value, context, true);
+            return String.IsNullOrEmpty(error);
+        }
+
+        public static void Validate ( IValidatableObject instance )
+        {
+            var context = new ValidationContext(instance);
+            Validator.ValidateObject(instance, context, true);
         }
     }
 }

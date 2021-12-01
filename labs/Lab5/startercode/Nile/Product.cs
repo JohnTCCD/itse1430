@@ -40,7 +40,7 @@ namespace Nile
         }
 
         /// <summary> Validates the object. </summary>
-        /// <param name="validationContext"> Object to be validated. </param>
+        /// <param name="validationContext"> Context of the validation. </param>
         /// <returns> The error, if any. </returns>
         public IEnumerable<ValidationResult> Validate ( ValidationContext validationContext )
         {
