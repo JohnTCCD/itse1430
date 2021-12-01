@@ -3,6 +3,7 @@
  */
 using System;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Windows.Forms;
 
 namespace Nile.Windows
@@ -70,6 +71,8 @@ namespace Nile.Windows
             };
 
             //TODO: Validate product
+            var context = new ValidationContext(product);
+            var validation = product.Validate(context);
 
             Product = product;
             DialogResult = DialogResult.OK;

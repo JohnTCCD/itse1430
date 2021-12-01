@@ -3,6 +3,7 @@
  */
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Nile.Stores
 {
@@ -17,6 +18,8 @@ namespace Nile.Stores
             //TODO: Check arguments
 
             //TODO: Validate product
+            var context = new ValidationContext(product);
+            var validation = product.Validate(context);
 
             //Emulate database by storing copy
             return AddCore(product);
@@ -55,6 +58,8 @@ namespace Nile.Stores
             //TODO: Check arguments
 
             //TODO: Validate product
+            var context = new ValidationContext(product);
+            var validation = product.Validate(context);
 
             //Get existing product
             var existing = GetCore(product.Id);
