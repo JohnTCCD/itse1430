@@ -4,7 +4,6 @@ using System.Windows.Forms;
 
 using MovieLibrary.Memory;
 
-using MovieLibrarySql;
 
 namespace MovieLibrary.WinHost
 {

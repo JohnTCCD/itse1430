@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 using System.Linq;
 
 namespace MovieLibrary.Memory
@@ -178,6 +179,12 @@ namespace MovieLibrary.Memory
             //return null;
         }
 
+        [Conditional("Debug")]
+        private void Dump ()
+        {
+        }
+
+        [Obsolete("Use GetCore instead")]
         private Movie FindById ( int id )
         {
             //Where (Func<Movie, bool>) -> IEnumerable<T>
