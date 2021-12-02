@@ -5,6 +5,8 @@ using System;
 using System.Windows.Forms;
 using Microsoft.Extensions.Configuration;
 
+using Nile.Stores.Sql;
+
 namespace Nile.Windows
 {
     public partial class MainForm : Form
@@ -169,11 +171,13 @@ namespace Nile.Windows
             }
         }
 
-        private string GetConnectionString ( string name )
-                => Program.Configuration.GetConnectionString(name);        
+        private static string GetConnectionString ( string name )
+                => Program.Configuration.GetConnectionString(name);
 
-        private readonly IProductDatabase _database = new Nile.Stores.MemoryProductDatabase();
-        
-        #endregion
+        //private readonly IProductDatabase _database = new Nile.Stores.MemoryProductDatabase();
+        //private readonly IProductDatabase _database = new SqlProductDatabase(@"Data Source=(localdb)\ProjectsV13;Initial Catalog=NileDatabase;Integrated Security=SSPI;");
+        private readonly IProductDatabase _database = new SqlProductDatabase(GetConnectionString("ProductDatabase"));
     }
+
+    #endregion
 }
