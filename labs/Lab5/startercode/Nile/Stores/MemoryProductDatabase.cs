@@ -65,7 +65,16 @@ namespace Nile.Stores
 
             return CopyProduct(newProduct);
         }
-        
+
+        protected override Product FindByName ( string name )
+        {
+            foreach (var product in _products)
+                if (String.Compare(name, product.Name, true) == 0)
+                    return product;
+
+            return null;
+        }
+
         private Product CopyProduct ( Product product )
         {
             var newProduct = new Product();
