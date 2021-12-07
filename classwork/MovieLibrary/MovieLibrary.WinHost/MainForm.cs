@@ -3,6 +3,7 @@ using System.Linq;
 using System.Windows.Forms;
 
 using MovieLibrary.Memory;
+using MovieLibrary.Sql;
 
 
 namespace MovieLibrary.WinHost
