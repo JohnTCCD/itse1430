@@ -165,18 +165,21 @@ namespace Nile.Windows
             try
             {
                 _bsProducts.DataSource = _database.GetAll();
-            } catch
+            } catch(Exception e)
             {
-                throw new Exception("Unable to update database.");
+                DisplayError(e.Message, "Unable to update list.");
             }
+        }
+
+        private void DisplayError ( string message, string title )
+        {
+            MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private static string GetConnectionString ( string name )
                 => Program.Configuration.GetConnectionString(name);
 
-        //private readonly IProductDatabase _database = new Nile.Stores.MemoryProductDatabase();
-        //private readonly IProductDatabase _database = new SqlProductDatabase(@"Data Source=(localdb)\ProjectsV13;Initial Catalog=NileDatabase;Integrated Security=SSPI;");
-        private readonly IProductDatabase _database = new SqlProductDatabase(GetConnectionString("ProductDatabase"));
+        private IProductDatabase _database = new SqlProductDatabase(GetConnectionString("ProductDatabase"));
     }
 
     #endregion
