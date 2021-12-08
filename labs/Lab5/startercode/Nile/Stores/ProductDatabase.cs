@@ -22,6 +22,8 @@ namespace Nile.Stores
             //TODO: Validate product
             var context = new ValidationContext(product);
             var validation = product.Validate(context);
+            if (validation == null)
+                throw new ValidationException("Product is not valid.");
 
             var existing = FindByName(product.Name);
             if (existing != null)
@@ -63,7 +65,7 @@ namespace Nile.Stores
         /// <summary>Updates a product.</summary>
         /// <param name="product">The product to update.</param>
         /// <returns>The updated product.</returns>
-        public Product Update ( Product product )
+        public Product Update ( Product product)
         {
             //TODO: Check arguments
             if (product == null)
@@ -72,13 +74,22 @@ namespace Nile.Stores
             //TODO: Validate product
             var context = new ValidationContext(product);
             var validation = product.Validate(context);
-
-            var existing = FindByName(product.Name);
-            if (existing != null)
-                throw new InvalidOperationException("Product must have unique name.");
+            if (validation == null)
+                throw new ValidationException("Product is not valid.");
 
             //Get existing product
-            existing = GetCore(product.Id);
+            var existing = GetCore(product.Id);
+            var changed = false;
+
+            if (existing.Price != product.Price || existing.Description.CompareTo(product.Description) != 0 ||
+                existing.IsDiscontinued != product.IsDiscontinued)
+                changed = true;
+
+            var sameName = FindByName(product.Name);
+            if (sameName != null && !changed)
+                throw new InvalidOperationException("Product must have unique name.");
+
+            
 
             return UpdateCore(existing, product);
         }

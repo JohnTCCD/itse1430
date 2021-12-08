@@ -2,6 +2,8 @@
  * ITSE 1430
  */
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using Microsoft.Extensions.Configuration;
 
@@ -23,7 +25,7 @@ namespace Nile.Windows
         {
             base.OnLoad(e);
 
-            _gridProducts.AutoGenerateColumns = false;
+            _gridProducts.AutoGenerateColumns = true;
 
             UpdateList();
         }
@@ -47,9 +49,9 @@ namespace Nile.Windows
             {
                 _database.Add(child.Product);
                 UpdateList();
-            } catch
+            } catch (Exception ex)
             {
-                throw new Exception("Unable to add product.");
+                DisplayError(ex.Message, "Error");
             }
             
         }
@@ -126,9 +128,9 @@ namespace Nile.Windows
             {
                 _database.Remove(product.Id);
                 UpdateList();
-            } catch
+            } catch (Exception ex)
             {
-                throw new Exception("Unable to delete product.");
+                DisplayError(ex.Message, "Unable to delete product.");
             }
         }
 
@@ -145,9 +147,9 @@ namespace Nile.Windows
             {
                 _database.Update(child.Product);
                 UpdateList();
-            } catch
+            } catch (Exception ex)
             {
-                throw new Exception("Unable to save product.");
+                DisplayError(ex.Message, "Unable to edit product.");
             }
         }
 
@@ -164,10 +166,12 @@ namespace Nile.Windows
             //TODO: Handle errors
             try
             {
-                _bsProducts.DataSource = _database.GetAll();
-            } catch(Exception e)
+                var products = _database.GetAll();
+                var sortedProducts = products.OrderBy(x => x.Name);
+                _bsProducts.DataSource = sortedProducts;
+            } catch(Exception ex)
             {
-                DisplayError(e.Message, "Unable to update list.");
+                DisplayError(ex.Message, "Unable to update list.");
             }
         }
 

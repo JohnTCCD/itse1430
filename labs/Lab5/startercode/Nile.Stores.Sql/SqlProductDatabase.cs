@@ -22,7 +22,7 @@ namespace Nile.Stores.Sql
             using (var connection = OpenConnection())
             {
                 var command = new SqlCommand("AddProduct", connection);
-                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.CommandType = CommandType.StoredProcedure;
 
                 command.Parameters.AddWithValue("@Name", product.Name);
                 command.Parameters.AddWithValue("@Price", product.Price);
@@ -35,7 +35,17 @@ namespace Nile.Stores.Sql
 
             return product;
         }
-        protected override Product FindByName ( string name ) => throw new NotImplementedException();
+        protected override Product FindByName ( string name )
+        {
+            var products = GetAllCore();
+            foreach (var product in products)
+            {
+                if (product.Name.CompareTo(name) == 0)
+                    return product;
+            }
+
+            return null;
+        }
         protected override IEnumerable<Product> GetAllCore ()
         {
             var dataSet = new DataSet();
@@ -43,7 +53,7 @@ namespace Nile.Stores.Sql
             using (var connection = OpenConnection())
             {
                 var command = new SqlCommand("GetAllProducts", connection);
-                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.CommandType = CommandType.StoredProcedure;
                 var adapter = new SqlDataAdapter(command);
                 adapter.Fill(dataSet);
             };
@@ -93,7 +103,7 @@ namespace Nile.Stores.Sql
             using (var connection = OpenConnection())
             {
                 var command = new SqlCommand("RemoveProduct", connection);
-                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@Id", id);
                 command.ExecuteNonQuery();
             };
@@ -103,7 +113,7 @@ namespace Nile.Stores.Sql
             using (var connection = OpenConnection())
             {
                 var command = new SqlCommand("UpdateProduct", connection);
-                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@id", existing.Id);
 
                 command.Parameters.AddWithValue("@name", newItem.Name);
