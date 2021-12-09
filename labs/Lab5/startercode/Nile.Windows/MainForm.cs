@@ -1,12 +1,14 @@
 /*
  * ITSE 1430
+ * Lab 5
+ * John Butler
+ * Fall 2021
  */
+
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Microsoft.Extensions.Configuration;
-
 using Nile.Stores.Sql;
 
 namespace Nile.Windows
@@ -43,8 +45,6 @@ namespace Nile.Windows
             if (child.ShowDialog(this) != DialogResult.OK)
                 return;
 
-            //TODO: Handle errors
-            //Save product
             try
             {
                 _database.Add(child.Product);
@@ -81,7 +81,6 @@ namespace Nile.Windows
         {
             var grid = sender as DataGridView;
 
-            //Handle column clicks
             if (e.RowIndex < 0)
                 return;
 
@@ -101,7 +100,6 @@ namespace Nile.Windows
             if (product != null)
                 DeleteProduct(product);
 			
-			//Don't continue with key
             e.SuppressKeyPress = true;
         }
 
@@ -117,13 +115,10 @@ namespace Nile.Windows
 
         private void DeleteProduct ( Product product )
         {
-            //Confirm
             if (MessageBox.Show(this, $"Are you sure you want to delete '{product.Name}'?",
                                 "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
                 return;
 
-            //TODO: Handle errors
-            //Delete product
             try
             {
                 _database.Remove(product.Id);
@@ -141,8 +136,6 @@ namespace Nile.Windows
             if (child.ShowDialog(this) != DialogResult.OK)
                 return;
 
-            //TODO: Handle errors
-            //Save product
             try
             {
                 _database.Update(child.Product);
@@ -163,7 +156,6 @@ namespace Nile.Windows
 
         private void UpdateList ()
         {
-            //TODO: Handle errors
             try
             {
                 var products = _database.GetAll();

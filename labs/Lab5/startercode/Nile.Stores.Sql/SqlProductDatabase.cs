@@ -1,10 +1,15 @@
-﻿using System;
+﻿/*
+ * ITSE 1430
+ * Lab 5
+ * John Butler
+ * Fall 2021
+ */
+
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Nile.Stores.Sql
 {
@@ -17,6 +22,9 @@ namespace Nile.Stores.Sql
 
         private readonly string _connectionString;
 
+        /// <summary> Adds a product to the database. </summary>
+        /// <param name="product"> Product to add. </param>
+        /// <returns> Product added. </returns>
         protected override Product AddCore ( Product product )
         {
             using (var connection = OpenConnection())
@@ -35,6 +43,10 @@ namespace Nile.Stores.Sql
 
             return product;
         }
+
+        /// <summary> Finds a product by its name. </summary>
+        /// <param name="name"> String name. </param>
+        /// <returns> Product with name, if any. </returns>
         protected override Product FindByName ( string name )
         {
             var products = GetAllCore();
@@ -46,6 +58,9 @@ namespace Nile.Stores.Sql
 
             return null;
         }
+
+        /// <summary> Gets all products in the database. </summary>
+        /// <returns> IEnumerable products. </returns>
         protected override IEnumerable<Product> GetAllCore ()
         {
             var dataSet = new DataSet();
@@ -73,6 +88,10 @@ namespace Nile.Stores.Sql
                 }
             }
         }
+
+        /// <summary> Gets a product using its id. </summary>
+        /// <param name="id"> Id of the product. </param>
+        /// <returns> Product, if found. </returns>
         protected override Product GetCore ( int id )
         {
             using (var connection = OpenConnection())
@@ -98,6 +117,9 @@ namespace Nile.Stores.Sql
 
             return null;
         }
+
+        /// <summary> Removes a product from the database. </summary>
+        /// <param name="id"> Id of the product to remove. </param>
         protected override void RemoveCore ( int id )
         {
             using (var connection = OpenConnection())
@@ -108,6 +130,11 @@ namespace Nile.Stores.Sql
                 command.ExecuteNonQuery();
             };
         }
+
+        /// <summary> Updates a product. </summary>
+        /// <param name="existing"> The product to update. </param>
+        /// <param name="newItem"> The product with updated information. </param>
+        /// <returns> Updated product. </returns>
         protected override Product UpdateCore ( Product existing, Product newItem )
         {
             using (var connection = OpenConnection())
@@ -127,6 +154,8 @@ namespace Nile.Stores.Sql
             return existing;
         }
     
+        /// <summary> Opens a connection to the database. </summary>
+        /// <returns> Open connection. </returns>
         private SqlConnection OpenConnection()
         {
             var connection = new SqlConnection(_connectionString);

@@ -1,6 +1,10 @@
 /*
  * ITSE 1430
+ * Lab 5
+ * John Butler
+ * Fall 2021
  */
+
 using System;
 using System.Collections.Generic;
 
@@ -56,7 +60,6 @@ namespace Nile.Stores
         /// <returns>The updated product.</returns>
         protected override Product UpdateCore ( Product existing, Product product )
         {
-            //Replace 
             existing = FindProduct(product.Id);
             _products.Remove(existing);
             
@@ -66,6 +69,9 @@ namespace Nile.Stores
             return CopyProduct(newProduct);
         }
 
+        /// <summary> Finds a product by its name. </summary>
+        /// <param name="name"> String name. </param>
+        /// <returns> Product with name, if any. </returns>
         protected override Product FindByName ( string name )
         {
             foreach (var product in _products)
@@ -75,6 +81,9 @@ namespace Nile.Stores
             return null;
         }
 
+        /// <summary> Return a copy of a product. </summary>
+        /// <param name="product"> Product to be copied. </param>
+        /// <returns> Copied product. </returns>
         private Product CopyProduct ( Product product )
         {
             var newProduct = new Product();

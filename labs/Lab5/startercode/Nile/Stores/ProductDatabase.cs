@@ -1,6 +1,10 @@
 /*
  * ITSE 1430
+ * Lab 5
+ * John Butler
+ * Fall 2021
  */
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -15,11 +19,9 @@ namespace Nile.Stores
         /// <returns>The added product.</returns>
         public Product Add ( Product product )
         {
-            //TODO: Check arguments
             if (product == null)
                 throw new ArgumentNullException("Product is null.");
 
-            //TODO: Validate product
             var context = new ValidationContext(product);
             var validation = product.Validate(context);
             if (validation == null)
@@ -29,7 +31,6 @@ namespace Nile.Stores
             if (existing != null)
                 throw new InvalidOperationException("Product must have unique name.");
 
-            //Emulate database by storing copy
             return AddCore(product);
         }
 
@@ -37,7 +38,6 @@ namespace Nile.Stores
         /// <returns>The product, if it exists.</returns>
         public Product Get ( int id )
         {
-            //TODO: Check arguments
             if (id < 0)
                 throw new ArgumentOutOfRangeException("Id must be equal to or greater than 0.");
 
@@ -55,7 +55,6 @@ namespace Nile.Stores
         /// <param name="id">The product to remove.</param>
         public void Remove ( int id )
         {
-            //TODO: Check arguments
             if (id < 0)
                 throw new ArgumentOutOfRangeException("Id must be equal to or greater than 0.");
 
@@ -67,17 +66,14 @@ namespace Nile.Stores
         /// <returns>The updated product.</returns>
         public Product Update ( Product product)
         {
-            //TODO: Check arguments
             if (product == null)
                 throw new ArgumentNullException("Product is null.");
 
-            //TODO: Validate product
             var context = new ValidationContext(product);
             var validation = product.Validate(context);
             if (validation == null)
                 throw new ValidationException("Product is not valid.");
 
-            //Get existing product
             var existing = GetCore(product.Id);
             var changed = false;
 
@@ -88,8 +84,6 @@ namespace Nile.Stores
             var sameName = FindByName(product.Name);
             if (sameName != null && !changed)
                 throw new InvalidOperationException("Product must have unique name.");
-
-            
 
             return UpdateCore(existing, product);
         }

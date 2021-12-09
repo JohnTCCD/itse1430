@@ -1,8 +1,11 @@
 /*
  * ITSE 1430
+ * Lab 5
+ * John Butler
+ * Fall 2021
  */
+
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Windows.Forms;
@@ -13,7 +16,7 @@ namespace Nile.Windows
     {
         #region Construction
 
-        public ProductDetailForm () //: base()
+        public ProductDetailForm ()
         {
             InitializeComponent();            
         }
@@ -71,7 +74,6 @@ namespace Nile.Windows
                 IsDiscontinued = _chkDiscontinued.Checked,
             };
 
-            //TODO: Validate product
             var context = new ValidationContext(product);
             var validation = product.Validate(context);
 
@@ -116,8 +118,7 @@ namespace Nile.Windows
         {
             if (Decimal.TryParse(control.Text, out var price))
                 return price;
-
-            //Validate price            
+           
             return -1;
         }                      
         #endregion
