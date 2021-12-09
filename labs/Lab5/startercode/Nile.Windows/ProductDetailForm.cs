@@ -75,13 +75,13 @@ namespace Nile.Windows
             };
 
             var context = new ValidationContext(product);
-            var validation = product.Validate(context);
+            var validations = product.Validate(context);
 
-            foreach (var vali in validation)
+            foreach (var validation in validations)
             {
-                if (vali.MemberNames != null)
+                if (validation.MemberNames != null)
                 {
-                    MessageBox.Show(this, vali.ErrorMessage, "Error", MessageBoxButtons.OK);
+                    MessageBox.Show(this, validation.ErrorMessage, "Error", MessageBoxButtons.OK);
                 }
             }
 

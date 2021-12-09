@@ -75,8 +75,8 @@ namespace Nile.Stores
                 throw new ValidationException("Product is not valid.");
 
             var existing = GetCore(product.Id);
-            var changed = false;
 
+            var changed = false;
             if (existing.Price != product.Price || existing.Description.CompareTo(product.Description) != 0 ||
                 existing.IsDiscontinued != product.IsDiscontinued)
                 changed = true;

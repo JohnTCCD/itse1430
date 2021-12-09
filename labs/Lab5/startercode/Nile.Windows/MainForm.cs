@@ -20,6 +20,7 @@ namespace Nile.Windows
         public MainForm()
         {
             InitializeComponent();
+            _database = new SqlProductDatabase(GetConnectionString("ProductDatabase"));
         }
         #endregion
 
@@ -166,7 +167,9 @@ namespace Nile.Windows
                 DisplayError(ex.Message, "Unable to update list.");
             }
         }
-
+        /// <summary> Displays an error message. </summary>
+        /// <param name="message"> Error message to be displayed. </param>
+        /// <param name="title"> Title of the window. </param>
         private void DisplayError ( string message, string title )
         {
             MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -175,7 +178,7 @@ namespace Nile.Windows
         private static string GetConnectionString ( string name )
                 => Program.Configuration.GetConnectionString(name);
 
-        private IProductDatabase _database = new SqlProductDatabase(GetConnectionString("ProductDatabase"));
+        private IProductDatabase _database;
     }
 
     #endregion
